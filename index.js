@@ -1,7 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
+const config = require("config");
 
-const PORT = process.env.PORT || 5000;
+const port = config.get("port");
 require("express-async-errors");
 
 const app = express();
@@ -12,4 +13,4 @@ app.use(express.json());
 
 require("./routes")(app);
 
-app.listen(PORT, () => console.log(`CI server listening on port ${PORT}!`));
+app.listen(port, () => console.log(`CI server listening on port ${port}!`));
