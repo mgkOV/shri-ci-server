@@ -6,6 +6,7 @@ require("express-async-errors");
 
 const app = express();
 
+app.use(express.static("static"));
 app.use(morgan("dev"));
 app.use(express.json());
 
