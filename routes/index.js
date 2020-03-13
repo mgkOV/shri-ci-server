@@ -1,6 +1,9 @@
 const errorHandler = require("../middleware/error-handler");
+const settingsRoutes = require("./settings");
+const buildsRoutes = require("./builds");
 
 module.exports = app => {
-  app.get("/", (req, res) => res.send("hello from CI server!"));
+  app.use("/api/settings", settingsRoutes);
+  app.use("/api/builds", buildsRoutes);
   app.use(errorHandler);
 };

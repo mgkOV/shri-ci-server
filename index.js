@@ -6,7 +6,7 @@ require("express-async-errors");
 
 const app = express();
 
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
 app.use(express.json());
 
 require("./routes")(app);
