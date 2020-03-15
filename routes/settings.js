@@ -3,6 +3,8 @@ const axios = require("axios");
 const config = require("config");
 const https = require("https");
 
+const downloader = require("../middleware/downloader");
+
 const router = express.Router();
 
 const JWT = config.get("jwt");
@@ -30,7 +32,7 @@ router.get("/", async (req, res) => {
   res.json(settings);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", downloader, async (req, res) => {
   const { repoName, buildCommand, mainBranch, period } = req.body;
 
   const settings = {
@@ -39,8 +41,6 @@ router.post("/", async (req, res) => {
     mainBranch,
     period
   };
-
-  console.log(settings);
 
   const response = await axios.post(URL, settings, {
     headers: { Authorization: `Bearer ${JWT}` },
