@@ -20,6 +20,8 @@ router.get("/", async (req, res) => {
     httpsAgent: agent
   });
 
+  if (!response.data.data) return res.json({});
+
   const { repoName, buildCommand, mainBranch, period } = response.data.data;
 
   const settings = {
@@ -48,7 +50,10 @@ router.post("/", downloader, async (req, res) => {
   });
 
   const getCommitsResponse = await axios.get(
-    `https://api.github.com/repos${repoName}/commits?sha=${mainBranch}`
+    `https://api.github.com/repos${repoName}/commits?sha=${mainBranch}`,
+    {
+      headers: { Accept: "application/vnd.github.v3+json" }
+    }
   );
 
   const { sha, commit } = getCommitsResponse.data[0];

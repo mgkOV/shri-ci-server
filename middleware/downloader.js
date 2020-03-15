@@ -8,8 +8,13 @@ module.exports = async (req, res, next) => {
   const { repoName, mainBranch } = req.body;
   const URL = `https://api.github.com/repos${repoName}`;
 
-  const response = await axios.get(URL);
-  await axios.get(`${URL}/branches/${mainBranch}`);
+  const response = await axios.get(URL, {
+    headers: { Accept: "application/vnd.github.v3+json" }
+  });
+
+  await axios.get(`${URL}/branches/${mainBranch}`, {
+    headers: { Accept: "application/vnd.github.v3+json" }
+  });
 
   const repository = response.data;
 

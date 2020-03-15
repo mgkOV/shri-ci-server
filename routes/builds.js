@@ -59,7 +59,10 @@ router.post("/:commitHash", async (req, res) => {
   const { repoName, buildCommand, mainBranch, period } = response.data.data;
 
   const getCommitsResponse = await axios.get(
-    `https://api.github.com/repos${repoName}/commits/${commitHash}`
+    `https://api.github.com/repos${repoName}/commits/${commitHash}`,
+    {
+      headers: { Accept: "application/vnd.github.v3+json" }
+    }
   );
 
   const { sha, commit } = getCommitsResponse.data;
