@@ -5,23 +5,29 @@ const { promisify } = require("util");
 const axios = require("axios");
 
 module.exports = async (req, res, next) => {
-  const { repoName } = req.body;
+  const { repoName, mainBranch } = req.body;
   const URL = `https://api.github.com/repos${repoName}`;
 
   const response = await axios.get(URL);
+  await axios.get(`${URL}/branches/${mainBranch}`);
+
   const repository = response.data;
 
-  req.repository;
+  if (!repository || !repository.clone_url) {
+    return next(new Error("Неправильное имя репозитория"));
+  }
 
   await promisify(rimraf)(path.join(".", "storage"));
 
-  const child = spawn("git", ["clone", repository.clone_url, "storage"]);
+  const child = spawn("git", ["clone", "--branch", mainBranch, repository.clone_url, "storage"]);
 
-  child.on("exit", code => {
-    if (code === 0) next();
-  });
+  return next();
+
+  // child.on("exit", code => {
+  //   if (code === 0) next();
+  // });
 
   child.on("error", err => {
-    throw err;
+    console.log(err);
   });
 };

@@ -8,14 +8,14 @@ const downloader = require("../middleware/downloader");
 const router = express.Router();
 
 const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api/conf";
+const URL = "https://hw.shri.yandex/api";
 
 const agent = new https.Agent({
   rejectUnauthorized: false
 });
 
 router.get("/", async (req, res) => {
-  const response = await axios.get(URL, {
+  const response = await axios.get(`${URL}/conf`, {
     headers: { Authorization: `Bearer ${JWT}` },
     httpsAgent: agent
   });
@@ -42,7 +42,25 @@ router.post("/", downloader, async (req, res) => {
     period
   };
 
-  const response = await axios.post(URL, settings, {
+  const response = await axios.post(`${URL}/conf`, settings, {
+    headers: { Authorization: `Bearer ${JWT}` },
+    httpsAgent: agent
+  });
+
+  const getCommitsResponse = await axios.get(
+    `https://api.github.com/repos${repoName}/commits?sha=${mainBranch}`
+  );
+
+  const { sha, commit } = getCommitsResponse.data[0];
+
+  const commitData = {
+    commitMessage: commit.message,
+    commitHash: sha,
+    branchName: mainBranch,
+    authorName: commit.author.name
+  };
+
+  await axios.post(`${URL}/build/request`, commitData, {
     headers: { Authorization: `Bearer ${JWT}` },
     httpsAgent: agent
   });
