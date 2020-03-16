@@ -3,6 +3,8 @@ const axios = require("axios");
 const config = require("config");
 const https = require("https");
 
+const buildRunner = require("../utils/build-runner");
+
 const router = express.Router();
 
 const JWT = config.get("jwt");
@@ -78,6 +80,15 @@ router.post("/:commitHash", async (req, res) => {
     headers: { Authorization: `Bearer ${JWT}` },
     httpsAgent: agent
   });
+
+  const build = await axios.get(`${URL}/build/list?offset=0&limit=25`, {
+    headers: { Authorization: `Bearer ${JWT}` },
+    httpsAgent: agent
+  });
+
+  const buildToAdd = build.data.data.find(b => b.commitHash === sha);
+
+  buildRunner.addBuilds(buildToAdd);
 
   res.sendStatus(status.status);
 });

@@ -79,6 +79,13 @@ router.post("/", downloader, async (req, res) => {
     httpsAgent: agent
   });
 
+  const build = await axios.get(`${URL}/build/list`, {
+    headers: { Authorization: `Bearer ${JWT}` },
+    httpsAgent: agent
+  });
+
+  buildRunner.addBuilds(build.data.data);
+
   res.sendStatus(response.status);
 });
 
