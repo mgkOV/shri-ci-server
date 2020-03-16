@@ -4,6 +4,7 @@ const config = require("config");
 const https = require("https");
 
 const downloader = require("../middleware/downloader");
+const buildRunner = require("../utils/build-runner");
 
 const router = express.Router();
 
@@ -22,9 +23,10 @@ router.get("/", async (req, res) => {
 
   if (!response.data.data) return res.json({});
 
-  const { repoName, buildCommand, mainBranch, period } = response.data.data;
+  const { id, repoName, buildCommand, mainBranch, period } = response.data.data;
 
   const settings = {
+    id,
     repoName,
     buildCommand,
     mainBranch,
@@ -43,6 +45,13 @@ router.post("/", downloader, async (req, res) => {
     mainBranch,
     period
   };
+
+  buildRunner.reset();
+
+  await axios.delete(`${URL}/conf`, {
+    headers: { Authorization: `Bearer ${JWT}` },
+    httpsAgent: agent
+  });
 
   const response = await axios.post(`${URL}/conf`, settings, {
     headers: { Authorization: `Bearer ${JWT}` },

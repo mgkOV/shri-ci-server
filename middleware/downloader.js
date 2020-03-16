@@ -22,11 +22,11 @@ module.exports = async (req, res, next) => {
     return next(new Error("Неправильное имя репозитория"));
   }
 
+  next();
+
   await promisify(rimraf)(path.join(".", "storage"));
 
   const child = spawn("git", ["clone", "--branch", mainBranch, repository.clone_url, "storage"]);
-
-  return next();
 
   // child.on("exit", code => {
   //   if (code === 0) next();
