@@ -4,6 +4,7 @@ const config = require("config");
 const https = require("https");
 
 const buildRunner = require("../utils/build-runner");
+const { fetchData } = require("../utils/caching");
 
 const router = express.Router();
 
@@ -41,12 +42,14 @@ router.get("/:buildId", async (req, res) => {
 router.get("/:buildId/logs", async (req, res) => {
   const { buildId } = req.params;
 
-  const response = await axios.get(`${URL}/build/log?buildId=${buildId}`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  // const response = await axios.get(`${URL}/build/log?buildId=${buildId}`, {
+  //   headers: { Authorization: `Bearer ${JWT}` },
+  //   httpsAgent: agent
+  // });
 
-  res.json(response.data);
+  const cache = await fetchData(buildId);
+
+  res.json(cache);
 });
 
 // добавление сборки в очередь
