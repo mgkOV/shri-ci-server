@@ -1,16 +1,8 @@
 const { spawn } = require("child_process");
-const axios = require("axios");
-const config = require("config");
-const https = require("https");
-
-const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api";
-
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
 
 const shriApi = require("../api/shri-api");
+
+const buildLog = `Starting child process with 'node index.js' Received SIGINT, killing child process... Parent process exiting, terminating child...`;
 
 const buildRunner = {
   buildList: [],
@@ -34,25 +26,22 @@ const buildRunner = {
 
   async build() {
     try {
-      const { id: buildId } = this.currentBuild;
-      console.log(`Started building ${buildId}...`);
+      const { id, status, start } = this.currentBuild;
+      const startTime = start ? new Date(start) : new Date();
+      console.log(`Started building ${id}...`);
 
-      const buildLog = `Starting child process with 'node index.js' Received SIGINT, killing child process... Parent process exiting, terminating child...`;
+      if (status === "Waiting") {
+        const buildData = {
+          buildId: id,
+          dateTime: startTime
+        };
 
-      const startTime = new Date();
+        await shriApi.postBuildStart(buildData);
+      }
 
-      const buildData = {
-        buildId,
-        dateTime: startTime
-      };
-
-      await shriApi.postBuildStart(buildData);
-
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime.getTime();
-
+      const duration = new Date().getTime() - startTime.getTime();
       const finishedBuild = {
-        buildId,
+        buildId: id,
         duration,
         success: true,
         buildLog
@@ -60,7 +49,7 @@ const buildRunner = {
 
       await shriApi.postBuildFinish(finishedBuild);
 
-      console.log(`Finished building ${buildId}...`);
+      console.log(`Finished building ${id}...`);
 
       const nextBuild = this.buildList.shift();
       this.currentBuild = nextBuild ? nextBuild : null;
@@ -68,13 +57,9 @@ const buildRunner = {
       if (this.currentBuild) {
         this.build();
       }
-    } catch (error) {
-      console.log(error.message);
+    } catch (err) {
+      console.error(err.message);
     }
-  },
-
-  killBuildProcess() {
-    clearTimeout(this.timerId);
   },
 
   resetBuildRunner() {

@@ -8,6 +8,10 @@ module.exports = async () => {
     let limit = STEP;
 
     while (true) {
+      const settings = await shriApi.getConfig();
+
+      if (!settings.data.id) break;
+
       const response = await shriApi.getBuildList(offset, limit);
 
       offset += STEP;
@@ -17,7 +21,9 @@ module.exports = async () => {
 
       if (!allBuilds || allBuilds.length < 1) break;
 
-      const waitingBuilds = allBuilds.filter(b => b.status === "Waiting");
+      const waitingBuilds = allBuilds.filter(
+        ({ status }) => status === "Waiting" || status === "InProgress"
+      );
 
       buildRunner.addBuilds(waitingBuilds);
     }

@@ -14,6 +14,8 @@ app.use(express.json());
 require("./routes")(app);
 
 app.listen(port, () => {
-  // require("./utils/initial-check")();
   console.log(`CI server listening on port ${port}!`);
+
+  // Проверяем есть ли в очереди билды со статусом Waiting и InPrograss
+  require("./utils/initial-check")();
 });
