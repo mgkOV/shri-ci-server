@@ -2,7 +2,7 @@ const axios = require("axios");
 const config = require("config");
 const https = require("https");
 
-const { fetchLog, addLog } = require("../utils/caching");
+const { fetchLog, addLog, deleteOldCash } = require("../utils/caching");
 
 const JWT = config.get("jwt");
 const URL = "https://hw.shri.yandex/api";
@@ -27,6 +27,8 @@ const shriApi = {
       httpsAgent: agent
     });
 
+    deleteOldCash();
+
     return response.status;
   },
 
@@ -35,6 +37,8 @@ const shriApi = {
       headers: { Authorization: `Bearer ${JWT}` },
       httpsAgent: agent
     });
+
+    deleteOldCash();
 
     return response.status;
   },
@@ -58,16 +62,13 @@ const shriApi = {
   },
 
   async getBuildLog(buildId) {
-    const build = await this.getBuildDetails(buildId);
-    const { configurationId } = build.data;
-
-    let log = fetchLog(buildId, configurationId);
+    let log = fetchLog(buildId);
 
     if (log) return log;
 
     log = await shriApi.getLogFromApi(buildId);
 
-    addLog({ buildId, log, configurationId });
+    addLog({ buildId, log });
 
     return log;
   },

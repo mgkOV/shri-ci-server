@@ -1,33 +1,28 @@
 const cache = {
   _data: {},
 
-  addLog({ buildId, configurationId, log }) {
-    this._data[buildId] = { buildId, configurationId, log, cacheDate: new Date() };
+  addLog({ buildId, log }) {
+    this._data[buildId] = { buildId, log, cacheDate: new Date() };
   },
 
   delete(buildId) {
     delete this._data[buildId];
   },
 
-  // deleteOld(configurationId) {
-  //   for (let log in this._data) {
+  // Вызываем этот метод при изминении настроек
+  deleteOldCash() {
+    this._data = {};
+  },
 
-  //   }
-  // }
-
-  fetchLog(buildId, configurationId) {
+  fetchLog(buildId) {
     if (!this._data[buildId]) return null;
 
-    if (configurationId === this._data[buildId].configurationId) {
-      return this._data[buildId].log;
-    }
-    // else {
-    //   this.deleteOld(this._data[buildId].configurationId)
-    // }
+    return this._data[buildId].log;
   }
 };
 
 module.exports = {
   fetchLog: cache.fetchLog.bind(cache),
-  addLog: cache.addLog.bind(cache)
+  addLog: cache.addLog.bind(cache),
+  deleteOldCash: cache.deleteOldCash.bind(cache)
 };
