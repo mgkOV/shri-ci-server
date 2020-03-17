@@ -1,15 +1,5 @@
-const axios = require("axios");
-const config = require("config");
-const https = require("https");
-
+const shriApi = require("../api/shri-api");
 const buildRunner = require("./build-runner");
-
-const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api";
-
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
 
 module.exports = async () => {
   try {
@@ -18,15 +8,12 @@ module.exports = async () => {
     let limit = STEP;
 
     while (true) {
-      const response = await axios.get(`${URL}/build/list?offset=${offset}&limit=${limit}`, {
-        headers: { Authorization: `Bearer ${JWT}` },
-        httpsAgent: agent
-      });
+      const response = await shriApi.getBuildList(offset, limit);
 
       offset += STEP;
       limit += STEP;
 
-      const allBuilds = response.data.data;
+      const allBuilds = response.data;
 
       if (!allBuilds || allBuilds.length < 1) break;
 

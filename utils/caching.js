@@ -1,51 +1,33 @@
-const express = require("express");
-const axios = require("axios");
-const config = require("config");
-const https = require("https");
-
-const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api";
-
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
-
 const cache = {
-  data: {},
+  _data: {},
 
-  add({ buildId, configurationId, log }) {
-    this.data[buildId] = { buildId, configurationId, log, cacheDate: new Date() };
+  addLog({ buildId, configurationId, log }) {
+    this._data[buildId] = { buildId, configurationId, log, cacheDate: new Date() };
   },
 
   delete(buildId) {
-    delete this.data[buildId];
+    delete this._data[buildId];
   },
 
-  async fetchData(buildId) {
-    const build = await axios.get(`${URL}/build/details?buildId=${buildId}`, {
-      headers: { Authorization: `Bearer ${JWT}` },
-      httpsAgent: agent
-    });
+  // deleteOld(configurationId) {
+  //   for (let log in this._data) {
 
-    const { configurationId } = build.data.data;
+  //   }
+  // }
 
-    if (this.data[buildId]) {
-      if (configurationId === this.data[buildId].configurationId) {
-        return this.data[buildId].log;
-      }
+  fetchLog(buildId, configurationId) {
+    if (!this._data[buildId]) return null;
+
+    if (configurationId === this._data[buildId].configurationId) {
+      return this._data[buildId].log;
     }
-
-    const response = await axios.get(`${URL}/build/log?buildId=${buildId}`, {
-      headers: { Authorization: `Bearer ${JWT}` },
-      httpsAgent: agent
-    });
-
-    this.add({ buildId, log: response.data, configurationId });
-
-    return response.data;
+    // else {
+    //   this.deleteOld(this._data[buildId].configurationId)
+    // }
   }
 };
 
 module.exports = {
-  fetchData: cache.fetchData.bind(cache)
+  fetchLog: cache.fetchLog.bind(cache),
+  addLog: cache.addLog.bind(cache)
 };

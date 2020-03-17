@@ -1,76 +1,46 @@
 const express = require("express");
-const axios = require("axios");
-const config = require("config");
-const https = require("https");
 
 const buildRunner = require("../utils/build-runner");
-const { fetchData } = require("../utils/caching");
+const shriApi = require("../api/shri-api");
+const githubApi = require("../api/github-api");
 
 const router = express.Router();
-
-const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api";
-
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
 
 // получение списка сборок
 router.get("/", async (req, res) => {
   const { offset = 0, limit = 25 } = req.query;
-  const response = await axios.get(`${URL}/build/list?offset=${offset}&limit=${limit}`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  const response = await shriApi.getBuildList(offset, limit);
 
-  res.json(response.data.data);
+  res.json(response.data);
 });
 
 // получение информации о конкретной сборке
 router.get("/:buildId", async (req, res) => {
   const { buildId } = req.params;
+  const response = await shriApi.getBuildDetails(buildId);
 
-  const response = await axios.get(`${URL}/build/details?buildId=${buildId}`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
-
-  res.json(response.data.data);
+  res.json(response.data);
 });
 
 // получение логов билда (сплошной текст)
 router.get("/:buildId/logs", async (req, res) => {
   const { buildId } = req.params;
+  const response = await shriApi.getBuildLog(buildId);
 
-  // const response = await axios.get(`${URL}/build/log?buildId=${buildId}`, {
-  //   headers: { Authorization: `Bearer ${JWT}` },
-  //   httpsAgent: agent
-  // });
-
-  const cache = await fetchData(buildId);
-
-  res.json(cache);
+  res.send(response);
 });
 
 // добавление сборки в очередь
 router.post("/:commitHash", async (req, res) => {
   const { commitHash } = req.params;
 
-  const response = await axios.get(`${URL}/conf`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  const config = await shriApi.getConfig();
 
-  const { repoName, buildCommand, mainBranch, period } = response.data.data;
+  const { repoName, buildCommand, mainBranch, period } = config.data;
 
-  const getCommitsResponse = await axios.get(
-    `https://api.github.com/repos${repoName}/commits/${commitHash}`,
-    {
-      headers: { Accept: "application/vnd.github.v3+json" }
-    }
-  );
+  const commitRes = await githubApi.getCommit(repoName, commitHash);
 
-  const { sha, commit } = getCommitsResponse.data;
+  const { sha, commit } = commitRes;
 
   const commitData = {
     commitMessage: commit.message,
@@ -79,21 +49,14 @@ router.post("/:commitHash", async (req, res) => {
     authorName: commit.author.name
   };
 
-  const status = await axios.post(`${URL}/build/request`, commitData, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  const status = await shriApi.postBuildRequest(commitData);
 
-  const build = await axios.get(`${URL}/build/list?offset=0&limit=25`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
-
-  const buildToAdd = build.data.data.find(b => b.commitHash === sha);
+  const builds = await shriApi.getBuildList();
+  const buildToAdd = builds.data.find(b => b.commitHash === sha);
 
   buildRunner.addBuilds(buildToAdd);
 
-  res.sendStatus(status.status);
+  res.sendStatus(status);
 });
 
 module.exports = router;

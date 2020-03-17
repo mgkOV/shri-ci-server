@@ -14,6 +14,6 @@ app.use(express.json());
 require("./routes")(app);
 
 app.listen(port, () => {
-  require("./utils/initial-check")();
+  // require("./utils/initial-check")();
   console.log(`CI server listening on port ${port}!`);
 });

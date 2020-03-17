@@ -1,29 +1,19 @@
 const express = require("express");
-const axios = require("axios");
-const config = require("config");
-const https = require("https");
 
+const shriApi = require("../api/shri-api");
+const githubApi = require("../api/github-api");
 const downloader = require("../middleware/downloader");
 const buildRunner = require("../utils/build-runner");
 
 const router = express.Router();
 
-const JWT = config.get("jwt");
-const URL = "https://hw.shri.yandex/api";
-
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
-
+// получение сохраненных настроек
 router.get("/", async (req, res) => {
-  const response = await axios.get(`${URL}/conf`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  const config = await shriApi.getConfig();
 
-  if (!response.data.data) return res.json({});
+  if (!config.data) return res.json({});
 
-  const { id, repoName, buildCommand, mainBranch, period } = response.data.data;
+  const { id, repoName, buildCommand, mainBranch, period } = config.data;
 
   const settings = {
     id,
@@ -36,6 +26,7 @@ router.get("/", async (req, res) => {
   res.json(settings);
 });
 
+// cохранение настроек
 router.post("/", downloader, async (req, res) => {
   const { repoName, buildCommand, mainBranch, period } = req.body;
 
@@ -48,24 +39,13 @@ router.post("/", downloader, async (req, res) => {
 
   buildRunner.reset();
 
-  await axios.delete(`${URL}/conf`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  await shriApi.deleteConfig();
 
-  const response = await axios.post(`${URL}/conf`, settings, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  const status = await shriApi.postConfig(settings);
 
-  const getCommitsResponse = await axios.get(
-    `https://api.github.com/repos${repoName}/commits?sha=${mainBranch}`,
-    {
-      headers: { Accept: "application/vnd.github.v3+json" }
-    }
-  );
+  const getCommitsResponse = await githubApi.getCommits(repoName, mainBranch);
 
-  const { sha, commit } = getCommitsResponse.data[0];
+  const { sha, commit } = getCommitsResponse[0];
 
   const commitData = {
     commitMessage: commit.message,
@@ -74,19 +54,12 @@ router.post("/", downloader, async (req, res) => {
     authorName: commit.author.name
   };
 
-  await axios.post(`${URL}/build/request`, commitData, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  await shriApi.postBuildRequest(commitData);
+  const build = await shriApi.getBuildList();
 
-  const build = await axios.get(`${URL}/build/list`, {
-    headers: { Authorization: `Bearer ${JWT}` },
-    httpsAgent: agent
-  });
+  buildRunner.addBuilds(build.data);
 
-  buildRunner.addBuilds(build.data.data);
-
-  res.sendStatus(response.status);
+  res.sendStatus(status);
 });
 
 module.exports = router;

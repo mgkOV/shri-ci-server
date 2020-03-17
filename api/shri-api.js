@@ -1,0 +1,112 @@
+const axios = require("axios");
+const config = require("config");
+const https = require("https");
+
+const { fetchLog, addLog } = require("../utils/caching");
+
+const JWT = config.get("jwt");
+const URL = "https://hw.shri.yandex/api";
+
+const agent = new https.Agent({
+  rejectUnauthorized: false
+});
+
+const shriApi = {
+  async getConfig() {
+    const response = await axios.get(`${URL}/conf`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.data;
+  },
+
+  async postConfig(settings) {
+    const response = await axios.post(`${URL}/conf`, settings, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.status;
+  },
+
+  async deleteConfig() {
+    const response = await axios.delete(`${URL}/conf`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.status;
+  },
+
+  async getBuildList(offset = 0, limit = 25) {
+    const response = await axios.get(`${URL}/build/list?offset=${offset}&limit=${limit}`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.data;
+  },
+
+  async getBuildDetails(buildId) {
+    const response = await axios.get(`${URL}/build/details?buildId=${buildId}`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.data;
+  },
+
+  async getBuildLog(buildId) {
+    const build = await this.getBuildDetails(buildId);
+    const { configurationId } = build.data;
+
+    let log = fetchLog(buildId, configurationId);
+
+    if (log) return log;
+
+    log = await shriApi.getLogFromApi(buildId);
+
+    addLog({ buildId, log, configurationId });
+
+    return log;
+  },
+
+  async getLogFromApi(buildId) {
+    const log = await axios.get(`${URL}/build/log?buildId=${buildId}`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return log.data;
+  },
+
+  async postBuildRequest(commitData) {
+    const response = await axios.post(`${URL}/build/request`, commitData, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.status;
+  },
+
+  async postBuildStart(buildData) {
+    const response = await axios.post(`${URL}/build/start`, buildData, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.status;
+  },
+
+  async postBuildFinish(buildData) {
+    const response = await axios.post(`${URL}/build/finish`, buildData, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent
+    });
+
+    return response.status;
+  }
+};
+
+module.exports = shriApi;

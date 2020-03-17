@@ -10,6 +10,8 @@ const agent = new https.Agent({
   rejectUnauthorized: false
 });
 
+const shriApi = require("../api/shri-api");
+
 const buildRunner = {
   buildList: [],
 
@@ -39,47 +41,35 @@ const buildRunner = {
 
       const startTime = new Date();
 
-      const startedBuild = {
+      const buildData = {
         buildId,
         dateTime: startTime
       };
 
-      await axios.post(`${URL}/build/start`, startedBuild, {
-        headers: { Authorization: `Bearer ${JWT}` },
-        httpsAgent: agent
-      });
+      await shriApi.postBuildStart(buildData);
 
-      this.timerId = setTimeout(async () => {
-        try {
-          const endTime = new Date().getTime();
-          const duration = endTime - startTime.getTime();
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime.getTime();
 
-          const finishedBuild = {
-            buildId,
-            duration,
-            success: true,
-            buildLog
-          };
+      const finishedBuild = {
+        buildId,
+        duration,
+        success: true,
+        buildLog
+      };
 
-          await axios.post(`${URL}/build/finish`, finishedBuild, {
-            headers: { Authorization: `Bearer ${JWT}` },
-            httpsAgent: agent
-          });
+      await shriApi.postBuildFinish(finishedBuild);
 
-          console.log(`Finished building ${buildId}...`);
+      console.log(`Finished building ${buildId}...`);
 
-          const nextBuild = this.buildList.shift();
-          this.currentBuild = nextBuild ? nextBuild : null;
+      const nextBuild = this.buildList.shift();
+      this.currentBuild = nextBuild ? nextBuild : null;
 
-          if (this.currentBuild) {
-            this.build();
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }, 2000);
+      if (this.currentBuild) {
+        this.build();
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   },
 
@@ -90,7 +80,7 @@ const buildRunner = {
   resetBuildRunner() {
     this.buildList = [];
     this.currentBuild = null;
-    this.killBuildProcess();
+    // this.killBuildProcess();
   }
 };
 
