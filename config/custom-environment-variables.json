@@ -1,4 +1,5 @@
 {
   "jwt": "SHRI_JWT",
-  "port": "PORT"
+  "port": "PORT",
+  "github-token": "GITHUB_TOKEN"
 }
