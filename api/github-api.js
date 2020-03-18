@@ -31,8 +31,11 @@ const githubApi = {
     return response.data;
   },
 
-  async getCommits(repoName, mainBranch) {
-    const response = await axios.get(`${URL}/repos${repoName}/commits?sha=${mainBranch}`, options);
+  async getCommits(repoName, mainBranch, since) {
+    const response = await axios.get(
+      `${URL}/repos${repoName}/commits?sha=${mainBranch}${since ? "&since=" + since : ""}`,
+      options
+    );
 
     return response.data;
   }

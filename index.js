@@ -2,6 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const config = require("config");
 
+const watcher = require("./utils/watcher");
+
 const port = config.get("port");
 require("express-async-errors");
 
@@ -16,6 +18,7 @@ require("./routes")(app);
 app.listen(port, () => {
   console.log(`CI server listening on port ${port}!`);
 
+  watcher.startWatch();
   // Проверяем есть ли в очереди билды со статусом Waiting и InPrograss
   require("./utils/initial-check")();
 });
