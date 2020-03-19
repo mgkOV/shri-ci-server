@@ -7,7 +7,9 @@ module.exports = async () => {
     let offset = 0;
     let limit = STEP;
 
+    // скачиваем все билды в очереди
     while (true) {
+      // проверяем наличие сохраненных настроек
       const settings = await shriApi.getConfig();
 
       if (!settings || !settings.data || !settings.data.id) break;
@@ -19,12 +21,14 @@ module.exports = async () => {
 
       const allBuilds = response.data;
 
+      // останавливаем если больше нет билдов
       if (!allBuilds || allBuilds.length < 1) break;
 
       const waitingBuilds = allBuilds.filter(
         ({ status }) => status === "Waiting" || status === "InProgress"
       );
 
+      // добавляем билды со статусом "Waiting" и "InProgress" в очередь на сборку
       buildRunner.addBuilds(waitingBuilds);
     }
   } catch (error) {

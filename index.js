@@ -13,12 +13,15 @@ app.use(express.static("static"));
 app.use(morgan("dev"));
 app.use(express.json());
 
+//регистрируем routes
 require("./routes")(app);
 
 app.listen(port, () => {
   console.log(`CI server listening on port ${port}!`);
 
+  // запускаем автопроверку на новые коммиты репозитория github
   watcher.startWatch();
+
   // Проверяем есть ли в очереди билды со статусом Waiting и InPrograss
   require("./utils/initial-check")();
 });

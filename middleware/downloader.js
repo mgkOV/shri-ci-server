@@ -20,8 +20,10 @@ module.exports = async (req, res, next) => {
 
   next();
 
+  // чистим директорию storage
   await promisify(rimraf)(path.join(".", "storage"));
 
+  // клонируем репозиторий в storage
   const child = spawn("git", ["clone", "--branch", mainBranch, repository.clone_url, "storage"]);
 
   // child.on("exit", code => {

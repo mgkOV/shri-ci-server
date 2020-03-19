@@ -1,12 +1,25 @@
+/* Утилита для автопроверки репозитория на github
+  Есть недочет - при добавлении старого комита в лист билдов /build/request до первой проверки,
+  утилита будет считать его последним, а все комиты, идущие после, как новые,
+  и поставит их в очередь на сборку.
+
+  нужно добавить скачивание обновленного репозитория
+*/
+
+var moment = require("moment");
+
 const shriApi = require("../api/shri-api");
 const githubApi = require("../api/github-api");
 const { addBuilds } = require("./build-runner");
 
 let isRunning;
 
-async function* watchCommits(period = 10000, repoName, mainBranch) {
-  let commitDate;
+// генератор автопроверки комитов
+async function* watchCommits(period = 3000, repoName, mainBranch) {
+  // Дата последней проверки
+  let lastCheckDate;
   while (isRunning) {
+    // Сохраняем лист билдов и последний хэш
     const response = await shriApi.getBuildList();
     const buildList = response.data;
     let lastHash = null;
@@ -15,18 +28,30 @@ async function* watchCommits(period = 10000, repoName, mainBranch) {
       lastHash = buildList[0].commitHash;
     }
 
+    // ждем
     await new Promise(resolve => setTimeout(resolve, period));
     if (!lastHash) continue;
 
-    let ghCommitDate = await getLastCommitDate(repoName, lastHash);
-    if (!ghCommitDate) continue;
+    // дата комита с гитхаба
+    // возможно стоит добаить логику проверки хэши в const response = await shriApi.getBuildList() для решения недочета
 
-    let lastCommitDate = ghCommitDate;
+    let commitDateStr = await getLastCommitDate(repoName, lastHash);
+    if (!commitDateStr) continue;
 
-    if (commitDate && new Date(commitDate) > new Date(lastCommitDate)) {
-      lastCommitDate = commitDate;
+    let lastCommitDate =
+      moment(commitDateStr)
+        .utc()
+        .add(1, "s")
+        .format("YYYY-MM-DD[T]HH:mm:ss") + "Z";
+    /*
+    Сравниваем даты чтобы уйти от проблемы последней проверки и последнего комита
+    */
+
+    if (lastCheckDate && new Date(lastCheckDate) > new Date(lastCommitDate)) {
+      lastCommitDate = lastCheckDate;
     }
 
+    //получаем новые комиты
     const newCommits = await githubApi.getCommits(repoName, mainBranch, lastCommitDate);
 
     const buildsToAdd = newCommits
@@ -38,12 +63,17 @@ async function* watchCommits(period = 10000, repoName, mainBranch) {
           authorName: c.commit.author.name
         };
       })
-      .slice(0, newCommits.length - 1)
       .reverse();
 
+    //добавляем новые комиты в сборку
     for await (let value of addToList(buildsToAdd)) {
       console.log(value);
     }
+
+    lastCheckDate =
+      moment()
+        .utc()
+        .format("YYYY-MM-DD[T]HH:mm:ss") + "Z";
 
     yield isRunning;
   }
@@ -76,7 +106,8 @@ const getLastCommitDate = async (repoName, lastHash) => {
 const startWatch = async () => {
   try {
     const response = await shriApi.getConfig();
-    if (!response || !response.data) return;
+    // проверяем наличие настроек
+    if (!response || !response.data || !response.data.repoName) return;
 
     const { period, repoName, mainBranch } = response.data;
     const ms = period * 60 * 1000;

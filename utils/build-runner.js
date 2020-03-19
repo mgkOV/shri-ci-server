@@ -15,6 +15,7 @@ const buildRunner = {
   },
 
   runBuilder() {
+    // проверяем запущен ли this.build()
     if (!this.currentBuild) {
       const nextBuild = this.buildList.shift();
       this.currentBuild = nextBuild ? nextBuild : null;
@@ -27,15 +28,17 @@ const buildRunner = {
   async build() {
     try {
       const { id, status, start } = this.currentBuild;
+      // start для билда со статусом InProgress
       const startTime = start ? new Date(start) : new Date();
       console.log(`Started building ${id}...`);
 
+      // если статус InProgress пропускаем этот блок кода
       if (status === "Waiting") {
         const buildData = {
           buildId: id,
           dateTime: startTime
         };
-
+        // менеяем статус на InProgress
         await shriApi.postBuildStart(buildData);
       }
 
@@ -47,12 +50,15 @@ const buildRunner = {
         buildLog
       };
 
+      // эмулируем задержку
       await new Promise(resolve => setTimeout(resolve, 2000));
 
+      // менеяем статус на Success
       await shriApi.postBuildFinish(finishedBuild);
 
       console.log(`Finished building ${id}...`);
 
+      // ставим следующий билд на сборку
       const nextBuild = this.buildList.shift();
       this.currentBuild = nextBuild ? nextBuild : null;
 
