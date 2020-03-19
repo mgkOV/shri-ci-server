@@ -2,11 +2,11 @@ const shriApi = require("../api/shri-api");
 const githubApi = require("../api/github-api");
 const { addBuilds } = require("./build-runner");
 
-let isRunnig = true;
+let isRunning;
 
 async function* watchCommits(period = 10000, repoName, mainBranch) {
   let commitDate;
-  while (isRunnig) {
+  while (isRunning) {
     const response = await shriApi.getBuildList();
     const buildList = response.data;
     let lastHash = null;
@@ -45,7 +45,7 @@ async function* watchCommits(period = 10000, repoName, mainBranch) {
       console.log(value);
     }
 
-    yield isRunnig;
+    yield isRunning;
   }
 }
 
@@ -76,19 +76,32 @@ const getLastCommitDate = async (repoName, lastHash) => {
 const startWatch = async () => {
   try {
     const response = await shriApi.getConfig();
+    if (!response || !response.data) return;
+
     const { period, repoName, mainBranch } = response.data;
     const ms = period * 60 * 1000;
 
-    for await (let value of watchCommits(ms, repoName, mainBranch)) {
+    isRunning = true;
+    console.log("Run github watcher...");
+
+    let gen = watchCommits(ms, repoName, mainBranch);
+
+    for await (let value of gen) {
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-const stopWatch = () => (isRunnig = false);
+const getStatus = () => isRunning;
+
+const stopWatch = () => {
+  isRunning = false;
+  console.log("Stopped github watcher...");
+};
 
 module.exports = {
   startWatch,
-  stopWatch
+  stopWatch,
+  getStatus
 };

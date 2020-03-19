@@ -10,7 +10,7 @@ module.exports = async () => {
     while (true) {
       const settings = await shriApi.getConfig();
 
-      if (!settings.data.id) break;
+      if (!settings || !settings.data || !settings.data.id) break;
 
       const response = await shriApi.getBuildList(offset, limit);
 

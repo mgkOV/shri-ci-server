@@ -4,6 +4,7 @@ const shriApi = require("../api/shri-api");
 const githubApi = require("../api/github-api");
 const downloader = require("../middleware/downloader");
 const buildRunner = require("../utils/build-runner");
+const watcher = require("../utils/watcher");
 
 const router = express.Router();
 
@@ -38,6 +39,7 @@ router.post("/", downloader, async (req, res) => {
   };
 
   buildRunner.reset();
+  watcher.stopWatch();
 
   await shriApi.deleteConfig();
 
@@ -58,6 +60,7 @@ router.post("/", downloader, async (req, res) => {
   const build = await shriApi.getBuildList();
 
   buildRunner.addBuilds(build.data);
+  watcher.startWatch();
 
   res.sendStatus(status);
 });

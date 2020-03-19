@@ -47,6 +47,8 @@ const buildRunner = {
         buildLog
       };
 
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       await shriApi.postBuildFinish(finishedBuild);
 
       console.log(`Finished building ${id}...`);
