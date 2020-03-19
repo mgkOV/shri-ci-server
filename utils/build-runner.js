@@ -42,6 +42,9 @@ const buildRunner = {
         await shriApi.postBuildStart(buildData);
       }
 
+      // эмулируем задержку
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       const duration = new Date().getTime() - startTime.getTime();
       const finishedBuild = {
         buildId: id,
@@ -49,9 +52,6 @@ const buildRunner = {
         success: true,
         buildLog
       };
-
-      // эмулируем задержку
-      await new Promise(resolve => setTimeout(resolve, 2000));
 
       // менеяем статус на Success
       await shriApi.postBuildFinish(finishedBuild);
