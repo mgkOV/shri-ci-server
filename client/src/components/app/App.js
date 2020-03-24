@@ -1,22 +1,16 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 import "./App.scss";
 
-import Header from "../Header";
-import Button, { ButtonIcon, ButtonText } from "../Button";
+import HomePage from "../pages/HomePage";
 
 function App() {
   return (
     <div className="App">
-      <Header>
-        <h1 className="Header-Title Header-Title_view_secondary">School CI server</h1>
-        <div className="Header-btnGroup">
-          <Button type="iconText" tone="control">
-            <ButtonIcon icon="settings" />
-            <ButtonText>Settings</ButtonText>
-          </Button>
-        </div>
-      </Header>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+      </Switch>
     </div>
   );
 }
