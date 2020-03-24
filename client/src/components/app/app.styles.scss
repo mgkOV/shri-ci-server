@@ -66,10 +66,19 @@
   --radius-s: 4px;
   --radius-m: 6px;
 
-  box-sizing: border-box;
   background-color: var(--color-bg-default);
   border-color: var(--color-bg-border);
   color: var(--color-font-primary);
   font-size: var(--size-text-base);
   font-family: var(--font-base);
+
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
 }
