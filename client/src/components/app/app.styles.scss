@@ -1,0 +1,72 @@
+@import "../../vars";
+
+.App {
+  /***** ЦВЕТ *****/
+  // Цвета фона
+  --color-bg-base: $white-500;
+  --color-bg-dark: $grey-200;
+
+  // Цвета фона блоков
+  --color-bg-action: $yellow-100;
+  --color-bg-action-hovered: $yellow-500;
+  --color-bg-control: $grey-300;
+  --color-bg-control-hovered: $grey-400;
+  --color-bg-disabled: $grey-100;
+
+  // Цвета границ
+  --color-border-action-focused: $yellow-600;
+  --color-border-input: $grey-500;
+  --color-border-control-focused: $grey-600;
+
+  // Цвета текста
+  --color-font-base: $black-500;
+  --color-font-secondary: $grey-700;
+  --color-font-sub: $grey-800;
+
+  // Симантические цвета
+  --color-success: $green-500;
+  --color-error: $red-500;
+  --color-warning: $orange-500;
+
+  // Тени
+  --box-shadow: 0px 1px 1px rgba(67, 68, 69, 0.3), 0px 0px 1px rgba(67, 68, 69, 0.3);
+  --box-shadow-hovered: 0px 2px 8px rgba(67, 68, 69, 0.3), 0px 0px 1px rgba(67, 68, 69, 0.3);
+
+  //Шрифт
+  --font-base: "YS Text", Arial, sans-serif;
+
+  // Размер типографики
+  --size-text-base: 10px;
+
+  --size-text-s: 1em;
+  --size-text-m: 1.3em;
+  --size-text-l: 1.5em;
+  --size-text-xl: 1.6em;
+  --size-text-2xl: 1.8em;
+  --size-text-3xl: 2.4em;
+
+  --line-height-text-2xs: 1em;
+  --line-height-text-xs: 1.25em;
+  --line-height-text-s: 1.35em;
+  --line-height-text-m: 1.4em;
+  --line-height-text-l: 2em;
+
+  // Размер отступов
+  --space-s: 8px;
+  --space-m: 20px;
+  --space-xxl: 100px;
+
+  // Размеры контролов
+  --control-height-m: 36px;
+
+  // Размеры скруглений
+  --radius-s: 4px;
+  --radius-m: 6px;
+
+  box-sizing: border-box;
+  background-color: var(--color-bg-default);
+  border-color: var(--color-bg-border);
+  color: var(--color-font-primary);
+  font-size: var(--size-text-base);
+  font-family: var(--font-base);
+}
