@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import { cn } from "@bem-react/classname";
 
 import "./Button.scss";
 
 const propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  tone: PropTypes.oneOf(["action", "control", "disabled"]),
+  fullWidthAtSmallScreen: PropTypes.bool,
+  type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"])
 };
 
-const Button = ({ className, children }) => {
-  const btnClass = classNames("Button", className);
+const Button = ({ children, tone, type, fullWidthAtSmallScreen }) => {
+  const buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen });
 
   return (
-    <button type="button" className={btnClass}>
+    <button type="button" className={buttonStyles}>
       {children}
     </button>
   );
