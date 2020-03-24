@@ -3,30 +3,30 @@
 .App {
   /***** ЦВЕТ *****/
   // Цвета фона
-  --color-bg-base: $white-500;
-  --color-bg-dark: $grey-200;
+  --color-bg-base: #{$white-500};
+  --color-bg-dark: #{$grey-200};
 
   // Цвета фона блоков
-  --color-bg-action: $yellow-100;
-  --color-bg-action-hovered: $yellow-500;
-  --color-bg-control: $grey-300;
-  --color-bg-control-hovered: $grey-400;
-  --color-bg-disabled: $grey-100;
+  --color-bg-action: #{$yellow-100};
+  --color-bg-action-hovered: #{$yellow-500};
+  --color-bg-control: #{$grey-300};
+  --color-bg-control-hovered: #{$grey-400};
+  --color-bg-disabled: #{$grey-100};
 
   // Цвета границ
-  --color-border-action-focused: $yellow-600;
-  --color-border-input: $grey-500;
-  --color-border-control-focused: $grey-600;
+  --color-border-action-focused: #{$yellow-600};
+  --color-border-input: #{$grey-500};
+  --color-border-control-focused: #{$grey-600};
 
   // Цвета текста
-  --color-font-base: $black-500;
-  --color-font-secondary: $grey-700;
-  --color-font-sub: $grey-800;
+  --color-font-base: #{$black-500};
+  --color-font-secondary: #{$grey-700};
+  --color-font-sub: #{$grey-800};
 
   // Симантические цвета
-  --color-success: $green-500;
-  --color-error: $red-500;
-  --color-warning: $orange-500;
+  --color-success: #{$green-500};
+  --color-error: #{$red-500};
+  --color-warning: #{$orange-500};
 
   // Тени
   --box-shadow: 0px 1px 1px rgba(67, 68, 69, 0.3), 0px 0px 1px rgba(67, 68, 69, 0.3);
