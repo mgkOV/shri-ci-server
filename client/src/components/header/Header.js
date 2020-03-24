@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./header.styles.scss";
+import "./Header.scss";
 
 const propTypes = {
   children: PropTypes.arrayOf(PropTypes.node)

@@ -86,20 +86,6 @@
   background-color: var(--color-bg-disabled);
 }
 
-//Button text elem
-.Button-Text {
-  display: block;
-  box-sizing: border-box;
-}
-
-//Button icon elem
-.Button-Icon {
-  width: 23px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 @media screen and (max-width: $screen-s) {
   .Button_width-screen-s_full {
     width: 100%;
