@@ -16,20 +16,6 @@
   margin-right: var(--space-s);
 }
 
-.Header-Button {
-  margin-right: var(--space-s);
-}
-
-.Header-Button:last-child {
-  margin-right: 0;
-}
-
-.Header-BtnGroup {
-  flex-shrink: 0;
-  display: flex;
-  align-items: flex-end;
-}
-
 .Header-Title_view_base {
   color: var(--color-font-base);
   line-height: 30px;

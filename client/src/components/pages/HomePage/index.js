@@ -8,12 +8,12 @@ const HomePage = () => {
     <Fragment>
       <Header>
         <h1 className="Header-Title Header-Title_view_secondary">School CI server</h1>
-        <div className="Header-btnGroup">
-          <Button type="iconText" tone="control">
+        <Header.BtnGroup>
+          <Button type="iconText" tone="control" mix={["Header-Button"]}>
             <ButtonIcon icon="settings" />
             <ButtonText>Settings</ButtonText>
           </Button>
-        </div>
+        </Header.BtnGroup>
       </Header>
     </Fragment>
   );

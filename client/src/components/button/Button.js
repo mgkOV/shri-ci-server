@@ -8,11 +8,12 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   tone: PropTypes.oneOf(["action", "control", "disabled"]),
   fullWidthAtSmallScreen: PropTypes.bool,
-  type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"])
+  type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"]),
+  mix: PropTypes.arrayOf(PropTypes.string)
 };
 
-const Button = ({ children, tone, type, fullWidthAtSmallScreen }) => {
-  const buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen });
+const Button = ({ children, tone, type, fullWidthAtSmallScreen, mix }) => {
+  let buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen }, mix);
 
   return (
     <button type="button" className={buttonStyles}>
