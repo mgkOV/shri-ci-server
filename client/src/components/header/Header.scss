@@ -5,12 +5,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 100px;
+  padding: 10px var(--space-xxl);
 }
 
 @media screen and (max-width: $screen-s) {
   .Header {
-    padding: 12px 16px;
+    padding: 12px var(--space-s);
     align-items: flex-start;
   }
 }

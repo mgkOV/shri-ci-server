@@ -13,7 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
       </Switch>
-      <Footer>
+      <Footer mix={["App-Footer"]}>
         <Footer.LinkGroup>
           <Footer.Link to="/support">Support</Footer.Link>
           <Footer.Link to="/learning">Learning</Footer.Link>

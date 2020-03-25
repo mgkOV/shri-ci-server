@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const Footer = ({ children, mix }) => {
-  const footerStyles = cn("Footer")(mix);
+  const footerStyles = cn("Footer")(null, mix);
   return <div className={footerStyles}>{children}</div>;
 };
 

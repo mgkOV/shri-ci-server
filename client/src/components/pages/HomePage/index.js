@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "../../Header";
 import Button from "../../Button";
+import Section from "../../Section";
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
           </Button>
         </Header.BtnGroup>
       </Header>
+      <Section mix={["App-Section"]}>1</Section>
     </>
   );
 };

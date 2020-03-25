@@ -10,7 +10,7 @@
 
 @media screen and (max-width: $screen-s) {
   .Footer-Copyright {
-    margin-top: 8px;
+    margin-top: var(--space-xxs);
     line-height: 18px;
   }
 }
