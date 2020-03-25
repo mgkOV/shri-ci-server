@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn } from "@bem-react/classname";
 
-import "./Header.scss";
+import "./Heading.scss";
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
@@ -10,11 +10,12 @@ const propTypes = {
   mix: PropTypes.arrayOf(PropTypes.string)
 };
 
-const Header = ({ children, mix }) => {
-  const headerStyles = cn("Header")(mix);
-  return <div className={headerStyles}>{children}</div>;
+const Heading = ({ children, mix }) => {
+  const headingStyles = cn("Heading")(null, mix);
+
+  return <div className={headingStyles}>{children}</div>;
 };
 
-Header.propTypes = propTypes;
+Heading.propTypes = propTypes;
 
-export default Header;
+export default Heading;

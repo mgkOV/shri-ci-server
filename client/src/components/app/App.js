@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import "./App.scss";
 
 import HomePage from "../pages/HomePage";
+import SettingsPage from "../pages/SettingsPage";
 
 import Footer from "../Footer";
 
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/settings" component={SettingsPage} />
       </Switch>
       <Footer mix={["App-Footer"]}>
         <Footer.LinkGroup>
