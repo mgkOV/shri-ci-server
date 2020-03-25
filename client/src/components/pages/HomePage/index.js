@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <Fragment>
       <Header>
-        <h1 className="Header-Title Header-Title_view_secondary">School CI server</h1>
+        <Header.Title view="secondary">School CI server</Header.Title>
         <Header.BtnGroup>
           <Button type="iconText" tone="control" mix={["Header-Button"]}>
             <ButtonIcon icon="settings" />
