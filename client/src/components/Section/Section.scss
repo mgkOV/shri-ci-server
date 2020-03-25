@@ -2,7 +2,7 @@
 
 .Section {
   padding: var(--space-xxs) var(--space-xxl) var(--space-m) var(--space-xxl);
-  font-size: var(--size-text-m);
+  display: flex;
 }
 
 @media screen and (max-width: $screen-s) {

@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
+import StartScreen from "../../StartScreen";
 
 const HomePage = () => {
   return (
@@ -16,7 +17,18 @@ const HomePage = () => {
           </Button>
         </Header.BtnGroup>
       </Header>
-      <Section mix={["App-Section"]}>1</Section>
+
+      <Section mix={["App-Section"]}>
+        <StartScreen>
+          <StartScreen.Icon />
+          <StartScreen.Title>
+            Configure repository connection and synchronization settings
+          </StartScreen.Title>
+          <Button type="formControl" tone="action">
+            <Button.Text>Open settings</Button.Text>
+          </Button>
+        </StartScreen>
+      </Section>
     </>
   );
 };

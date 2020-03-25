@@ -44,8 +44,8 @@
 }
 
 .Button_type_formControl {
-  height: (--control-height-m);
-  line-height: (--control-line-height-m);
+  height: var(--control-height-m);
+  line-height: var(--control-line-height-m);
   padding: 0 18px;
   justify-content: center;
   position: relative;
