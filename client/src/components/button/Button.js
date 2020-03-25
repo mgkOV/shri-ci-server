@@ -5,7 +5,8 @@ import { cn } from "@bem-react/classname";
 import "./Button.scss";
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
+    .isRequired,
   tone: PropTypes.oneOf(["action", "control", "disabled"]),
   fullWidthAtSmallScreen: PropTypes.bool,
   type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"]),
@@ -13,7 +14,7 @@ const propTypes = {
 };
 
 const Button = ({ children, tone, type, fullWidthAtSmallScreen, mix }) => {
-  let buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen }, mix);
+  const buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen }, mix);
 
   return (
     <button type="button" className={buttonStyles}>

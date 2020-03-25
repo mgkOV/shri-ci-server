@@ -6,6 +6,7 @@ import "./Header-BtnGroup.scss";
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
+    .isRequired
 };
 
 const HeaderBtnGroup = ({ children }) => {
