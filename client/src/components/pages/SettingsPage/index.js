@@ -10,7 +10,7 @@ const SettingsPage = props => {
       <Header>
         <Header.Title view="secondary">School CI server</Header.Title>
       </Header>
-      <Section mix={["App-Section"]}>
+      <Section>
         <Heading>
           <Heading.Title>Settings</Heading.Title>
           <Heading.Subtitle>
