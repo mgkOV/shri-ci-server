@@ -1,4 +1,9 @@
-export { default } from "./Button";
+import Button from "./Button";
 
-export { default as ButtonText } from "./Text/Text";
-export { default as ButtonIcon } from "./Icon/Icon";
+import Text from "./Text/Button-Text";
+import Icon from "./Icon/Button-Icon";
+
+Button.Icon = Icon;
+Button.Text = Text;
+
+export default Button;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./Icon.scss";
+import "./Button-Icon.scss";
 
 import { ReactComponent as SettingsIcon } from "./settings.svg";
 import { ReactComponent as BuildIcon } from "./build.svg";
