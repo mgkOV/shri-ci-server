@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "../../Header";
 import Section from "../../Section";
-import Heading from "../../Heading";
+import Title from "../../Title";
 
 const SettingsPage = props => {
   return (
@@ -10,13 +10,14 @@ const SettingsPage = props => {
       <Header>
         <Header.Title view="secondary">School CI server</Header.Title>
       </Header>
+
       <Section>
-        <Heading>
-          <Heading.Title>Settings</Heading.Title>
-          <Heading.Subtitle>
+        <Title>
+          <Title.Heading>Settings</Title.Heading>
+          <Title.Subtitle>
             Configure repository connection and synchronization settings.
-          </Heading.Subtitle>
-        </Heading>
+          </Title.Subtitle>
+        </Title>
       </Section>
     </>
   );
