@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <>
       <Header>
-        <Header.Title view="secondary">School CI server</Header.Title>
+        <Header.Logo />
         <Header.BtnGroup>
           <Button type="iconText" tone="control" mix={["Header-Button"]}>
             <Button.Icon icon="settings" />

@@ -8,7 +8,7 @@ const SettingsPage = props => {
   return (
     <>
       <Header>
-        <Header.Title view="secondary">School CI server</Header.Title>
+        <Header.Logo />
       </Header>
 
       <Section>
