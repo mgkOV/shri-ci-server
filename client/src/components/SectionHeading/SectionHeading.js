@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn } from "@bem-react/classname";
 
-import "./Title.scss";
+import "./SectionHeading.scss";
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
@@ -10,12 +10,12 @@ const propTypes = {
   mix: PropTypes.arrayOf(PropTypes.string)
 };
 
-const Title = ({ children, mix }) => {
-  const titleStyles = cn("Title")(null, mix);
+const SectionHeading = ({ children, mix }) => {
+  const sectionHeadingStyles = cn("SectionHeading")(null, mix);
 
-  return <div className={titleStyles}>{children}</div>;
+  return <div className={sectionHeadingStyles}>{children}</div>;
 };
 
-Title.propTypes = propTypes;
+SectionHeading.propTypes = propTypes;
 
-export default Title;
+export default SectionHeading;

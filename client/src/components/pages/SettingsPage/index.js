@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "../../Header";
 import Section from "../../Section";
-import Title from "../../Title";
+import SectionHeading from "../../SectionHeading";
 
 const SettingsPage = props => {
   return (
@@ -12,12 +12,12 @@ const SettingsPage = props => {
       </Header>
 
       <Section>
-        <Title>
-          <Title.Heading>Settings</Title.Heading>
-          <Title.Subtitle>
+        <SectionHeading>
+          <SectionHeading.Title>Settings</SectionHeading.Title>
+          <SectionHeading.Subtitle>
             Configure repository connection and synchronization settings.
-          </Title.Subtitle>
-        </Title>
+          </SectionHeading.Subtitle>
+        </SectionHeading>
       </Section>
     </>
   );
