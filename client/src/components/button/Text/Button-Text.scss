@@ -1,5 +1,13 @@
+@import "../../../vars.scss";
+
 .Button-Text {
   display: block;
   box-sizing: border-box;
   white-space: nowrap;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Button_type_iconText .Button-Text {
+    display: none;
+  }
 }

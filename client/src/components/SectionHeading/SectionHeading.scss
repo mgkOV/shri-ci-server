@@ -1,0 +1,13 @@
+@import "../../vars.scss";
+
+.SectionHeading {
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width: $screen-s) {
+  .SectionHeading {
+    // padding: 4px 0;
+    margin-bottom: 4px;
+    margin-top: 6px;
+  }
+}
