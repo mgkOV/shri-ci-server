@@ -6,14 +6,20 @@
   letter-spacing: var(--letter-spacing-m);
   margin: 0;
   margin-right: var(--space-xxs);
+  max-width: 75%;
 
   color: var(--color-font-base);
   line-height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: $screen-s) {
-  .Header-Logo {
+  .Header-BuildTitle {
     font-size: var(--size-text-2xl);
     line-height: 22px;
+    max-width: none;
+    white-space: normal;
   }
 }

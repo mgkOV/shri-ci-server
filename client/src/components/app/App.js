@@ -5,6 +5,7 @@ import "./App.scss";
 
 import HomePage from "../pages/HomePage";
 import SettingsPage from "../pages/SettingsPage";
+import BuildHistoryPage from "../pages/BuildHistoryPage";
 
 import Footer from "../Footer";
 
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/settings" component={SettingsPage} />
+        <Route exact path="/history" component={BuildHistoryPage} />
       </Switch>
       <Footer mix={["App-Footer"]}>
         <Footer.LinkGroup>
