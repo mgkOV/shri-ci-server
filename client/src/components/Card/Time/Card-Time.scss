@@ -1,0 +1,36 @@
+@import "../../../vars.scss";
+
+.Card-Time {
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.Card-Time_position_bottom {
+  flex-direction: row;
+  justify-content: flex-start;
+  border-top: 1px solid var(--color-bg-dark);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.Card-Time_position_bottom > :last-child {
+  margin-left: 9px;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Card-Time {
+    flex-direction: row;
+    justify-content: flex-start;
+    border-top: 1px solid var(--color-bg-dark);
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+
+  .Card-Time > :last-child {
+    margin-left: 9px;
+  }
+}
