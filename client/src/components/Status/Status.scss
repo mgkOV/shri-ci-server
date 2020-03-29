@@ -1,0 +1,14 @@
+@import "../../vars.scss";
+
+.Status {
+  color: var(--color-font-base);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Status {
+    flex-direction: column;
+  }
+}
