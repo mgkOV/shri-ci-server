@@ -8,13 +8,13 @@ const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
     .isRequired,
   mix: PropTypes.arrayOf(PropTypes.string),
-  view: PropTypes.oneOf(['high'])
+  view: PropTypes.oneOf(["high"]),
   type: PropTypes.oneOf(["error", "success", "warning"])
 };
 
 const Card = ({ children, mix, view, type }) => {
-  const cardStyles = cn("Card")({view, type}, mix);
-  
+  const cardStyles = cn("Card")({ view, type }, mix);
+
   return <div className={cardStyles}>{children}</div>;
 };
 

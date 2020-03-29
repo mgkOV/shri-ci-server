@@ -29,9 +29,9 @@
   --color-warning: #{$orange-500};
 
   // Тени
-  --box-shadow: 0px 1px 1px rgba($grey-800, 0.3), 0px 0px 1px rgba($grey-800, 0.3);
-  --box-shadow-hovered: 0px 2px 8px rgba($grey-800, 0.3), 0px 0px 1px rgba($grey-800, 0.3);
-  --box-shadow-pop-up: 0px 6px 16px rgba($grey-800, 0.3), 0px 0px 1px rgba($grey-800, 0.3);
+  --box-shadow: 0px 1px 1px #{rgba($grey-800, 0.3)}, 0px 0px 1px #{rgba($grey-800, 0.3)};
+  --box-shadow-hovered: 0px 2px 8px #{rgba($grey-800, 0.3)}, 0px 0px 1px #{rgba($grey-800, 0.3)};
+  --box-shadow-pop-up: 0px 6px 16px #{rgba($grey-800, 0.3)}, 0px 0px 1px #{rgba($grey-800, 0.3)};
 
   //Шрифт
   --font-base: "YS Text", Arial, sans-serif;

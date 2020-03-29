@@ -11,6 +11,6 @@ const StatusComment = ({ children }) => {
   return <div className="Status-Comment">{children}</div>;
 };
 
-StatusComment.propTypes = {};
+StatusComment.propTypes = propTypes;
 
 export default StatusComment;

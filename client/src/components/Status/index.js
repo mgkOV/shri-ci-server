@@ -1,4 +1,4 @@
-import Status from "./Status.scss";
+import Status from "./Status";
 
 import StatusNumber from "./Number/Status-Number";
 import Comment from "./Comment/Status-Comment";

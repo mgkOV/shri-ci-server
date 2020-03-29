@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import "./Meta-Icon.scss";
+
 import { ReactComponent as CalendarIcon } from "./calendar.svg";
 import { ReactComponent as UserIcon } from "./user.svg";
 import { ReactComponent as StopwatchIcon } from "./stopwatch.svg";
@@ -20,6 +22,6 @@ const MetaIcon = ({ icon }) => {
   return <div className="Meta-Icon">{renderIcon(icon)}</div>;
 };
 
-MetaText.propTypes = propTypes;
+MetaIcon.propTypes = propTypes;
 
 export default MetaIcon;
