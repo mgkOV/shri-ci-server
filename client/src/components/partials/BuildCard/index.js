@@ -15,12 +15,13 @@ const proptTypes = {
     author: PropTypes.string.isRequired
   }).isRequired,
   timePosition: PropTypes.oneOf(["bottom"]),
-  view: PropTypes.oneOf(["high"])
+  view: PropTypes.oneOf(["high"]),
+  mix: PropTypes.arrayOf(PropTypes.string)
 };
 
-const BuildCard = ({ build, timePosition, view }) => {
+const BuildCard = ({ build, timePosition, view, mix }) => {
   return (
-    <Card type={build.type} mix={["History-Item"]} view={view}>
+    <Card type={build.type} mix={mix} view={view}>
       <Card.Content>
         <Status mix={["Card-Title"]}>
           <Status.Number view={build.type}>{"#" + build.number}</Status.Number>

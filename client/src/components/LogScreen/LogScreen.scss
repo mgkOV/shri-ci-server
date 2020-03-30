@@ -1,0 +1,17 @@
+@import "../../vars.scss";
+
+.LogScreen {
+  border-radius: 6px;
+  background-color: var(--color-bg-disabled);
+  padding: 8px 12px;
+  text-align: left;
+  font-size: var(--size-text-s);
+  line-height: var(--line-height-text-l);
+  overflow-x: auto;
+}
+
+@media screen and (max-width: $screen-s) {
+  .LogScreen {
+    border-radius: 0;
+  }
+}

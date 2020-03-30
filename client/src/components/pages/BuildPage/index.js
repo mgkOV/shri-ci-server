@@ -4,6 +4,7 @@ import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
 import BuildCard from "../../partials/BuildCard";
+import LogScreen from "../../LogScreen";
 
 const build = {
   type: "error",
@@ -32,7 +33,8 @@ const BuildPage = () => {
         </Header.BtnGroup>
       </Header>
       <Section>
-        <BuildCard build={build} view="high" timePosition="bottom" />
+        <BuildCard build={build} view="high" timePosition="bottom" mix={["Section-Head"]} />
+        <LogScreen />
       </Section>
     </>
   );

@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
+
 import BuildHistory from "../../partials/BuildHistory";
 
 const BuildHistroyPage = props => {

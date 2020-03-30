@@ -13,7 +13,7 @@ const propTypes = {
 const BuildHistory = props => {
   const renderBuilds = builds =>
     builds.map(b => {
-      return <BuildCard build={b} key={b.number} />;
+      return <BuildCard build={b} mix={["History-Item"]} key={b.number} />;
     });
 
   return <History>{renderBuilds(data.history)}</History>;
