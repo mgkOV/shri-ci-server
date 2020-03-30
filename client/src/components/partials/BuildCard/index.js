@@ -13,12 +13,14 @@ const proptTypes = {
     branch: PropTypes.string.isRequired,
     hash: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired
-  })
+  }).isRequired,
+  timePosition: PropTypes.oneOf(["bottom"]),
+  view: PropTypes.oneOf(["high"])
 };
 
-const BuildHistoryCard = ({ build }) => {
+const BuildCard = ({ build, timePosition, view }) => {
   return (
-    <Card type={build.type} mix={["History-Item"]}>
+    <Card type={build.type} mix={["History-Item"]} view={view}>
       <Card.Content>
         <Status mix={["Card-Title"]}>
           <Status.Number view={build.type}>{"#" + build.number}</Status.Number>
@@ -38,7 +40,7 @@ const BuildHistoryCard = ({ build }) => {
         </Card.Subtitle>
       </Card.Content>
 
-      <Card.Time>
+      <Card.Time position={timePosition}>
         <Meta>
           <Meta.Icon icon="calendar" />
           <Meta.Text>21 янв, 03:06</Meta.Text>
@@ -53,6 +55,6 @@ const BuildHistoryCard = ({ build }) => {
   );
 };
 
-BuildHistoryCard.proptTypes = proptTypes;
+BuildCard.proptTypes = proptTypes;
 
-export default BuildHistoryCard;
+export default BuildCard;

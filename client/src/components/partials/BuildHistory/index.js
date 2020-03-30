@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import History from "../../History";
-import BuildHistoryCard from "../BuildHistoryCard";
+import BuildCard from "../BuildCard";
 
 import data from "./data.json";
 
@@ -13,7 +13,7 @@ const propTypes = {
 const BuildHistory = props => {
   const renderBuilds = builds =>
     builds.map(b => {
-      return <BuildHistoryCard build={b} key={b.number} />;
+      return <BuildCard build={b} key={b.number} />;
     });
 
   return <History>{renderBuilds(data.history)}</History>;
