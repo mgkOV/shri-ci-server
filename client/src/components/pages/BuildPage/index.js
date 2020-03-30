@@ -6,6 +6,8 @@ import Section from "../../Section";
 import BuildCard from "../../partials/BuildCard";
 import LogScreen from "../../LogScreen";
 
+import { log } from "./log-seed.js";
+
 const build = {
   type: "error",
   number: 1363,
@@ -34,10 +36,10 @@ const BuildPage = () => {
           </Button>
         </Header.BtnGroup>
       </Header>
-      <Section>
-        <BuildCard build={build} view="high" timePosition="bottom" mix={["Section-Head"]} />
-        <LogScreen />
+      <Section bottomSpace="no">
+        <BuildCard build={build} view="high" timePosition="bottom" />
       </Section>
+      <LogScreen log={log} />
     </>
   );
 };

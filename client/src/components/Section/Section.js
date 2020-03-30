@@ -6,11 +6,12 @@ import "./Section.scss";
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  mix: PropTypes.arrayOf(PropTypes.string)
+  mix: PropTypes.arrayOf(PropTypes.string),
+  bottomSpace: PropTypes.oneOf(["no"])
 };
 
-const Section = ({ children, mix }) => {
-  const sectionStyles = cn("Section")(null, mix);
+const Section = ({ children, mix, bottomSpace }) => {
+  const sectionStyles = cn("Section")({ bottomSpace }, mix);
   return <div className={sectionStyles}>{children}</div>;
 };
 

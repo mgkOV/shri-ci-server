@@ -3,7 +3,8 @@
 .LogScreen {
   border-radius: 6px;
   background-color: var(--color-bg-disabled);
-  padding: 8px 12px;
+  padding: 8px var(--space-xs);
+  margin: var(--space-xs) var(--space-xxl) var(--space-m) var(--space-xxl);
   text-align: left;
   font-size: var(--size-text-s);
   line-height: var(--line-height-text-l);
@@ -13,5 +14,6 @@
 @media screen and (max-width: $screen-s) {
   .LogScreen {
     border-radius: 0;
+    margin: var(--space-s) 0;
   }
 }

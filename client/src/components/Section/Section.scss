@@ -5,8 +5,16 @@
   position: relative;
 }
 
+.Section_bottomSpace_no {
+  padding-bottom: 0;
+}
+
 @media screen and (max-width: $screen-s) {
   .Section {
     padding: var(--space-xxs) var(--space-s) var(--space-s) var(--space-s);
+  }
+
+  .Section_bottomSpace_no {
+    padding-bottom: 0;
   }
 }
