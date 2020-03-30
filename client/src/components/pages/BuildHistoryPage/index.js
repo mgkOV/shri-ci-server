@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
-import History from "../../History";
+import BuildHistory from "../../partials/BuildHistory";
 
 const BuildHistroyPage = props => {
   return (
@@ -24,7 +24,7 @@ const BuildHistroyPage = props => {
       </Header>
 
       <Section>
-        <History />
+        <BuildHistory />
         <Button type="text" tone="control" fullWidthAtSmallScreen>
           <Button.Text>Show more</Button.Text>
         </Button>
