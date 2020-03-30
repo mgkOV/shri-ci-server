@@ -1,0 +1,11 @@
+@import "../../../vars.scss";
+
+.Form-BtnGroup {
+  padding: 12px 0;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Form-BtnGroup {
+    padding: 4px 0;
+  }
+}

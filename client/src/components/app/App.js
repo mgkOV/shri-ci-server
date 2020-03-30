@@ -8,7 +8,11 @@ import SettingsPage from "../pages/SettingsPage";
 import BuildHistoryPage from "../pages/BuildHistoryPage";
 import BuildPage from "../pages/BuildPage";
 
+import PopUp from "../PopUp";
+import FieldSuite from "../FieldSuite";
 import Footer from "../Footer";
+import Button from "../Button";
+import ButtonGroup from "../ButtonGroup";
 
 function App() {
   return (
@@ -26,6 +30,36 @@ function App() {
         </Footer.LinkGroup>
         <Footer.Copyright>© 2020 Your Name</Footer.Copyright>
       </Footer>
+
+      <PopUp>
+        <PopUp.Content>
+          <PopUp.Title />
+          <FieldSuite>
+            <PopUp.Label htmlFor="new-build-popup">
+              Enter the commit hash which you want to build.
+            </PopUp.Label>
+            <FieldSuite.Input placeholder="Commit hash" name="new-build-popup" />
+          </FieldSuite>
+          <ButtonGroup mix={["PopUp-BtnGroup"]}>
+            <Button
+              tone="action"
+              type="formControl"
+              mix={["ButtonGroup-Item"]}
+              fullWidthAtSmallScreen
+            >
+              <Button.Text>Run build</Button.Text>
+            </Button>
+            <Button
+              tone="control"
+              type="formControl"
+              mix={["ButtonGroup-Item"]}
+              fullWidthAtSmallScreen
+            >
+              <Button.Text>Cancel</Button.Text>
+            </Button>
+          </ButtonGroup>
+        </PopUp.Content>
+      </PopUp>
     </div>
   );
 }

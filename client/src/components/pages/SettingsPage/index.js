@@ -40,7 +40,7 @@ const SettingsPage = props => {
             <FieldSuite.Input placeholder="10" name="main-branch" />
             <FieldSuite.Hint>minutes</FieldSuite.Hint>
           </FieldSuite>
-          <ButtonGroup>
+          <ButtonGroup mix={["Form-BtnGroup"]}>
             <Button
               tone="action"
               type="formControl"

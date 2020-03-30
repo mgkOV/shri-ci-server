@@ -1,14 +1,5 @@
-@import "../../vars.scss";
-
 .ButtonGroup {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 12px 0;
-}
-
-@media screen and (max-width: $screen-s) {
-  .ButtonGroup {
-    padding: 4px 0;
-  }
 }
