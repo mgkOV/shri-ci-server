@@ -10,3 +10,9 @@
   margin: 0;
   padding-bottom: 16px;
 }
+
+@media screen and (max-width: $screen-s) {
+  .StartScreen {
+    padding-bottom: 4px;
+  }
+}

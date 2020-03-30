@@ -7,7 +7,6 @@
 
 @media screen and (max-width: $screen-s) {
   .Section {
-    padding-left: var(--space-s);
-    padding-right: var(--space-s);
+    padding: var(--space-xxs) var(--space-s) var(--space-s) var(--space-s);
   }
 }

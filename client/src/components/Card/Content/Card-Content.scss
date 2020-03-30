@@ -1,3 +1,11 @@
+@import "../../../vars.scss";
+
 .Card-Content {
   width: 75%;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Card-Content {
+    width: 100%;
+  }
 }
