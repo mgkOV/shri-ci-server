@@ -3,12 +3,12 @@
 .Card {
   box-sizing: border-box;
   box-shadow: var(--box-shadow);
-  border-radius: 6px;
+  border-radius: var(--radius-m);
   background-color: var(--color-bg-base);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px 12px 56px;
+  padding: var(--space-xs) var(--space-m) var(--space-xs) 56px;
   cursor: pointer;
   position: relative;
   transition: box-shadow 0.3s;
@@ -19,7 +19,6 @@
 }
 
 .Card_view_high {
-  // height: 101px;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;

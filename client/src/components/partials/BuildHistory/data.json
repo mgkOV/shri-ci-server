@@ -6,7 +6,9 @@
       "title": "add documentation for postgres scaler",
       "branch": "master",
       "hash": "9c9f0b9",
-      "author": "Philip Kirkorov"
+      "author": "Philip Kirkorov",
+      "date": "1 янв, 1:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "error",
@@ -14,7 +16,9 @@
       "title": "Super cool UI kit for making websites that look like games",
       "branch": "super-cool-ui-kit",
       "hash": "952e5567",
-      "author": "Vadim Makeev"
+      "author": "Vadim Makeev",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "success",
@@ -22,7 +26,9 @@
       "title": "Merge branch 'master' of github.com:jaywcjlove/awesome",
       "branch": "master",
       "hash": "b4636ab",
-      "author": "Philip Kirkorov"
+      "author": "Philip Kirkorov",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "warning",
@@ -30,7 +36,9 @@
       "title": "upgrade typescript to 3.8",
       "branch": "master",
       "hash": "b4636ab",
-      "author": "Philip Kirkorov"
+      "author": "Philip Kirkorov",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "success",
@@ -38,7 +46,9 @@
       "title": "add documentation for postgres scalerpostgres scalerpostgres scalerpostgres scalerpostgres scalerpostgres scaler",
       "branch": "mastermastermaster master master mastermastermastermastermastermastermastermastermastermastermastermaster",
       "hash": "b4636ab",
-      "author": "Philip KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov"
+      "author": "Philip KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov KirkorovKirkorovKirkorov",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "error",
@@ -46,7 +56,9 @@
       "title": "replace all `div` to `article`",
       "branch": "master",
       "hash": "952e5567",
-      "author": "Vadim Makeev"
+      "author": "Vadim Makeev",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "success",
@@ -54,7 +66,9 @@
       "title": "improved accessibility",
       "branch": "master",
       "hash": "e41e4cc",
-      "author": "Philip Kirkorov"
+      "author": "Philip Kirkorov",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "success",
@@ -62,7 +76,9 @@
       "title": "fix: upload 别片类型",
       "branch": "master",
       "hash": "e41e4cc",
-      "author": "Philip Kirkorov"
+      "author": "Philip Kirkorov",
+      "date": "21 янв, 03:06",
+      "duration": "1 ч 20 мин"
     },
     {
       "type": "success",

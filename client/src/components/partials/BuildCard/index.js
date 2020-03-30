@@ -12,7 +12,9 @@ const proptTypes = {
     title: PropTypes.string.isRequired,
     branch: PropTypes.string.isRequired,
     hash: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired
+    author: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired
   }).isRequired,
   timePosition: PropTypes.oneOf(["bottom"]),
   view: PropTypes.oneOf(["high"]),
@@ -44,12 +46,12 @@ const BuildCard = ({ build, timePosition, view, mix }) => {
       <Card.Time position={timePosition}>
         <Meta>
           <Meta.Icon icon="calendar" />
-          <Meta.Text>21 янв, 03:06</Meta.Text>
+          <Meta.Text>{build.date}</Meta.Text>
         </Meta>
 
         <Meta>
           <Meta.Icon icon="stopwatch" />
-          <Meta.Text>1 ч 20 мин</Meta.Text>
+          <Meta.Text>{build.duration}</Meta.Text>
         </Meta>
       </Card.Time>
     </Card>

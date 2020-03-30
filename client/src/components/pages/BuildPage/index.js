@@ -12,7 +12,9 @@ const build = {
   title: "replace all `div` to `article`",
   branch: "master",
   hash: "952e5567",
-  author: "Vadim Makeev"
+  author: "Vadim Makeev",
+  date: "21 янв, 03:06",
+  duration: "1 ч 20 мин"
 };
 
 const BuildPage = () => {
