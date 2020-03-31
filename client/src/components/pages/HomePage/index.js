@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
-import StartScreen from "../../StartScreen";
+import StartScreenGreeting from "../../partials/StartScreenGreeting";
 
 const HomePage = () => {
   return (
@@ -19,15 +19,7 @@ const HomePage = () => {
       </Header>
 
       <Section mix={["App-Section"]}>
-        <StartScreen>
-          <StartScreen.Icon />
-          <StartScreen.Title>
-            Configure repository connection and synchronization settings
-          </StartScreen.Title>
-          <Button type="formControl" tone="action">
-            <Button.Text>Open settings</Button.Text>
-          </Button>
-        </StartScreen>
+        <StartScreenGreeting />
       </Section>
     </>
   );

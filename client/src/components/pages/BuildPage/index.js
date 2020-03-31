@@ -36,6 +36,7 @@ const BuildPage = () => {
           </Button>
         </Header.BtnGroup>
       </Header>
+
       <Section bottomSpace="no">
         <BuildCard build={build} view="high" timePosition="bottom" />
       </Section>
