@@ -9,13 +9,18 @@ const propTypes = {
     .isRequired,
   mix: PropTypes.arrayOf(PropTypes.string),
   view: PropTypes.oneOf(["high"]),
-  type: PropTypes.oneOf(["error", "success", "warning"])
+  type: PropTypes.oneOf(["error", "success", "warning"]),
+  onClick: PropTypes.func
 };
 
-const Card = ({ children, mix, view, type }) => {
+const Card = ({ children, mix, view, type, onClick }) => {
   const cardStyles = cn("Card")({ view, type }, mix);
 
-  return <div className={cardStyles}>{children}</div>;
+  return (
+    <div className={cardStyles} onClick={onClick}>
+      {children}
+    </div>
+  );
 };
 
 Card.propTypes = propTypes;

@@ -33,10 +33,22 @@ const SettingsForm = props => {
         <FieldSuite.Hint>minutes</FieldSuite.Hint>
       </FieldSuite>
       <ButtonGroup mix={["Form-BtnGroup"]}>
-        <Button tone="action" type="formControl" mix={["ButtonGroup-Item"]} fullWidthAtSmallScreen>
+        <Button
+          tone="action"
+          type="formControl"
+          mix={["ButtonGroup-Item"]}
+          fullWidthAtSmallScreen
+          onClick={() => console.log("Save")}
+        >
           <Button.Text>Save</Button.Text>
         </Button>
-        <Button tone="control" type="formControl" mix={["ButtonGroup-Item"]} fullWidthAtSmallScreen>
+        <Button
+          tone="control"
+          type="formControl"
+          mix={["ButtonGroup-Item"]}
+          fullWidthAtSmallScreen
+          onClick={() => console.log("Cancel")}
+        >
           <Button.Text>Cancel</Button.Text>
         </Button>
       </ButtonGroup>

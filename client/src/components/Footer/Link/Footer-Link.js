@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import "./Footer-Link.scss";
 
@@ -10,9 +11,9 @@ const propTypes = {
 
 const FooterLink = ({ children, to }) => {
   return (
-    <a className="Footer-Link" href={to}>
+    <Link className="Footer-Link" to={to}>
       {children}
-    </a>
+    </Link>
   );
 };
 

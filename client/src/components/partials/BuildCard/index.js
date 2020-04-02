@@ -18,12 +18,18 @@ const proptTypes = {
   }).isRequired,
   timePosition: PropTypes.oneOf(["bottom"]),
   view: PropTypes.oneOf(["high"]),
-  mix: PropTypes.arrayOf(PropTypes.string)
+  mix: PropTypes.arrayOf(PropTypes.string),
+  history: PropTypes.object
 };
 
-const BuildCard = ({ build, timePosition, view, mix }) => {
+const BuildCard = ({ build, timePosition, view, mix, history }) => {
   return (
-    <Card type={build.type} mix={mix} view={view}>
+    <Card
+      type={build.type}
+      mix={mix}
+      view={view}
+      onClick={history ? () => history.push(`/build/${build.number}`) : undefined}
+    >
       <Card.Content>
         <Status mix={["Card-Title"]}>
           <Status.Number view={build.type}>{"#" + build.number}</Status.Number>

@@ -10,14 +10,15 @@ const propTypes = {
   tone: PropTypes.oneOf(["action", "control", "disabled"]),
   fullWidthAtSmallScreen: PropTypes.bool,
   type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"]),
-  mix: PropTypes.arrayOf(PropTypes.string)
+  mix: PropTypes.arrayOf(PropTypes.string),
+  onClick: PropTypes.func.isRequired
 };
 
-const Button = ({ children, tone, type, fullWidthAtSmallScreen, mix }) => {
+const Button = ({ children, tone, type, fullWidthAtSmallScreen, mix, onClick }) => {
   const buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen }, mix);
 
   return (
-    <button type="button" className={buttonStyles}>
+    <button type="button" className={buttonStyles} onClick={onClick}>
       {children}
     </button>
   );

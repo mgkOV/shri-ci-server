@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Header from "../../Header";
 import Button from "../../Button";
@@ -7,6 +8,10 @@ import BuildCard from "../../partials/BuildCard";
 import LogScreen from "../../LogScreen";
 
 import { log } from "./log-seed.js";
+
+const propTypes = {
+  history: PropTypes.object //from react-router-dom
+};
 
 const build = {
   type: "error",
@@ -19,7 +24,7 @@ const build = {
   duration: "1 ч 20 мин"
 };
 
-const BuildPage = () => {
+const BuildPage = ({ history }) => {
   return (
     <>
       <Header>
@@ -27,11 +32,21 @@ const BuildPage = () => {
           philip1967/my-awesome-repo-with-long-long-long-repo-name
         </Header.BuildTitle>
         <Header.BtnGroup>
-          <Button type="iconText" tone="control" mix={["Header-Button"]}>
+          <Button
+            type="iconText"
+            tone="control"
+            mix={["Header-Button"]}
+            onClick={() => console.log("Rebuild")}
+          >
             <Button.Icon icon="rebuild" />
             <Button.Text>Rebuild</Button.Text>
           </Button>
-          <Button type="icon" tone="control" mix={["Header-Button"]}>
+          <Button
+            type="icon"
+            tone="control"
+            mix={["Header-Button"]}
+            onClick={() => history.push("/settings")}
+          >
             <Button.Icon icon="settings" />
           </Button>
         </Header.BtnGroup>
@@ -44,5 +59,7 @@ const BuildPage = () => {
     </>
   );
 };
+
+BuildPage.propTypes = propTypes;
 
 export default BuildPage;
