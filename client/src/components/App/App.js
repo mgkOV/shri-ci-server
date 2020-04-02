@@ -23,7 +23,7 @@ function App() {
 
       <CiFooter />
 
-      {false && <NewBuildPopUp />}
+      <NewBuildPopUp />
     </div>
   );
 }

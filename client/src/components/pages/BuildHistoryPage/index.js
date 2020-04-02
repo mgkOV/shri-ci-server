@@ -1,17 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
 
 import BuildHistory from "../../partials/BuildHistory";
+import { openPopUp } from "../../../redux/popUp/popUp.actions";
 
 const propTypes = {
-  history: PropTypes.object // from react-router-dom
+  history: PropTypes.object, // from react-router-dom
+  openPopUp: PropTypes.func // redux
 };
 
-const BuildHistroyPage = ({ history }) => {
+const BuildHistroyPage = ({ history, openPopUp }) => {
   return (
     <>
       <Header>
@@ -19,12 +22,7 @@ const BuildHistroyPage = ({ history }) => {
           philip1967/my-awesome-repo-with-long-long-long-repo-name
         </Header.BuildTitle>
         <Header.BtnGroup>
-          <Button
-            type="iconText"
-            tone="control"
-            mix={["Header-Button"]}
-            onClick={() => console.log("Run Build")}
-          >
+          <Button type="iconText" tone="control" mix={["Header-Button"]} onClick={openPopUp}>
             <Button.Icon icon="build" />
             <Button.Text>Run build</Button.Text>
           </Button>
@@ -56,4 +54,4 @@ const BuildHistroyPage = ({ history }) => {
 
 BuildHistroyPage.propTypes = propTypes;
 
-export default BuildHistroyPage;
+export default connect(null, { openPopUp })(BuildHistroyPage);

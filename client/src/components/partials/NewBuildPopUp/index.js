@@ -1,11 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import PopUp from "../../PopUp";
 import FieldSuite from "../../FieldSuite";
 import Button from "../../Button";
 import ButtonGroup from "../../ButtonGroup";
+import { closePopUp } from "../../../redux/popUp/popUp.actions";
 
-const NewBuildPopUp = props => {
+const NewBuildPopUp = ({ popUp, closePopUp }) => {
+  if (!popUp.show) return null;
+
   return (
     <PopUp>
       <PopUp.Content>
@@ -22,6 +26,9 @@ const NewBuildPopUp = props => {
             type="formControl"
             mix={["ButtonGroup-Item"]}
             fullWidthAtSmallScreen
+            onClick={() => {
+              console.log("Run");
+            }}
           >
             <Button.Text>Run build</Button.Text>
           </Button>
@@ -30,6 +37,7 @@ const NewBuildPopUp = props => {
             type="formControl"
             mix={["ButtonGroup-Item"]}
             fullWidthAtSmallScreen
+            onClick={closePopUp}
           >
             <Button.Text>Cancel</Button.Text>
           </Button>
@@ -39,4 +47,6 @@ const NewBuildPopUp = props => {
   );
 };
 
-export default NewBuildPopUp;
+const mapState = ({ popUp }) => ({ popUp });
+
+export default connect(mapState, { closePopUp })(NewBuildPopUp);
