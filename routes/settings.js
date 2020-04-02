@@ -27,6 +27,13 @@ router.get("/", async (req, res) => {
   res.json(settings);
 });
 
+// удаление настроек
+router.delete("/", async (req, res) => {
+  await shriApi.deleteConfig();
+
+  res.sendStatus(200);
+});
+
 // cохранение настроек
 router.post("/", downloader, async (req, res) => {
   const { repoName, buildCommand, mainBranch, period } = req.body;

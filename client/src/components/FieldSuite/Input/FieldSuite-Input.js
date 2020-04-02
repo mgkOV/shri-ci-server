@@ -3,12 +3,27 @@ import PropTypes from "prop-types";
 
 import "./FieldSuite-Input.scss";
 
-const propTypes = { placeholder: PropTypes.string, name: PropTypes.string };
+const propTypes = {
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func
+};
 
-const FieldSuiteInput = ({ placeholder = "", name }) => {
+const FieldSuiteInput = ({ placeholder = "", name, value, handleChange }) => {
+  console.log(value);
+
   return (
     <div className="FieldSuite-Input">
-      <input type="text" id={name} name={name} placeholder={placeholder} />
+      <input
+        type="text"
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={e => handleChange(e.target.value)}
+      />
+      <div className="FieldSuite-Cleaner" onClick={e => handleChange("")}></div>
     </div>
   );
 };

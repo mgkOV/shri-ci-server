@@ -12,7 +12,11 @@ const propsTypes = {
 };
 
 const HomePage = ({ history, settings }) => {
-  return settings ? <BuildHistoryScreen history={history} /> : <StartScreen history={history} />;
+  return settings && settings.id ? (
+    <BuildHistoryScreen history={history} />
+  ) : (
+    <StartScreen history={history} />
+  );
 };
 
 HomePage.propsTypes = propsTypes;

@@ -10,11 +10,11 @@ const propTypes = {
   mix: PropTypes.arrayOf(PropTypes.string)
 };
 
-const From = ({ children, mix }) => {
+const Form = ({ children, mix }) => {
   const formStyles = cn("Form")(null, mix);
   return <form className={formStyles}>{children}</form>;
 };
 
-From.propTypes = propTypes;
+Form.propTypes = propTypes;
 
-export default From;
+export default Form;

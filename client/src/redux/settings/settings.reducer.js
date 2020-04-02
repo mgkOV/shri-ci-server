@@ -1,7 +1,7 @@
 import types from "./settings.types";
 
 const INITIAL_STATE = {
-  data: null,
+  data: {},
   isFetching: false,
   errorMessage: undefined
 };
