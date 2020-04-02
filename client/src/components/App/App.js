@@ -8,15 +8,18 @@ import SettingsPage from "../pages/SettingsPage";
 import BuildPage from "../pages/BuildPage";
 import NewBuildPopUp from "../partials/NewBuildPopUp";
 import CiFooter from "../partials/CiFooter";
+import Loader from "../Loader";
+import Section from "../Section";
 import { getSettings } from "../../redux/settings/settings.actions";
+import { selectIsSettingsFetching } from "../../redux/settings/settings.selectors";
 
-const App = ({ getSettings }) => {
+const App = ({ getSettings, isSettingsFetching }) => {
   useEffect(() => {
     getSettings();
   }, [getSettings]);
 
-  return (
-    <div className="App">
+  let appContent = (
+    <>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/settings" component={SettingsPage} />
@@ -26,8 +29,25 @@ const App = ({ getSettings }) => {
       <CiFooter />
 
       <NewBuildPopUp />
-    </div>
+    </>
   );
+
+  if (isSettingsFetching) {
+    appContent = (
+      <>
+        <Section mix={["App-Section"]}>
+          <Loader />
+        </Section>
+        <CiFooter />
+      </>
+    );
+  }
+
+  return <div className="App">{appContent}</div>;
 };
 
-export default connect(null, { getSettings })(App);
+const mapState = state => ({
+  isSettingsFetching: selectIsSettingsFetching(state)
+});
+
+export default connect(mapState, { getSettings })(App);
