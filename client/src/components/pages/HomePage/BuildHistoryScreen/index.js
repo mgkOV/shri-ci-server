@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import Header from "../../Header";
-import Button from "../../Button";
-import Section from "../../Section";
+import Header from "../../../Header";
+import Button from "../../../Button";
+import Section from "../../../Section";
 
-import BuildHistory from "../../partials/BuildHistory";
-import { openPopUp } from "../../../redux/popUp/popUp.actions";
+import BuildHistory from "../../../partials/BuildHistory";
+import { openPopUp } from "../../../../redux/popUp/popUp.actions";
 
 const propTypes = {
-  history: PropTypes.object, // from react-router-dom
+  history: PropTypes.object,
   openPopUp: PropTypes.func // redux
 };
 
