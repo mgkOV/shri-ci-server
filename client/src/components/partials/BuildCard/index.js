@@ -28,23 +28,23 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
       type={build.type}
       mix={mix}
       view={view}
-      onClick={history ? () => history.push(`/build/${build.number}`) : undefined}
+      onClick={history ? () => history.push(`/build/${build.buildNumber}`) : undefined}
     >
       <Card.Content>
         <Status mix={["Card-Title"]}>
-          <Status.Number view={build.type}>{"#" + build.number}</Status.Number>
-          <Status.Comment>{build.title}</Status.Comment>
+          <Status.Number view={build.status.toLowerCase()}>{"#" + build.buildNumber}</Status.Number>
+          <Status.Comment>{build.commitMessage}</Status.Comment>
         </Status>
         <Card.Subtitle>
           <Meta mix={["Card-SubtitleItem"]}>
             <Meta.Icon icon="commit" />
-            <Meta.Text>{build.branch}</Meta.Text>
-            <Meta.Text secondary>{build.hash}</Meta.Text>
+            <Meta.Text>{build.branchName}</Meta.Text>
+            <Meta.Text secondary>{build.commitHash.substring(0, 8)}</Meta.Text>
           </Meta>
 
           <Meta mix={["Card-SubtitleItem"]}>
             <Meta.Icon icon="user" />
-            <Meta.Text>{build.author}</Meta.Text>
+            <Meta.Text>{build.authorName}</Meta.Text>
           </Meta>
         </Card.Subtitle>
       </Card.Content>
@@ -52,12 +52,12 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
       <Card.Time position={timePosition}>
         <Meta>
           <Meta.Icon icon="calendar" />
-          <Meta.Text>{build.date}</Meta.Text>
+          <Meta.Text>{"21 янв, 03:06"}</Meta.Text>
         </Meta>
 
         <Meta>
           <Meta.Icon icon="stopwatch" />
-          <Meta.Text>{build.duration}</Meta.Text>
+          <Meta.Text>{"1 ч 20 мин"}</Meta.Text>
         </Meta>
       </Card.Time>
     </Card>

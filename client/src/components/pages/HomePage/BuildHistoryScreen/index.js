@@ -9,6 +9,7 @@ import Section from "../../../Section";
 import BuildHistory from "../../../partials/BuildHistory";
 import { openPopUp } from "../../../../redux/popUp/popUp.actions";
 import { getAllBuilds } from "../../../../redux/builds/builds.actions";
+import { selectAllBuilds } from "../../../../redux/builds/builds.selectors";
 
 const propTypes = {
   history: PropTypes.object,
@@ -16,7 +17,7 @@ const propTypes = {
   getAllBuilds: PropTypes.func // redux
 };
 
-const BuildHistroyPage = ({ history, openPopUp, getAllBuilds }) => {
+const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds }) => {
   useEffect(() => {
     getAllBuilds();
   }, [getAllBuilds]);
@@ -44,7 +45,7 @@ const BuildHistroyPage = ({ history, openPopUp, getAllBuilds }) => {
       </Header>
 
       <Section>
-        <BuildHistory />
+        <BuildHistory builds={builds} />
         <Button
           type="text"
           tone="control"
@@ -60,4 +61,8 @@ const BuildHistroyPage = ({ history, openPopUp, getAllBuilds }) => {
 
 BuildHistroyPage.propTypes = propTypes;
 
-export default connect(null, { openPopUp, getAllBuilds })(BuildHistroyPage);
+const mapSate = state => ({
+  builds: selectAllBuilds(state)
+});
+
+export default connect(mapSate, { openPopUp, getAllBuilds })(BuildHistroyPage);

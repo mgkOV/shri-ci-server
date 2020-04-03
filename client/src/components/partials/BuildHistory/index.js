@@ -5,8 +5,6 @@ import { withRouter } from "react-router-dom";
 import History from "../../History";
 import BuildCard from "../BuildCard";
 
-import data from "./data.json";
-
 const propTypes = {
   buids: PropTypes.array,
   history: PropTypes.object //from react-router-dom
@@ -14,11 +12,11 @@ const propTypes = {
 
 const BuildHistory = ({ history, builds }) => {
   const renderBuilds = builds =>
-    builds.map(b => {
-      return <BuildCard build={b} mix={["History-Item"]} key={b.number} history={history} />;
+    builds.reverse().map(b => {
+      return <BuildCard build={b} mix={["History-Item"]} key={b.buildNumber} history={history} />;
     });
 
-  return <History>{renderBuilds(data.history)}</History>;
+  return <History>{renderBuilds(builds)}</History>;
 };
 
 BuildHistory.propTypes = propTypes;
