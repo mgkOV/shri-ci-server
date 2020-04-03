@@ -5,4 +5,9 @@ export default class Api {
     const settings = await axios.get("/api/settings");
     return settings.data;
   };
+
+  getAllBuilds = async () => {
+    const builds = await axios.get("/api/builds");
+    return builds.data;
+  };
 }

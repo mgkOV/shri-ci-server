@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const config = require("config");
 
-const watcher = require("./utils/watcher");
+// const watcher = require("./utils/watcher");
 
 const port = config.get("port");
 require("express-async-errors");
@@ -20,7 +20,7 @@ app.listen(port, () => {
   console.log(`CI server listening on port ${port}!`);
 
   // запускаем автопроверку на новые коммиты репозитория github
-  watcher.startWatch();
+  // watcher.startWatch();
 
   // Проверяем есть ли в очереди билды со статусом Waiting и InPrograss
   require("./utils/initial-check")();
