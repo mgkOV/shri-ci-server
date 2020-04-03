@@ -25,7 +25,7 @@ const proptTypes = {
 const BuildCard = ({ build, timePosition, view, mix, history }) => {
   return (
     <Card
-      type={build.type}
+      type={build.status.toLowerCase()}
       mix={mix}
       view={view}
       onClick={history ? () => history.push(`/build/${build.buildNumber}`) : undefined}
@@ -52,12 +52,12 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
       <Card.Time position={timePosition}>
         <Meta>
           <Meta.Icon icon="calendar" />
-          <Meta.Text>{"21 янв, 03:06"}</Meta.Text>
+          <Meta.Text>{build.start}</Meta.Text>
         </Meta>
 
         <Meta>
           <Meta.Icon icon="stopwatch" />
-          <Meta.Text>{"1 ч 20 мин"}</Meta.Text>
+          <Meta.Text>{build.duration}</Meta.Text>
         </Meta>
       </Card.Time>
     </Card>

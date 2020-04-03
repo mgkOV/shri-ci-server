@@ -1,6 +1,8 @@
 const express = require("express");
 
 const buildRunner = require("../utils/build-runner");
+const formatDuration = require("../utils/format-duration");
+const formatDate = require("../utils/format-date");
 const shriApi = require("../api/shri-api");
 const githubApi = require("../api/github-api");
 
@@ -11,7 +13,13 @@ router.get("/", async (req, res) => {
   const { offset = 0, limit = 25 } = req.query;
   const response = await shriApi.getBuildList(offset, limit);
 
-  res.json(response.data);
+  const buildList = response.data.map(b => {
+    b.duration = formatDuration(b.duration);
+    b.start = formatDate(b.start);
+    return b;
+  });
+
+  res.json(buildList);
 });
 
 // получение информации о конкретной сборке
@@ -19,7 +27,10 @@ router.get("/:buildId", async (req, res) => {
   const { buildId } = req.params;
   const response = await shriApi.getBuildDetails(buildId);
 
-  res.json(response.data);
+  const build = response.data;
+  build.duration = formatDuration(build.duration);
+
+  res.json(build);
 });
 
 // получение логов билда (сплошной текст)
