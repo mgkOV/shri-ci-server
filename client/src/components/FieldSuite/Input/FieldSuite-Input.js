@@ -7,7 +7,7 @@ const propTypes = {
   placeholder: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onChange: PropTypes.func
+  handleChange: PropTypes.func.isRequired
 };
 
 const FieldSuiteInput = ({ placeholder = "", name, value, handleChange }) => {
