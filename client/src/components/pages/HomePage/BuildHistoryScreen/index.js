@@ -7,6 +7,7 @@ import Header from "../../../Header";
 import Button from "../../../Button";
 import Section from "../../../Section";
 
+import NewBuildPopUp from "../../../partials/NewBuildPopUp";
 import BuildHistory from "../../../partials/BuildHistory";
 import { openPopUp } from "../../../../redux/popUp/popUp.actions";
 import { getAllBuilds } from "../../../../redux/builds/builds.actions";
@@ -55,6 +56,7 @@ const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds, settings }
           <Button.Text>Show more</Button.Text>
         </Button>
       </Section>
+      <NewBuildPopUp />
     </>
   );
 };

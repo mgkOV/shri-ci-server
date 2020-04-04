@@ -1,24 +1,33 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 
 import PopUp from "../../PopUp";
 import FieldSuite from "../../FieldSuite";
 import Button from "../../Button";
 import Form from "../../Form";
+import Loader from "../../Loader";
 import ButtonGroup from "../../ButtonGroup";
 import { closePopUp } from "../../../redux/popUp/popUp.actions";
 import { postBuild } from "../../../redux/builds/builds.actions";
+import { selectIsCurrentBuildFetching } from "../../../redux/builds/builds.selectors";
+import { selectIsPopUpShown } from "../../../redux/popUp/popUp.selectors";
 
-const NewBuildPopUp = ({ popUp, closePopUp, postBuild, history }) => {
+const NewBuildPopUp = ({ isShown, closePopUp, postBuild, history, isPosting }) => {
   const [hash, setHash] = useState("");
-  if (!popUp.show) return null;
+  if (!isShown) return null;
+  if (isPosting)
+    return (
+      <PopUp>
+        <Loader view="popUp" />
+      </PopUp>
+    );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     postBuild(hash.trim(), history);
     setHash("");
-    closePopUp();
   };
 
   return (
@@ -66,7 +75,10 @@ const NewBuildPopUp = ({ popUp, closePopUp, postBuild, history }) => {
   );
 };
 
-const mapState = ({ popUp }) => ({ popUp });
+const mapState = createStructuredSelector({
+  isPosting: selectIsCurrentBuildFetching,
+  isShown: selectIsPopUpShown
+});
 
 const NewBuildPopUpConnected = connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);
 

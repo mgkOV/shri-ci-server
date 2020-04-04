@@ -6,7 +6,6 @@ import "./App.scss";
 import HomePage from "../pages/HomePage";
 import SettingsPage from "../pages/SettingsPage";
 import BuildPage from "../pages/BuildPage";
-import NewBuildPopUp from "../partials/NewBuildPopUp";
 import CiFooter from "../partials/CiFooter";
 import Loader from "../Loader";
 import Section from "../Section";
@@ -23,8 +22,6 @@ const App = ({ isSettingsFetching }) => {
       </Switch>
 
       <CiFooter />
-
-      <NewBuildPopUp />
     </>
   );
 
