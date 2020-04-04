@@ -9,8 +9,12 @@ import Button from "../../Button";
 import Section from "../../Section";
 import BuildCard from "../../partials/BuildCard";
 import LogScreen from "../../LogScreen";
+import Loader from "../../Loader";
 import { selectSettingsData } from "../../../redux/settings/settings.selectors";
-import { selectCurrentBuild } from "../../../redux/builds/builds.selectors";
+import {
+  selectCurrentBuild,
+  selectIsCurrentBuildFetching
+} from "../../../redux/builds/builds.selectors";
 import { getCurrentBuild } from "../../../redux/builds/builds.actions";
 
 import { log } from "./log-seed.js";
@@ -21,14 +25,13 @@ const propTypes = {
   getCurrentBuild: PropTypes.func //redux
 };
 
-const BuildPage = ({ settings, build, getCurrentBuild }) => {
+const BuildPage = ({ settings, build, getCurrentBuild, isBuildFetching }) => {
   const { buildId } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     if (!build.id) {
       getCurrentBuild(buildId);
-      console.log("111");
     }
   }, [getCurrentBuild, buildId, build.id]);
 
@@ -57,10 +60,18 @@ const BuildPage = ({ settings, build, getCurrentBuild }) => {
         </Header.BtnGroup>
       </Header>
 
-      <Section bottomSpace="no">
-        <BuildCard build={build} view="high" timePosition="bottom" />
-      </Section>
-      <LogScreen log={log} />
+      {isBuildFetching ? (
+        <Section>
+          <Loader />
+        </Section>
+      ) : (
+        <>
+          <Section bottomSpace="no">
+            <BuildCard build={build} view="high" timePosition="bottom" />
+          </Section>
+          <LogScreen log={log} />
+        </>
+      )}
     </>
   );
 };
@@ -69,7 +80,8 @@ BuildPage.propTypes = propTypes;
 
 const mapSate = createStructuredSelector({
   settings: selectSettingsData,
-  build: selectCurrentBuild
+  build: selectCurrentBuild,
+  isBuildFetching: selectIsCurrentBuildFetching
 });
 
 export default connect(mapSate, { getCurrentBuild })(BuildPage);
