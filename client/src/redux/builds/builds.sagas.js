@@ -6,9 +6,9 @@ import { closePopUp } from "../popUp/popUp.actions";
 const api = new Api();
 
 // Get all builds
-function* getBuildList() {
+function* getBuildList({ payload }) {
   try {
-    const builds = yield call(api.getBuildList);
+    const builds = yield call(api.getBuildList, payload);
 
     yield put({ type: types.BUILD_LIST_GET_SUCCEEDED, payload: builds });
   } catch (e) {

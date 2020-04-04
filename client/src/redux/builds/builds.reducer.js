@@ -11,12 +11,12 @@ const INITIAL_STATE = {
 
 const buildReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // GET all builds
+    // GET build list
     case types.BUILD_LIST_GET_REQUESTED:
       return { ...state, isAllFetching: true };
 
     case types.BUILD_LIST_GET_SUCCEEDED:
-      return { ...state, isAllFetching: false, allBuilds: action.payload };
+      return { ...state, isAllFetching: false, allBuilds: [...state.allBuilds, ...action.payload] };
 
     case types.BUILD_LIST_GET_FAILED:
       return { ...state, isAllFetching: false, errorMessage: action.payload };

@@ -1,7 +1,8 @@
 import types from "./builds.types";
 
-export const getBuildList = () => ({
-  type: types.BUILD_LIST_GET_REQUESTED
+export const getBuildList = (offset) => ({
+  type: types.BUILD_LIST_GET_REQUESTED,
+  payload: offset
 });
 
 export const getCurrentBuild = () => ({

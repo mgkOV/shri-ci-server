@@ -22,7 +22,7 @@ const propTypes = {
 
 const BuildHistroyPage = ({ history, openPopUp, getBuildList, builds, settings }) => {
   useEffect(() => {
-    getBuildList();
+    getBuildList(0);
   }, [getBuildList]);
 
   return (
@@ -51,7 +51,7 @@ const BuildHistroyPage = ({ history, openPopUp, getBuildList, builds, settings }
           type="text"
           tone="control"
           fullWidthAtSmallScreen
-          onClick={() => console.log("Show more")}
+          onClick={() => getBuildList(builds.length)}
         >
           <Button.Text>Show more</Button.Text>
         </Button>
