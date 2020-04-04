@@ -1,36 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { useParams, useHistory } from "react-router-dom";
 
 import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
 import BuildCard from "../../partials/BuildCard";
 import LogScreen from "../../LogScreen";
+import { selectSettingsData } from "../../../redux/settings/settings.selectors";
+import { selectCurrentBuild } from "../../../redux/builds/builds.selectors";
+import { getCurrentBuild } from "../../../redux/builds/builds.actions";
 
 import { log } from "./log-seed.js";
 
 const propTypes = {
-  history: PropTypes.object //from react-router-dom
+  settings: PropTypes.object, //redux
+  build: PropTypes.object, //redux
+  getCurrentBuild: PropTypes.func //redux
 };
 
-const build = {
-  type: "error",
-  number: 1363,
-  title: "replace all `div` to `article`",
-  branch: "master",
-  hash: "952e5567",
-  author: "Vadim Makeev",
-  date: "21 янв, 03:06",
-  duration: "1 ч 20 мин"
-};
+const BuildPage = ({ settings, build, getCurrentBuild }) => {
+  const { buildId } = useParams();
+  const history = useHistory();
 
-const BuildPage = ({ history }) => {
+  useEffect(() => {
+    if (!build.id) {
+      getCurrentBuild(buildId);
+      console.log("111");
+    }
+  }, [getCurrentBuild, buildId, build.id]);
+
   return (
     <>
       <Header>
-        <Header.BuildTitle>
-          philip1967/my-awesome-repo-with-long-long-long-repo-name
-        </Header.BuildTitle>
+        <Header.BuildTitle>{settings.repoName}</Header.BuildTitle>
         <Header.BtnGroup>
           <Button
             type="iconText"
@@ -62,4 +67,9 @@ const BuildPage = ({ history }) => {
 
 BuildPage.propTypes = propTypes;
 
-export default BuildPage;
+const mapSate = createStructuredSelector({
+  settings: selectSettingsData,
+  build: selectCurrentBuild
+});
+
+export default connect(mapSate, { getCurrentBuild })(BuildPage);

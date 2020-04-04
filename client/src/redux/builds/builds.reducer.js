@@ -55,6 +55,9 @@ const buildReducer = (state = INITIAL_STATE, action) => {
     case types.CLEAR_CURRENT_BUILD:
       return { ...state, currentBuild: {} };
 
+    case types.CLEAR_BUILD_LIST:
+      return { ...state, allBuilds: [] };
+
     default:
       return state;
   }

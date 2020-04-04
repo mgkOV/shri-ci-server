@@ -5,8 +5,9 @@ export const getBuildList = (offset) => ({
   payload: offset
 });
 
-export const getCurrentBuild = () => ({
-  type: types.BUILD_GET_REQUESTED
+export const getCurrentBuild = (id) => ({
+  type: types.BUILD_GET_REQUESTED,
+  payload: id
 });
 
 export const getBuildLog = () => ({
@@ -17,4 +18,12 @@ export const postBuild = (commitHash, history) => ({
   type: types.BUILD_POST_REQUESTED,
   payload: commitHash,
   history
+});
+
+export const clearBuildList = () => ({
+  type: types.CLEAR_BUILD_LIST
+});
+
+export const clearCurrentBuild = () => ({
+  type: types.CLEAR_CURRENT_BUILD
 });

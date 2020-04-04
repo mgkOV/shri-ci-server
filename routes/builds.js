@@ -29,6 +29,7 @@ router.get("/:buildId", async (req, res) => {
 
   const build = response.data;
   build.duration = formatDuration(build.duration);
+  build.start = formatDate(build.start);
 
   res.json(build);
 });
