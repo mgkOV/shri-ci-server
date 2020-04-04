@@ -8,7 +8,8 @@ import Header from "../../Header";
 import Button from "../../Button";
 import Section from "../../Section";
 import BuildCard from "../../partials/BuildCard";
-import LogScreen from "../../LogScreen";
+import BuildLogs from "../../partials/BuildLogs";
+
 import Loader from "../../Loader";
 import { selectSettingsData } from "../../../redux/settings/settings.selectors";
 import {
@@ -20,8 +21,6 @@ import {
   clearCurrentBuild,
   postBuild
 } from "../../../redux/builds/builds.actions";
-
-import { log } from "./log-seed.js";
 
 const propTypes = {
   settings: PropTypes.object, //redux
@@ -43,12 +42,10 @@ const BuildPage = ({
   const history = useHistory();
 
   useEffect(() => {
-    if (!build.id) {
-      getCurrentBuild(buildId);
-      return;
-    }
-    return clearCurrentBuild;
-  }, [getCurrentBuild, clearCurrentBuild, buildId, build.id]);
+    getCurrentBuild(buildId);
+  }, [getCurrentBuild, buildId]);
+
+  useEffect(() => clearCurrentBuild, [clearCurrentBuild]);
 
   return (
     <>
@@ -86,7 +83,7 @@ const BuildPage = ({
           <Section bottomSpace="no">
             <BuildCard build={build} view="high" timePosition="bottom" />
           </Section>
-          <LogScreen log={log} />
+          <BuildLogs buildId={build.id} status={build.status} />
         </>
       )}
     </>
