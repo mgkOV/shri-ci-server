@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 import Card from "../../Card";
 import Status from "../../Status";
@@ -13,7 +14,9 @@ const proptTypes = {
   history: PropTypes.object
 };
 
-const BuildCard = ({ build, timePosition, view, mix, history }) => {
+const BuildCard = ({ build, timePosition, view, mix }) => {
+  const history = useHistory();
+
   const statusMap = {
     Waiting: "waiting",
     InProgress: "waiting",

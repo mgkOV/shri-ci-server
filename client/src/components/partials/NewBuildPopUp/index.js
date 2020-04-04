@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import PropTypes from "prop-types";
 
 import PopUp from "../../PopUp";
 import FieldSuite from "../../FieldSuite";
@@ -14,8 +15,16 @@ import { postBuild } from "../../../redux/builds/builds.actions";
 import { selectIsCurrentBuildFetching } from "../../../redux/builds/builds.selectors";
 import { selectIsPopUpShown } from "../../../redux/popUp/popUp.selectors";
 
-const NewBuildPopUp = ({ isShown, closePopUp, postBuild, history, isPosting }) => {
+const propTypes = {
+  isShown: PropTypes.bool, //redux
+  closePopUp: PropTypes.func, //redux
+  postBuild: PropTypes.func, //redux
+  isPosting: PropTypes.bool //redux
+};
+
+const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
   const [hash, setHash] = useState("");
+  const history = useHistory();
   if (!isShown) return null;
   if (isPosting)
     return (
@@ -75,11 +84,11 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, history, isPosting }) =
   );
 };
 
+NewBuildPopUp.propTypes = propTypes;
+
 const mapState = createStructuredSelector({
   isPosting: selectIsCurrentBuildFetching,
   isShown: selectIsPopUpShown
 });
 
-const NewBuildPopUpConnected = connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);
-
-export default withRouter(NewBuildPopUpConnected);
+export default connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);
