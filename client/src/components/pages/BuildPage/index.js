@@ -15,7 +15,11 @@ import {
   selectCurrentBuild,
   selectIsCurrentBuildFetching
 } from "../../../redux/builds/builds.selectors";
-import { getCurrentBuild, clearCurrentBuild } from "../../../redux/builds/builds.actions";
+import {
+  getCurrentBuild,
+  clearCurrentBuild,
+  postBuild
+} from "../../../redux/builds/builds.actions";
 
 import { log } from "./log-seed.js";
 
@@ -23,10 +27,18 @@ const propTypes = {
   settings: PropTypes.object, //redux
   build: PropTypes.object, //redux
   getCurrentBuild: PropTypes.func, //redux
+  postBuild: PropTypes.func, //redux
   clearCurrentBuild: PropTypes.func //redux
 };
 
-const BuildPage = ({ settings, build, getCurrentBuild, isBuildFetching, clearCurrentBuild }) => {
+const BuildPage = ({
+  settings,
+  build,
+  getCurrentBuild,
+  isBuildFetching,
+  clearCurrentBuild,
+  postBuild
+}) => {
   const { buildId } = useParams();
   const history = useHistory();
 
@@ -43,15 +55,17 @@ const BuildPage = ({ settings, build, getCurrentBuild, isBuildFetching, clearCur
       <Header>
         <Header.BuildTitle>{settings.repoName}</Header.BuildTitle>
         <Header.BtnGroup>
-          <Button
-            type="iconText"
-            tone="control"
-            mix={["Header-Button"]}
-            onClick={() => console.log("Rebuild")}
-          >
-            <Button.Icon icon="rebuild" />
-            <Button.Text>Rebuild</Button.Text>
-          </Button>
+          {build.commitHash && (
+            <Button
+              type="iconText"
+              tone="control"
+              mix={["Header-Button"]}
+              onClick={() => postBuild(build.commitHash, history)}
+            >
+              <Button.Icon icon="rebuild" />
+              <Button.Text>Rebuild</Button.Text>
+            </Button>
+          )}
           <Button
             type="icon"
             tone="control"
@@ -87,4 +101,4 @@ const mapSate = createStructuredSelector({
   isBuildFetching: selectIsCurrentBuildFetching
 });
 
-export default connect(mapSate, { getCurrentBuild, clearCurrentBuild })(BuildPage);
+export default connect(mapSate, { getCurrentBuild, clearCurrentBuild, postBuild })(BuildPage);
