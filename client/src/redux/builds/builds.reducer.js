@@ -3,7 +3,7 @@ import types from "./builds.types";
 const INITIAL_STATE = {
   allBuilds: [],
   currentBuild: {},
-  isFetching: true,
+  isFetching: false,
   errorMessage: undefined
 };
 

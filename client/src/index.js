@@ -5,17 +5,24 @@ import { Provider } from "react-redux";
 
 import "./index.scss";
 import App from "./components/App";
+import ErrorBoundry from "./components/ErrorBoundry";
+import { getSettings } from "./redux/settings/settings.actions";
+
 import * as serviceWorker from "./serviceWorker";
 
 import store from "./redux/store";
 
+store.dispatch(getSettings());
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ErrorBoundry>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundry>
   </React.StrictMode>,
   document.getElementById("root")
 );

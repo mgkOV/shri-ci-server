@@ -22,7 +22,7 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
     Canceled: "error"
   };
 
-  const shortenHash = build.commitHash.substring(0, 8);
+  const shortenHash = build.commitHash && build.commitHash.substring(0, 8);
 
   const cardStatus = statusMap[build.status];
 
@@ -31,7 +31,7 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
       type={cardStatus}
       mix={mix}
       view={view}
-      onClick={history ? () => history.push(`/build/${build.buildNumber}`) : undefined}
+      onClick={history ? () => history.push(`/build/${build.id}`) : undefined}
     >
       <Card.Content>
         <Status mix={["Card-Title"]}>

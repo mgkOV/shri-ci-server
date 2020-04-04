@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import PopUp from "../../PopUp";
 import FieldSuite from "../../FieldSuite";
@@ -9,13 +10,13 @@ import ButtonGroup from "../../ButtonGroup";
 import { closePopUp } from "../../../redux/popUp/popUp.actions";
 import { postBuild } from "../../../redux/builds/builds.actions";
 
-const NewBuildPopUp = ({ popUp, closePopUp, postBuild }) => {
+const NewBuildPopUp = ({ popUp, closePopUp, postBuild, history }) => {
   const [hash, setHash] = useState("");
   if (!popUp.show) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postBuild(hash.trim());
+    postBuild(hash.trim(), history);
     setHash("");
     closePopUp();
   };
@@ -67,4 +68,6 @@ const NewBuildPopUp = ({ popUp, closePopUp, postBuild }) => {
 
 const mapState = ({ popUp }) => ({ popUp });
 
-export default connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);
+const NewBuildPopUpConnected = connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);
+
+export default withRouter(NewBuildPopUpConnected);

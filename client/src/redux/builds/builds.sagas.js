@@ -20,11 +20,12 @@ function* getAllBuildsStart() {
 }
 
 //Post build
-function* postBuild({ payload }) {
+function* postBuild({ payload, history }) {
   try {
     const build = yield call(api.postBuild, payload);
 
     yield put({ type: types.BUILD_POST_SUCCEEDED, payload: build });
+    history.push(`/build/${build.id}`);
   } catch (e) {
     yield put({ type: types.BUILD_POST_FAILED, payload: e.message });
   }

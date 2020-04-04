@@ -2,7 +2,7 @@ import types from "./settings.types";
 
 const INITIAL_STATE = {
   data: {},
-  isFetching: true,
+  isFetching: false,
   errorMessage: undefined
 };
 

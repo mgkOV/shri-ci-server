@@ -11,6 +11,16 @@ export default class Api {
     return builds.data;
   };
 
+  getBuild = async (buildId) => {
+    const build = await axios.get(`/api/builds/${buildId}`);
+    return build.data;
+  };
+
+  getBuild = async (buildId) => {
+    const log = await axios.get(`/api/builds/${buildId}/logs`);
+    return log.data;
+  };
+
   postBuild = async (commitHash) => {
     const build = await axios.post(`/api/builds/${commitHash}`);
     return build.data;

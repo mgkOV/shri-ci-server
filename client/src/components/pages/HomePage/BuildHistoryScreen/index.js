@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import Header from "../../../Header";
 import Button from "../../../Button";
@@ -10,6 +11,7 @@ import BuildHistory from "../../../partials/BuildHistory";
 import { openPopUp } from "../../../../redux/popUp/popUp.actions";
 import { getAllBuilds } from "../../../../redux/builds/builds.actions";
 import { selectAllBuilds } from "../../../../redux/builds/builds.selectors";
+import { selectSettingsData } from "../../../../redux/settings/settings.selectors";
 
 const propTypes = {
   history: PropTypes.object,
@@ -17,7 +19,7 @@ const propTypes = {
   getAllBuilds: PropTypes.func // redux
 };
 
-const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds }) => {
+const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds, settings }) => {
   useEffect(() => {
     getAllBuilds();
   }, [getAllBuilds]);
@@ -25,9 +27,7 @@ const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds }) => {
   return (
     <>
       <Header>
-        <Header.BuildTitle>
-          philip1967/my-awesome-repo-with-long-long-long-repo-name
-        </Header.BuildTitle>
+        <Header.BuildTitle>{settings.repoName}</Header.BuildTitle>
         <Header.BtnGroup>
           <Button type="iconText" tone="control" mix={["Header-Button"]} onClick={openPopUp}>
             <Button.Icon icon="build" />
@@ -61,8 +61,9 @@ const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds }) => {
 
 BuildHistroyPage.propTypes = propTypes;
 
-const mapSate = state => ({
-  builds: selectAllBuilds(state)
+const mapSate = createStructuredSelector({
+  builds: selectAllBuilds,
+  settings: selectSettingsData
 });
 
 export default connect(mapSate, { openPopUp, getAllBuilds })(BuildHistroyPage);
