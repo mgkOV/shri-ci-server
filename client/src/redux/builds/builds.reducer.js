@@ -3,7 +3,7 @@ import types from "./builds.types";
 const INITIAL_STATE = {
   allBuilds: [],
   currentBuild: {},
-  isFetching: false,
+  isFetching: true,
   errorMessage: undefined
 };
 
@@ -48,6 +48,10 @@ const buildReducer = (state = INITIAL_STATE, action) => {
 
     case types.BUILD_POST_FAILED:
       return { ...state, isFetching: false, errorMessage: action.payload };
+
+    //Clear currnetBuild
+    case types.CLEAR_CURRENT_BUILD:
+      return { ...state, currentBuild: {} };
 
     default:
       return state;

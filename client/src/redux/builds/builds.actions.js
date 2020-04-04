@@ -12,7 +12,7 @@ export const getBuildLog = () => ({
   type: types.BUILD_LOG_GET_REQUESTED
 });
 
-export const postBuild = build => ({
+export const postBuild = commitHash => ({
   type: types.BUILD_POST_REQUESTED,
-  payload: build
+  payload: commitHash
 });

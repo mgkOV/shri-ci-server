@@ -31,7 +31,7 @@
       "duration": "1 ч 20 мин"
     },
     {
-      "type": "warning",
+      "type": "waiting",
       "number": 1365,
       "title": "upgrade typescript to 3.8",
       "branch": "master",

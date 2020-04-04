@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const FieldSuiteInput = ({ placeholder = "", name, value, handleChange }) => {
-  console.log(value);
+  const cleanIcon = <div className="FieldSuite-Cleaner" onClick={e => handleChange("")}></div>;
 
   return (
     <div className="FieldSuite-Input">
@@ -23,7 +23,7 @@ const FieldSuiteInput = ({ placeholder = "", name, value, handleChange }) => {
         value={value}
         onChange={e => handleChange(e.target.value)}
       />
-      <div className="FieldSuite-Cleaner" onClick={e => handleChange("")}></div>
+      {value === "" && cleanIcon}
     </div>
   );
 };

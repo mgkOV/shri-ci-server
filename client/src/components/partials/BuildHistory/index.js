@@ -11,8 +11,8 @@ const propTypes = {
 };
 
 const BuildHistory = ({ history, builds }) => {
-  const renderBuilds = builds =>
-    builds.reverse().map(b => {
+  const renderBuilds = (builds) =>
+    builds.map((b) => {
       return <BuildCard build={b} mix={["History-Item"]} key={b.buildNumber} history={history} />;
     });
 

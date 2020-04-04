@@ -4,6 +4,7 @@ import types from "./builds.types";
 
 const api = new Api();
 
+// Get all builds
 function* getAllBuilds() {
   try {
     const builds = yield call(api.getAllBuilds);
@@ -18,6 +19,21 @@ function* getAllBuildsStart() {
   yield takeLatest(types.ALL_BUILDS_GET_REQUESTED, getAllBuilds);
 }
 
+//Post build
+function* postBuild({ payload }) {
+  try {
+    const build = yield call(api.postBuild, payload);
+
+    yield put({ type: types.BUILD_POST_SUCCEEDED, payload: build });
+  } catch (e) {
+    yield put({ type: types.BUILD_POST_FAILED, payload: e.message });
+  }
+}
+
+function* postBuildStart() {
+  yield takeLatest(types.BUILD_POST_REQUESTED, postBuild);
+}
+
 export default function* buildssSagas() {
-  yield all([call(getAllBuildsStart)]);
+  yield all([call(getAllBuildsStart), call(postBuildStart)]);
 }

@@ -6,16 +6,7 @@ import Status from "../../Status";
 import Meta from "../../Meta";
 
 const proptTypes = {
-  build: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    branch: PropTypes.string.isRequired,
-    hash: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired
-  }).isRequired,
+  build: PropTypes.object.isRequired,
   timePosition: PropTypes.oneOf(["bottom"]),
   view: PropTypes.oneOf(["high"]),
   mix: PropTypes.arrayOf(PropTypes.string),
@@ -23,23 +14,35 @@ const proptTypes = {
 };
 
 const BuildCard = ({ build, timePosition, view, mix, history }) => {
+  const statusMap = {
+    Waiting: "waiting",
+    InProgress: "waiting",
+    Success: "success",
+    Fail: "error",
+    Canceled: "error"
+  };
+
+  const shortenHash = build.commitHash.substring(0, 8);
+
+  const cardStatus = statusMap[build.status];
+
   return (
     <Card
-      type={build.status.toLowerCase()}
+      type={cardStatus}
       mix={mix}
       view={view}
       onClick={history ? () => history.push(`/build/${build.buildNumber}`) : undefined}
     >
       <Card.Content>
         <Status mix={["Card-Title"]}>
-          <Status.Number view={build.status.toLowerCase()}>{"#" + build.buildNumber}</Status.Number>
+          <Status.Number view={cardStatus}>{"#" + build.buildNumber}</Status.Number>
           <Status.Comment>{build.commitMessage}</Status.Comment>
         </Status>
         <Card.Subtitle>
           <Meta mix={["Card-SubtitleItem"]}>
             <Meta.Icon icon="commit" />
             <Meta.Text>{build.branchName}</Meta.Text>
-            <Meta.Text secondary>{build.commitHash.substring(0, 8)}</Meta.Text>
+            <Meta.Text secondary>{shortenHash}</Meta.Text>
           </Meta>
 
           <Meta mix={["Card-SubtitleItem"]}>

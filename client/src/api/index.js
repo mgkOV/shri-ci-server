@@ -10,4 +10,9 @@ export default class Api {
     const builds = await axios.get("/api/builds");
     return builds.data;
   };
+
+  postBuild = async (commitHash) => {
+    const build = await axios.post(`/api/builds/${commitHash}`);
+    return build.data;
+  };
 }

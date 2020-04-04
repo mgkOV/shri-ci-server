@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   const { offset = 0, limit = 25 } = req.query;
   const response = await shriApi.getBuildList(offset, limit);
 
-  const buildList = response.data.map(b => {
+  const buildList = response.data.map((b) => {
     b.duration = formatDuration(b.duration);
     b.start = formatDate(b.start);
     return b;
@@ -57,17 +57,17 @@ router.post("/:commitHash", async (req, res) => {
     commitMessage: commit.message,
     commitHash: sha,
     branchName: mainBranch,
-    authorName: commit.author.name
+    authorName: commit.author.name,
   };
 
   const status = await shriApi.postBuildRequest(commitData);
 
   const builds = await shriApi.getBuildList();
-  const buildToAdd = builds.data.find(b => b.commitHash === sha);
+  const buildToAdd = builds.data.find((b) => b.commitHash === sha);
 
   buildRunner.addBuilds(buildToAdd);
 
-  res.sendStatus(status);
+  res.send(buildToAdd);
 });
 
 module.exports = router;

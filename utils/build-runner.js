@@ -43,7 +43,7 @@ const buildRunner = {
       }
 
       // эмулируем задержку
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 60000 + 60000));
 
       const duration = new Date().getTime() - startTime.getTime();
       const finishedBuild = {

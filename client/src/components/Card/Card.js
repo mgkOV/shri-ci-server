@@ -9,8 +9,8 @@ const propTypes = {
     .isRequired,
   mix: PropTypes.arrayOf(PropTypes.string),
   view: PropTypes.oneOf(["high"]),
-  type: PropTypes.oneOf(["error", "success", "warning"]),
-  onClick: PropTypes.func
+  type: PropTypes.oneOf(["error", "success", "waiting"]),
+  onClick: PropTypes.func,
 };
 
 const Card = ({ children, mix, view, type, onClick }) => {

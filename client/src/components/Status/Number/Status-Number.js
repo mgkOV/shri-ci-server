@@ -6,7 +6,7 @@ import "./Status-Number.scss";
 
 const propTypes = {
   children: PropTypes.string,
-  view: PropTypes.oneOf(["error", "success", "warning"])
+  view: PropTypes.oneOf(["error", "success", "waiting"]),
 };
 
 const StatusNumber = ({ children, view }) => {
