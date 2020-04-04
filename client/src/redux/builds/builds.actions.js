@@ -1,7 +1,7 @@
 import types from "./builds.types";
 
-export const getAllBuilds = () => ({
-  type: types.ALL_BUILDS_GET_REQUESTED
+export const getBuildList = () => ({
+  type: types.BUILD_LIST_GET_REQUESTED
 });
 
 export const getCurrentBuild = () => ({

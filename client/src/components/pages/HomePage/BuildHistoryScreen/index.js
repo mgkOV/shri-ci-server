@@ -10,20 +10,20 @@ import Section from "../../../Section";
 import NewBuildPopUp from "../../../partials/NewBuildPopUp";
 import BuildHistory from "../../../partials/BuildHistory";
 import { openPopUp } from "../../../../redux/popUp/popUp.actions";
-import { getAllBuilds } from "../../../../redux/builds/builds.actions";
+import { getBuildList } from "../../../../redux/builds/builds.actions";
 import { selectAllBuilds } from "../../../../redux/builds/builds.selectors";
 import { selectSettingsData } from "../../../../redux/settings/settings.selectors";
 
 const propTypes = {
   history: PropTypes.object,
   openPopUp: PropTypes.func, // redux
-  getAllBuilds: PropTypes.func // redux
+  getBuildList: PropTypes.func // redux
 };
 
-const BuildHistroyPage = ({ history, openPopUp, getAllBuilds, builds, settings }) => {
+const BuildHistroyPage = ({ history, openPopUp, getBuildList, builds, settings }) => {
   useEffect(() => {
-    getAllBuilds();
-  }, [getAllBuilds]);
+    getBuildList();
+  }, [getBuildList]);
 
   return (
     <>
@@ -68,4 +68,4 @@ const mapSate = createStructuredSelector({
   settings: selectSettingsData
 });
 
-export default connect(mapSate, { openPopUp, getAllBuilds })(BuildHistroyPage);
+export default connect(mapSate, { openPopUp, getBuildList })(BuildHistroyPage);

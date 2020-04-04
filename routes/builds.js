@@ -57,7 +57,7 @@ router.post("/:commitHash", async (req, res) => {
     commitMessage: commit.message,
     commitHash: sha,
     branchName: mainBranch,
-    authorName: commit.author.name,
+    authorName: commit.author.name
   };
 
   const status = await shriApi.postBuildRequest(commitData);
