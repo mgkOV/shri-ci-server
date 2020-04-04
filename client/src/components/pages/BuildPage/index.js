@@ -15,25 +15,28 @@ import {
   selectCurrentBuild,
   selectIsCurrentBuildFetching
 } from "../../../redux/builds/builds.selectors";
-import { getCurrentBuild } from "../../../redux/builds/builds.actions";
+import { getCurrentBuild, clearCurrentBuild } from "../../../redux/builds/builds.actions";
 
 import { log } from "./log-seed.js";
 
 const propTypes = {
   settings: PropTypes.object, //redux
   build: PropTypes.object, //redux
-  getCurrentBuild: PropTypes.func //redux
+  getCurrentBuild: PropTypes.func, //redux
+  clearCurrentBuild: PropTypes.func //redux
 };
 
-const BuildPage = ({ settings, build, getCurrentBuild, isBuildFetching }) => {
+const BuildPage = ({ settings, build, getCurrentBuild, isBuildFetching, clearCurrentBuild }) => {
   const { buildId } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     if (!build.id) {
       getCurrentBuild(buildId);
+      return;
     }
-  }, [getCurrentBuild, buildId, build.id]);
+    return clearCurrentBuild;
+  }, [getCurrentBuild, clearCurrentBuild, buildId, build.id]);
 
   return (
     <>
@@ -84,4 +87,4 @@ const mapSate = createStructuredSelector({
   isBuildFetching: selectIsCurrentBuildFetching
 });
 
-export default connect(mapSate, { getCurrentBuild })(BuildPage);
+export default connect(mapSate, { getCurrentBuild, clearCurrentBuild })(BuildPage);
