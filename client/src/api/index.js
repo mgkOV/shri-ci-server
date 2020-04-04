@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { log } from "./log-seed";
+
 export default class Api {
   getSettings = async () => {
     const settings = await axios.get("/api/settings");
@@ -24,5 +26,13 @@ export default class Api {
   postBuild = async (commitHash) => {
     const build = await axios.post(`/api/builds/${commitHash}`);
     return build.data;
+  };
+
+  getLog = async (buildId) => {
+    // эмулируем задержку
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // не забыть добавить .data
+    return log;
   };
 }

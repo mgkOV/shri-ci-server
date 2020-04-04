@@ -15,3 +15,7 @@ export const selectIsCurrentBuildFetching = createSelector(
 );
 
 export const selectCurrentBuild = createSelector([selectBuilds], (builds) => builds.currentBuild);
+
+export const selectLog = createSelector([selectBuilds], (builds) => builds.buildLog);
+
+export const selectIsLogFetching = createSelector([selectBuilds], (builds) => builds.isLogFetching);

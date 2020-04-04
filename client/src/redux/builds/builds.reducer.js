@@ -3,6 +3,7 @@ import types from "./builds.types";
 const INITIAL_STATE = {
   allBuilds: [],
   currentBuild: {},
+  buildLog: "",
   isAllFetching: false,
   isCurrentFetching: false,
   isLogFetching: false,
@@ -36,10 +37,10 @@ const buildReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isLogFetching: true };
 
     case types.BUILD_LOG_GET_SUCCEEDED:
-      return { ...state, isLogFetching: false, currentBuild: action.payload };
+      return { ...state, isLogFetching: false, buildLog: action.payload };
 
     case types.BUILD_LOG_GET_FAILED:
-      return { ...state, isLogFetching: false, errorMessage: action.payload };
+      return { ...state, isLogFetching: false, buildLog: action.payload };
 
     // POST  build
     case types.BUILD_POST_REQUESTED:
@@ -57,6 +58,9 @@ const buildReducer = (state = INITIAL_STATE, action) => {
 
     case types.CLEAR_BUILD_LIST:
       return { ...state, allBuilds: [] };
+
+    case types.CLEAR_BUILD_LOG:
+      return { ...state, buildLog: "" };
 
     default:
       return state;

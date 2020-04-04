@@ -51,6 +51,25 @@ function* getBuildStart() {
   yield takeLatest(types.BUILD_GET_REQUESTED, getBuild);
 }
 
+//Get build log
+function* getLog({ payload }) {
+  try {
+    const log = yield call(api.getLog, payload);
+    yield put({ type: types.BUILD_LOG_GET_SUCCEEDED, payload: log });
+  } catch (e) {
+    yield put({ type: types.BUILD_LOG_GET_FAILED, payload: e.message });
+  }
+}
+
+function* getLogStart() {
+  yield takeLatest(types.BUILD_LOG_GET_REQUESTED, getLog);
+}
+
 export default function* buildssSagas() {
-  yield all([call(getBuildListStart), call(postBuildStart), call(getBuildStart)]);
+  yield all([
+    call(getBuildListStart),
+    call(postBuildStart),
+    call(getBuildStart),
+    call(getLogStart)
+  ]);
 }

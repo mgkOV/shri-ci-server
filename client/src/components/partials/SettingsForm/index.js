@@ -15,7 +15,7 @@ const SettingsForm = ({ settings }) => {
   const [period, setPeriod] = useState(settings.period);
 
   return (
-    <Form mix={["Section-Container"]}>
+    <Form mix={["Section-Container"]} handleSubmit={() => console.log("submit")}>
       <SectionHeading>
         <SectionHeading.Title>Settings</SectionHeading.Title>
         <SectionHeading.Subtitle>
@@ -78,7 +78,7 @@ const SettingsForm = ({ settings }) => {
   );
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   settings: selectSettingsData(state)
 });
 
