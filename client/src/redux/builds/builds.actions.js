@@ -5,6 +5,11 @@ export const getBuildList = (offset) => ({
   payload: offset
 });
 
+export const getMoreBuilds = (offset) => ({
+  type: types.MORE_BUILDS_GET_REQUESTED,
+  payload: offset
+});
+
 export const getCurrentBuild = (id) => ({
   type: types.BUILD_GET_REQUESTED,
   payload: id

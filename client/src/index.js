@@ -10,7 +10,9 @@ import { getSettings } from "./redux/settings/settings.actions";
 
 import * as serviceWorker from "./serviceWorker";
 
-import store from "./redux/store";
+import configureStore from "./redux/store";
+
+const store = configureStore(window.__REDUX_STATE__ || {});
 
 store.dispatch(getSettings());
 

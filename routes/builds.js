@@ -67,7 +67,6 @@ router.post("/:commitHash", async (req, res) => {
   const buildToAdd = builds.data.find((b) => b.commitHash === sha);
 
   buildRunner.addBuilds(buildToAdd);
-  console.log(buildToAdd);
 
   res.json(buildToAdd);
 });

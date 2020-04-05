@@ -5,7 +5,7 @@ import { closePopUp } from "../popUp/popUp.actions";
 
 const api = new Api();
 
-// Get all builds
+// Get builds
 function* getBuildList({ payload }) {
   try {
     const builds = yield call(api.getBuildList, payload);
@@ -18,6 +18,21 @@ function* getBuildList({ payload }) {
 
 function* getBuildListStart() {
   yield takeLatest(types.BUILD_LIST_GET_REQUESTED, getBuildList);
+}
+
+// Get  more builds
+function* getMoreBuilds({ payload }) {
+  try {
+    const builds = yield call(api.getBuildList, payload);
+
+    yield put({ type: types.MORE_BUILDS_GET_SUCCEEDED, payload: builds });
+  } catch (e) {
+    yield put({ type: types.MORE_BUILDS_GET_FAILED, payload: e.message });
+  }
+}
+
+function* getMoreBuildsStart() {
+  yield takeLatest(types.MORE_BUILDS_GET_REQUESTED, getMoreBuilds);
 }
 
 //Post build
@@ -70,6 +85,7 @@ export default function* buildssSagas() {
     call(getBuildListStart),
     call(postBuildStart),
     call(getBuildStart),
-    call(getLogStart)
+    call(getLogStart),
+    call(getMoreBuildsStart)
   ]);
 }

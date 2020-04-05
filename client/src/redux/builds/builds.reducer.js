@@ -17,9 +17,19 @@ const buildReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isAllFetching: true };
 
     case types.BUILD_LIST_GET_SUCCEEDED:
-      return { ...state, isAllFetching: false, allBuilds: [...state.allBuilds, ...action.payload] };
+      return { ...state, isAllFetching: false, allBuilds: action.payload };
 
     case types.BUILD_LIST_GET_FAILED:
+      return { ...state, isAllFetching: false, errorMessage: action.payload };
+
+    // GET more builds (needs because of SSR)
+    case types.MORE_BUILDS_GET_REQUESTED:
+      return { ...state, isAllFetching: true };
+
+    case types.MORE_BUILDS_GET_SUCCEEDED:
+      return { ...state, isAllFetching: false, allBuilds: [...state.allBuilds, ...action.payload] };
+
+    case types.MORE_BUILDS_GET_FAILED:
       return { ...state, isAllFetching: false, errorMessage: action.payload };
 
     // GET  build

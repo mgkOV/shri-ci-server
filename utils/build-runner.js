@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 
 const shriApi = require("../api/shri-api");
 
-const buildLog = `Starting child process with 'node index.js' Received SIGINT, killing child process... Parent process exiting, terminating child...`;
+const buildLog = `It'my log! Starting child process with 'node index.js' Received SIGINT, killing child process... Parent process exiting, terminating child...`;
 
 const buildRunner = {
   buildList: [],
@@ -43,7 +43,7 @@ const buildRunner = {
       }
 
       // эмулируем задержку
-      await new Promise(resolve => setTimeout(resolve, Math.random() * 60000 + 60000));
+      await new Promise((resolve) => setTimeout(resolve, Math.random() * 60000 + 60000));
 
       const duration = new Date().getTime() - startTime.getTime();
       const finishedBuild = {

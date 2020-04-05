@@ -13,9 +13,9 @@ const propTypes = {
 
 const ButtonIcon = ({ icon }) => {
   const renderIcon = () => {
-    if (icon === "settings") return <SettingsIcon />;
-    if (icon === "build") return <BuildIcon />;
-    if (icon === "rebuild") return <RebuildIcon />;
+    if (icon === "settings" && SettingsIcon) return <SettingsIcon />;
+    if (icon === "build" && BuildIcon) return <BuildIcon />;
+    if (icon === "rebuild" && RebuildIcon) return <RebuildIcon />;
   };
   return <span className="Button-Icon">{renderIcon()}</span>;
 };

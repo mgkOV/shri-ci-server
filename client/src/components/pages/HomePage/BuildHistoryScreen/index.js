@@ -12,7 +12,11 @@ import Loader from "../../../Loader";
 import NewBuildPopUp from "../../../partials/NewBuildPopUp";
 import BuildHistory from "../../../partials/BuildHistory";
 import { openPopUp } from "../../../../redux/popUp/popUp.actions";
-import { getBuildList, clearBuildList } from "../../../../redux/builds/builds.actions";
+import {
+  getBuildList,
+  clearBuildList,
+  getMoreBuilds
+} from "../../../../redux/builds/builds.actions";
 import {
   selectAllBuilds,
   selectIsBuildListFetching
@@ -32,7 +36,8 @@ const BuildHistroyPage = ({
   builds,
   settings,
   isFetching,
-  clearBuildList
+  clearBuildList,
+  getMoreBuilds
 }) => {
   useEffect(() => {
     getBuildList(0);
@@ -70,7 +75,7 @@ const BuildHistroyPage = ({
             type="text"
             tone="control"
             fullWidthAtSmallScreen
-            onClick={() => getBuildList(builds.length)}
+            onClick={() => getMoreBuilds(builds.length)}
           >
             <Button.Text>Show more</Button.Text>
           </Button>
@@ -89,4 +94,6 @@ const mapSate = createStructuredSelector({
   isFetching: selectIsBuildListFetching
 });
 
-export default connect(mapSate, { openPopUp, getBuildList, clearBuildList })(BuildHistroyPage);
+export default connect(mapSate, { openPopUp, getBuildList, clearBuildList, getMoreBuilds })(
+  BuildHistroyPage
+);

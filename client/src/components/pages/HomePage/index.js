@@ -21,7 +21,7 @@ const HomePage = ({ history, settings }) => {
 
 HomePage.propsTypes = propsTypes;
 
-const mapState = state => ({
+const mapState = (state) => ({
   settings: selectSettingsData(state)
 });
 

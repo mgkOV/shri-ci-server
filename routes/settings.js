@@ -50,18 +50,12 @@ router.post("/", downloader, async (req, res) => {
   const prevConfigResponse = await shriApi.getConfig();
 
   // Проверяем поменялось ли имя репозитоория
-  if (
-    !prevConfigResponse.data ||
-    prevConfigResponse.data.repoName !== body.repoName ||
-    prevConfigResponse.data.mainBranch !== body.mainBranch
-  ) {
+  if (prevConfigResponse.data && prevConfigResponse.data.repoName !== body.repoName) {
     // останавливаем утилиты запущенные с прошлыми настройками
     buildRunner.reset();
 
     // watcher.stopWatch();
-  }
 
-  if (!prevConfigResponse.data || prevConfigResponse.data.repoName !== body.repoName) {
     // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
     await shriApi.deleteConfig();
   }
@@ -82,9 +76,9 @@ router.post("/", downloader, async (req, res) => {
 
   //Проверяем поменялось ли имя репозитоория или ветка
   if (
-    !prevConfigResponse.data ||
-    prevConfigResponse.data.repoName !== body.repoName ||
-    prevConfigResponse.data.mainBranch !== body.mainBranch
+    prevConfigResponse.data &&
+    (prevConfigResponse.data.repoName !== body.repoName ||
+      prevConfigResponse.data.mainBranch !== body.mainBranch)
   ) {
     // добавляем последний комит в лист билдов
     const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);

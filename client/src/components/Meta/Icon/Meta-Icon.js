@@ -13,11 +13,11 @@ const propTypes = {
 };
 
 const MetaIcon = ({ icon }) => {
-  const renderIcon = icon => {
-    if (icon === "calendar") return <CalendarIcon />;
-    if (icon === "commit") return <CommitIcon />;
-    if (icon === "stopwatch") return <StopwatchIcon />;
-    if (icon === "user") return <UserIcon />;
+  const renderIcon = (icon) => {
+    if (icon === "calendar" && CalendarIcon) return <CalendarIcon />;
+    if (icon === "commit" && CommitIcon) return <CommitIcon />;
+    if (icon === "stopwatch" && StopwatchIcon) return <StopwatchIcon />;
+    if (icon === "user" && UserIcon) return <UserIcon />;
   };
   return <div className="Meta-Icon">{renderIcon(icon)}</div>;
 };
