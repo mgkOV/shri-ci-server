@@ -34,11 +34,32 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const trimmedRepoName = repoName.trim();
+    const trimmedBuildCommand = buildCommand.trim();
+    let trimmedMainBranch = mainBranch.trim();
+    let stopSubmit = false;
+
+    if (trimmedRepoName === "") {
+      setRepoNameError(true);
+      stopSubmit = true;
+    }
+
+    if (trimmedBuildCommand === "") {
+      setBuildCommandError(true);
+      stopSubmit = true;
+    }
+
+    if (stopSubmit) return;
+
+    if (trimmedMainBranch === "") {
+      trimmedMainBranch = "master";
+    }
+
     postSettings(
       {
-        repoName,
-        buildCommand,
-        mainBranch,
+        repoName: trimmedRepoName,
+        buildCommand: trimmedBuildCommand,
+        mainBranch: trimmedMainBranch,
         period: Number(period)
       },
       history

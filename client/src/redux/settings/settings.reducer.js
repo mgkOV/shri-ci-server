@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   data: {},
   isFetching: false,
   errorMessage: undefined,
+  postErrorMessage: undefined,
   isPosting: false
 };
 
@@ -21,13 +22,13 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
 
     // POST
     case types.SETTING_POST_REQUESTED:
-      return { ...state, isPosting: true };
+      return { ...state, isPosting: true, postErrorMessage: undefined };
 
     case types.SETTING_POST_SUCCEEDED:
       return { ...state, data: action.payload, isPosting: false };
 
     case types.SETTING_POST_FAILED:
-      return { ...state, errorMessage: action.payload, isPosting: false };
+      return { ...state, postErrorMessage: action.payload, isPosting: false };
 
     default:
       return state;

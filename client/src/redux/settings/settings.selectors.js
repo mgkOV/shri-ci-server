@@ -16,5 +16,5 @@ export const selectIsSettingsPosting = createSelector(
 
 export const selectPostSettingError = createSelector(
   [selectSettings],
-  (settings) => settings.errorMessage
+  (settings) => settings.postErrorMessage
 );
