@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
 // удаление настроек
 router.delete("/", async (req, res) => {
   await shriApi.deleteConfig();
+  buildRunner.reset();
 
   res.sendStatus(200);
 });
@@ -49,12 +50,18 @@ router.post("/", downloader, async (req, res) => {
   const prevConfigResponse = await shriApi.getConfig();
 
   // Проверяем поменялось ли имя репозитоория
-  if (prevConfigResponse.data.repoName !== body.repoName) {
+  if (
+    !prevConfigResponse.data ||
+    prevConfigResponse.data.repoName !== body.repoName ||
+    prevConfigResponse.data.mainBranch !== body.mainBranch
+  ) {
     // останавливаем утилиты запущенные с прошлыми настройками
     buildRunner.reset();
 
     // watcher.stopWatch();
+  }
 
+  if (!prevConfigResponse.data || prevConfigResponse.data.repoName !== body.repoName) {
     // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
     await shriApi.deleteConfig();
   }
@@ -75,6 +82,7 @@ router.post("/", downloader, async (req, res) => {
 
   //Проверяем поменялось ли имя репозитоория или ветка
   if (
+    !prevConfigResponse.data ||
     prevConfigResponse.data.repoName !== body.repoName ||
     prevConfigResponse.data.mainBranch !== body.mainBranch
   ) {

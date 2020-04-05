@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const config = require("config");
+const path = require("path");
 
 // const watcher = require("./utils/watcher");
 
@@ -9,12 +10,16 @@ require("express-async-errors");
 
 const app = express();
 
-app.use(express.static("static"));
+app.use(express.static(path.join("client", "build")));
 app.use(morgan("dev"));
 app.use(express.json());
 
 //регистрируем routes
 require("./routes")(app);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("client", "build", "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`CI server listening on port ${port}!`);

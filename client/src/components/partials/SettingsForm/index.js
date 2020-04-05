@@ -16,10 +16,12 @@ import {
 import { postSettings } from "../../../redux/settings/settings.actions";
 
 const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
-  const [repoName, setRepoName] = useState(settings.repoName);
-  const [buildCommand, setBuildCommand] = useState(settings.buildCommand);
-  const [mainBranch, setMainBranch] = useState(settings.mainBranch);
-  const [period, setPeriod] = useState(String(settings.period));
+  const [repoName, setRepoName] = useState(settings.repoName ? settings.repoName : "");
+  const [buildCommand, setBuildCommand] = useState(
+    settings.buildCommand ? settings.buildCommand : ""
+  );
+  const [mainBranch, setMainBranch] = useState(settings.mainBranch ? settings.mainBranch : "");
+  const [period, setPeriod] = useState(settings.period ? String(settings.period) : "");
   const [repoNameError, setRepoNameError] = useState(false);
   const [buildCommandError, setBuildCommandError] = useState(false);
 

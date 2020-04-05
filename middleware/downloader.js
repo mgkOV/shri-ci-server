@@ -15,6 +15,7 @@ module.exports = async (req, res, next) => {
 
   // Если не изменились  наименование репозитория и ветки пропускаем скачивание
   if (
+    prevConfigResponse.data &&
     prevConfigResponse.data.repoName === repoName &&
     prevConfigResponse.data.mainBranch === mainBranch
   ) {
