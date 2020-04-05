@@ -14,23 +14,20 @@ module.exports = async (req, res, next) => {
   //Проверяем существование ветки на github
   await githubApi.getBranch(repoName, mainBranch);
 
-  if (!repository || !repository.clone_url) {
-    return next(new Error("Неправильное имя репозитория"));
-  }
-
-  next();
-
   // чистим директорию storage
   await promisify(rimraf)(path.join(".", "storage"));
 
   // клонируем репозиторий в storage
   const child = spawn("git", ["clone", "--branch", mainBranch, repository.clone_url, "storage"]);
+  console.info("Start cloning...");
 
-  // child.on("exit", code => {
-  //   if (code === 0) next();
-  // });
+  child.on("exit", (code) => {
+    console.info("Finish cloning...");
+    if (code === 0) next();
+  });
 
-  child.on("error", err => {
-    console.log(err);
+  child.on("error", (err) => {
+    console.log("Cloning error...");
+    next(err);
   });
 };

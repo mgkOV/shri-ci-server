@@ -68,7 +68,7 @@ router.post("/:commitHash", async (req, res) => {
 
   buildRunner.addBuilds(buildToAdd);
 
-  res.send(buildToAdd);
+  res.json(buildToAdd);
 });
 
 module.exports = router;

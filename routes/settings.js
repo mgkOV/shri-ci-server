@@ -36,32 +36,46 @@ router.delete("/", async (req, res) => {
 
 // cохранение настроек
 router.post("/", downloader, async (req, res) => {
-  const { repoName, buildCommand, mainBranch, period } = req.body;
+  const { body } = req;
 
   const settings = {
-    repoName,
-    buildCommand,
-    mainBranch,
-    period
+    repoName: body.repoName,
+    buildCommand: body.buildCommand,
+    mainBranch: body.mainBranch,
+    period: body.period
   };
 
   // останавливаем утилиты запущенные с прошлыми настройками
   buildRunner.reset();
-  watcher.stopWatch();
+
+  // watcher.stopWatch();
 
   // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
   await shriApi.deleteConfig();
-  const status = await shriApi.postConfig(settings);
+
+  //Сохраняем новую конфигурацию
+  await shriApi.postConfig(settings);
+  const configResponse = await shriApi.getConfig();
+
+  let { data } = configResponse;
+
+  const newSettings = {
+    id: data.id,
+    repoName: data.repoName,
+    buildCommand: data.buildCommand,
+    mainBranch: data.mainBranch,
+    period: data.period
+  };
 
   // добавляем последний комит в лист билдов
-  const getCommitsResponse = await githubApi.getCommits(repoName, mainBranch);
+  const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
 
   const { sha, commit } = getCommitsResponse[0];
 
   const commitData = {
     commitMessage: commit.message,
     commitHash: sha,
-    branchName: mainBranch,
+    branchName: data.mainBranch,
     authorName: commit.author.name
   };
 
@@ -70,9 +84,10 @@ router.post("/", downloader, async (req, res) => {
 
   // запускаем утилиты
   buildRunner.addBuilds(build.data);
-  watcher.startWatch();
 
-  res.sendStatus(status);
+  // watcher.startWatch();
+
+  res.json(newSettings);
 });
 
 module.exports = router;

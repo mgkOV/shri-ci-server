@@ -24,6 +24,8 @@ const propTypes = {
 
 const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
   const [hash, setHash] = useState("");
+  const [error, setError] = useState(false);
+
   const history = useHistory();
   if (!isShown) return null;
   if (isPosting)
@@ -35,16 +37,31 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postBuild(hash.trim(), history);
+    const trimmedHash = hash.trim();
+
+    if (trimmedHash.length < 7) {
+      setError(true);
+      return;
+    }
+
+    postBuild(trimmedHash, history);
     setHash("");
   };
+
+  const handleClose = () => {
+    setError(false);
+    setHash("");
+    closePopUp();
+  };
+
+  const errorMessage = "Hash must be at least 7 characters";
 
   return (
     <PopUp>
       <PopUp.Content>
         <PopUp.Title />
         <Form handleSubmit={handleSubmit}>
-          <FieldSuite>
+          <FieldSuite error={error}>
             <PopUp.Label htmlFor="new-build-popup">
               Enter the commit hash which you want to build.
             </PopUp.Label>
@@ -54,6 +71,7 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
               value={hash}
               handleChange={setHash}
             />
+            {error && <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>}
           </FieldSuite>
           <ButtonGroup mix={["PopUp-BtnGroup"]}>
             <Button
@@ -61,9 +79,6 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
               type="formControl"
               mix={["ButtonGroup-Item"]}
               fullWidthAtSmallScreen
-              onClick={() => {
-                console.log("Run");
-              }}
               btnType="submit"
             >
               <Button.Text>Run build</Button.Text>
@@ -73,7 +88,7 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
               type="formControl"
               mix={["ButtonGroup-Item"]}
               fullWidthAtSmallScreen
-              onClick={closePopUp}
+              onClick={handleClose}
             >
               <Button.Text>Cancel</Button.Text>
             </Button>

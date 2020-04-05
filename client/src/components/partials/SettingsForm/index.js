@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import SectionHeading from "../../SectionHeading";
 import Form from "../../Form";
@@ -7,22 +8,44 @@ import FieldSuite from "../../FieldSuite";
 import Button from "../../Button";
 import ButtonGroup from "../../ButtonGroup";
 import { selectSettingsData } from "../../../redux/settings/settings.selectors";
+import { postSettings } from "../../../redux/settings/settings.actions";
 
-const SettingsForm = ({ settings }) => {
+const SettingsForm = ({ settings, postSettings }) => {
   const [repoName, setRepoName] = useState(settings.repoName);
   const [buildCommand, setBuildCommand] = useState(settings.buildCommand);
   const [mainBranch, setMainBranch] = useState(settings.mainBranch);
-  const [period, setPeriod] = useState(settings.period);
+  const [period, setPeriod] = useState(String(settings.period));
+  const [repoNameError, setRepoNameError] = useState(false);
+  const [buildCommandError, setBuildCommandError] = useState(false);
+
+  const history = useHistory();
+
+  const errorMessage = "Form field is required";
+
+  const handleChangePeriod = (value) => {
+    if (!value.match(/^[0-9]*$/)) return;
+    setPeriod(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postSettings({
+      repoName,
+      buildCommand,
+      mainBranch,
+      period
+    });
+  };
 
   return (
-    <Form mix={["Section-Container"]} handleSubmit={() => console.log("submit")}>
+    <Form mix={["Section-Container"]} handleSubmit={handleSubmit}>
       <SectionHeading>
         <SectionHeading.Title>Settings</SectionHeading.Title>
         <SectionHeading.Subtitle>
           Configure repository connection and synchronization settings.
         </SectionHeading.Subtitle>
       </SectionHeading>
-      <FieldSuite required>
+      <FieldSuite required error={repoNameError}>
         <FieldSuite.Label htmlFor="repository-name">GitHub repository</FieldSuite.Label>
         <FieldSuite.Input
           placeholder="user-name/repo-name"
@@ -30,8 +53,9 @@ const SettingsForm = ({ settings }) => {
           value={repoName}
           handleChange={setRepoName}
         />
+        {repoNameError && <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>}
       </FieldSuite>
-      <FieldSuite required>
+      <FieldSuite required error={buildCommandError}>
         <FieldSuite.Label htmlFor="build-command">Build command</FieldSuite.Label>
         <FieldSuite.Input
           placeholder="npm run build"
@@ -39,6 +63,7 @@ const SettingsForm = ({ settings }) => {
           value={buildCommand}
           handleChange={setBuildCommand}
         />
+        {buildCommandError && <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>}
       </FieldSuite>
       <FieldSuite>
         <FieldSuite.Label htmlFor="main-branch">Main branch</FieldSuite.Label>
@@ -51,7 +76,12 @@ const SettingsForm = ({ settings }) => {
       </FieldSuite>
       <FieldSuite hasHint>
         <FieldSuite.Label htmlFor="period">Synchronize every</FieldSuite.Label>
-        <FieldSuite.Input placeholder="10" name="period" value={period} handleChange={setPeriod} />
+        <FieldSuite.Input
+          placeholder="10"
+          name="period"
+          value={period}
+          handleChange={handleChangePeriod}
+        />
         <FieldSuite.Hint>minutes</FieldSuite.Hint>
       </FieldSuite>
       <ButtonGroup mix={["Form-BtnGroup"]}>
@@ -60,7 +90,7 @@ const SettingsForm = ({ settings }) => {
           type="formControl"
           mix={["ButtonGroup-Item"]}
           fullWidthAtSmallScreen
-          onClick={() => console.log("Save")}
+          btnType="submit"
         >
           <Button.Text>Save</Button.Text>
         </Button>
@@ -69,7 +99,7 @@ const SettingsForm = ({ settings }) => {
           type="formControl"
           mix={["ButtonGroup-Item"]}
           fullWidthAtSmallScreen
-          onClick={() => console.log("Cancel")}
+          onClick={history.goBack}
         >
           <Button.Text>Cancel</Button.Text>
         </Button>
@@ -82,4 +112,4 @@ const mapState = (state) => ({
   settings: selectSettingsData(state)
 });
 
-export default connect(mapState)(SettingsForm);
+export default connect(mapState, { postSettings })(SettingsForm);

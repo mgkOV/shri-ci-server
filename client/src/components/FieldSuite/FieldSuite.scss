@@ -16,6 +16,10 @@
   padding: 12px 0;
 }
 
+.FieldSuite_error .FieldSuite-Input input {
+  border-color: var(--color-error);
+}
+
 @media screen and (max-width: $screen-s) {
   .FieldSuite_hasHint {
     padding: 8px 0 16px 0;

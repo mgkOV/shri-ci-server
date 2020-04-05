@@ -11,7 +11,7 @@ const propTypes = {
   fullWidthAtSmallScreen: PropTypes.bool,
   type: PropTypes.oneOf(["text", "icon", "formControl", "iconText"]),
   mix: PropTypes.arrayOf(PropTypes.string),
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   btnType: PropTypes.string
 };
 
