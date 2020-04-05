@@ -13,3 +13,8 @@ export const selectIsSettingsPosting = createSelector(
   [selectSettings],
   (settings) => settings.isPosting
 );
+
+export const selectPostSettingError = createSelector(
+  [selectSettings],
+  (settings) => settings.errorMessage
+);

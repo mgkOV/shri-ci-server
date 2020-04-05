@@ -5,8 +5,7 @@ import { cn } from "@bem-react/classname";
 import "./Form.scss";
 
 const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
-    .isRequired,
+  children: PropTypes.node.isRequired,
   mix: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func.isRequired
 };

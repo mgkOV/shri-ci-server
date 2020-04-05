@@ -10,11 +10,12 @@ import Button from "../../Button";
 import ButtonGroup from "../../ButtonGroup";
 import {
   selectSettingsData,
-  selectIsSettingsPosting
+  selectIsSettingsPosting,
+  selectPostSettingError
 } from "../../../redux/settings/settings.selectors";
 import { postSettings } from "../../../redux/settings/settings.actions";
 
-const SettingsForm = ({ settings, postSettings, isPosting }) => {
+const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
   const [repoName, setRepoName] = useState(settings.repoName);
   const [buildCommand, setBuildCommand] = useState(settings.buildCommand);
   const [mainBranch, setMainBranch] = useState(settings.mainBranch);
@@ -43,6 +44,8 @@ const SettingsForm = ({ settings, postSettings, isPosting }) => {
       history
     );
   };
+
+  const postErrorMasage = "ERROR: Error cloning repo.";
 
   return (
     <Form mix={["Section-Container"]} handleSubmit={handleSubmit}>
@@ -111,13 +114,15 @@ const SettingsForm = ({ settings, postSettings, isPosting }) => {
           <Button.Text>Cancel</Button.Text>
         </Button>
       </ButtonGroup>
+      {!!postError && <Form.Error>{postErrorMasage}</Form.Error>}
     </Form>
   );
 };
 
 const mapState = createStructuredSelector({
   settings: selectSettingsData,
-  isPosting: selectIsSettingsPosting
+  isPosting: selectIsSettingsPosting,
+  postError: selectPostSettingError
 });
 
 export default connect(mapState, { postSettings })(SettingsForm);
