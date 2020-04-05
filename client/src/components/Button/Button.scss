@@ -84,6 +84,8 @@
 
 .Button_tone_disabled {
   background-color: var(--color-bg-disabled);
+  border: 2px solid var(--color-bg-disabled);
+  cursor: progress;
 }
 
 @media screen and (max-width: $screen-s) {

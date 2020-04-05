@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 
 import SectionHeading from "../../SectionHeading";
 import Form from "../../Form";
 import FieldSuite from "../../FieldSuite";
 import Button from "../../Button";
 import ButtonGroup from "../../ButtonGroup";
-import { selectSettingsData } from "../../../redux/settings/settings.selectors";
+import {
+  selectSettingsData,
+  selectIsSettingsPosting
+} from "../../../redux/settings/settings.selectors";
 import { postSettings } from "../../../redux/settings/settings.actions";
 
-const SettingsForm = ({ settings, postSettings }) => {
+const SettingsForm = ({ settings, postSettings, isPosting }) => {
   const [repoName, setRepoName] = useState(settings.repoName);
   const [buildCommand, setBuildCommand] = useState(settings.buildCommand);
   const [mainBranch, setMainBranch] = useState(settings.mainBranch);
@@ -29,12 +33,15 @@ const SettingsForm = ({ settings, postSettings }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postSettings({
-      repoName,
-      buildCommand,
-      mainBranch,
-      period
-    });
+    postSettings(
+      {
+        repoName,
+        buildCommand,
+        mainBranch,
+        period: Number(period)
+      },
+      history
+    );
   };
 
   return (
@@ -86,7 +93,7 @@ const SettingsForm = ({ settings, postSettings }) => {
       </FieldSuite>
       <ButtonGroup mix={["Form-BtnGroup"]}>
         <Button
-          tone="action"
+          tone={isPosting ? "disabled" : "action"}
           type="formControl"
           mix={["ButtonGroup-Item"]}
           fullWidthAtSmallScreen
@@ -95,7 +102,7 @@ const SettingsForm = ({ settings, postSettings }) => {
           <Button.Text>Save</Button.Text>
         </Button>
         <Button
-          tone="control"
+          tone={isPosting ? "disabled" : "control"}
           type="formControl"
           mix={["ButtonGroup-Item"]}
           fullWidthAtSmallScreen
@@ -108,8 +115,9 @@ const SettingsForm = ({ settings, postSettings }) => {
   );
 };
 
-const mapState = (state) => ({
-  settings: selectSettingsData(state)
+const mapState = createStructuredSelector({
+  settings: selectSettingsData,
+  isPosting: selectIsSettingsPosting
 });
 
 export default connect(mapState, { postSettings })(SettingsForm);

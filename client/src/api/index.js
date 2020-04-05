@@ -8,6 +8,11 @@ export default class Api {
     return settings.data;
   };
 
+  postSettings = async (settings = {}) => {
+    const savedSettings = await axios.post("/api/settings", { ...settings }, { timeout: 300000 });
+    return savedSettings.data;
+  };
+
   getBuildList = async (offset = 0) => {
     const builds = await axios.get(`/api/builds/?offset=${offset}&limit=9`);
     return builds.data;

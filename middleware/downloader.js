@@ -5,9 +5,21 @@ const { promisify } = require("util");
 const axios = require("axios");
 
 const githubApi = require("../api/github-api");
+const shriApi = require("../api/shri-api");
 
 module.exports = async (req, res, next) => {
   const { repoName, mainBranch } = req.body;
+
+  // Скачиваем предыдущие настройки
+  const prevConfigResponse = await shriApi.getConfig();
+
+  // Если не изменились  наименование репозитория и ветки пропускаем скачивание
+  if (
+    prevConfigResponse.data.repoName === repoName &&
+    prevConfigResponse.data.mainBranch === mainBranch
+  ) {
+    return next();
+  }
 
   const repository = await githubApi.getRepo(repoName);
 

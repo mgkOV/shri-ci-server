@@ -45,19 +45,25 @@ router.post("/", downloader, async (req, res) => {
     period: body.period
   };
 
-  // останавливаем утилиты запущенные с прошлыми настройками
-  buildRunner.reset();
+  // Скачиваем предыдущие настройки
+  const prevConfigResponse = await shriApi.getConfig();
 
-  // watcher.stopWatch();
+  // Проверяем поменялось ли имя репозитоория
+  if (prevConfigResponse.data.repoName !== body.repoName) {
+    // останавливаем утилиты запущенные с прошлыми настройками
+    buildRunner.reset();
 
-  // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
-  await shriApi.deleteConfig();
+    // watcher.stopWatch();
+
+    // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
+    await shriApi.deleteConfig();
+  }
 
   //Сохраняем новую конфигурацию
   await shriApi.postConfig(settings);
-  const configResponse = await shriApi.getConfig();
+  const newConfigResponse = await shriApi.getConfig();
 
-  let { data } = configResponse;
+  let { data } = newConfigResponse;
 
   const newSettings = {
     id: data.id,
@@ -67,25 +73,31 @@ router.post("/", downloader, async (req, res) => {
     period: data.period
   };
 
-  // добавляем последний комит в лист билдов
-  const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
+  //Проверяем поменялось ли имя репозитоория или ветка
+  if (
+    prevConfigResponse.data.repoName !== body.repoName ||
+    prevConfigResponse.data.mainBranch !== body.mainBranch
+  ) {
+    // добавляем последний комит в лист билдов
+    const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
 
-  const { sha, commit } = getCommitsResponse[0];
+    const { sha, commit } = getCommitsResponse[0];
 
-  const commitData = {
-    commitMessage: commit.message,
-    commitHash: sha,
-    branchName: data.mainBranch,
-    authorName: commit.author.name
-  };
+    const commitData = {
+      commitMessage: commit.message,
+      commitHash: sha,
+      branchName: data.mainBranch,
+      authorName: commit.author.name
+    };
 
-  await shriApi.postBuildRequest(commitData);
-  const build = await shriApi.getBuildList();
+    await shriApi.postBuildRequest(commitData);
+    const build = await shriApi.getBuildList();
 
-  // запускаем утилиты
-  buildRunner.addBuilds(build.data);
+    // запускаем утилиты
+    buildRunner.addBuilds(build.data);
 
-  // watcher.startWatch();
+    // watcher.startWatch();
+  }
 
   res.json(newSettings);
 });
