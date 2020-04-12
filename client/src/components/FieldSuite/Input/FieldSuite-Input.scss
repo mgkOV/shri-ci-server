@@ -1,0 +1,60 @@
+.FieldSuite-Input {
+  margin-top: 7px;
+  width: 100%;
+  position: relative;
+}
+
+.FieldSuite-Input input {
+  width: 100%;
+  padding: 0 30px 0 12px;
+  height: var(--control-height-m);
+  line-height: var(--control-line-height-m);
+  border-radius: 4px;
+  background-color: var(--color-bg-base);
+  border: 2px solid var(--color-border-input);
+  align-self: stretch;
+  color: var(--color-font-base);
+  font-size: var(--size-text-m);
+  box-sizing: border-box;
+  font-family: var(--font-base);
+}
+
+.FieldSuite-Input input:focus {
+  border-color: var(--color-border-control-focused);
+  outline: none;
+}
+
+.FieldSuite-Input input::placeholder {
+  color: var(--color-border-input);
+}
+
+.FieldSuite:not(.FieldSuite_hasHint) .FieldSuite-Cleaner {
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16C3.6 16 0 12.4 0 8C0 3.6 3.6 0 8 0C12.4 0 16 3.6 16 8C16 12.4 12.4 16 8 16ZM12 5.12L10.88 4L8 6.88L5.12 4L4 5.12L6.88 8L4 10.88L5.12 12L8 9.12L10.88 12L12 10.88L9.12 8L12 5.12Z' fill='%23CCCCCC' /%3E%3C/svg%3E");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+// .FieldSuite:not(.FieldSuite_hasHint) .FieldSuite-Input::after {
+//   content: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16C3.6 16 0 12.4 0 8C0 3.6 3.6 0 8 0C12.4 0 16 3.6 16 8C16 12.4 12.4 16 8 16ZM12 5.12L10.88 4L8 6.88L5.12 4L4 5.12L6.88 8L4 10.88L5.12 12L8 9.12L10.88 12L12 10.88L9.12 8L12 5.12Z' fill='%23CCCCCC' /%3E%3C/svg%3E");
+//   position: absolute;
+//   right: 10px;
+//   top: 10px;
+//   z-index: 10;
+//   cursor: pointer;
+// }
+
+.FieldSuite_hasHint .FieldSuite-Input {
+  width: 52px;
+
+  margin: 0 8px 0 9px;
+}
+
+.FieldSuite_hasHint .FieldSuite-Input input {
+  text-align: right;
+  padding-right: 11px;
+}

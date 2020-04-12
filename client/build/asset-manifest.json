@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.09b9e545.chunk.css",
+    "main.js": "/static/js/main.d1f36d01.chunk.js",
+    "main.js.map": "/static/js/main.d1f36d01.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cfae3202.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cfae3202.js.map",
+    "static/js/2.c5c3d4bd.chunk.js": "/static/js/2.c5c3d4bd.chunk.js",
+    "static/js/2.c5c3d4bd.chunk.js.map": "/static/js/2.c5c3d4bd.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.a59e96dd67bdcb38c419db07f732a26f.js": "/precache-manifest.a59e96dd67bdcb38c419db07f732a26f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.09b9e545.chunk.css.map": "/static/css/main.09b9e545.chunk.css.map",
+    "static/js/2.c5c3d4bd.chunk.js.LICENSE.txt": "/static/js/2.c5c3d4bd.chunk.js.LICENSE.txt",
+    "static/media/build.20835027.svg": "/static/media/build.20835027.svg",
+    "static/media/calendar.30b43a86.svg": "/static/media/calendar.30b43a86.svg",
+    "static/media/commit.ec957cdf.svg": "/static/media/commit.ec957cdf.svg",
+    "static/media/rebuild.3422cafa.svg": "/static/media/rebuild.3422cafa.svg",
+    "static/media/settings.708bf3c2.svg": "/static/media/settings.708bf3c2.svg",
+    "static/media/start-icon.4e3db45c.svg": "/static/media/start-icon.4e3db45c.svg",
+    "static/media/stopwatch.1f6f139f.svg": "/static/media/stopwatch.1f6f139f.svg",
+    "static/media/user.2c225a31.svg": "/static/media/user.2c225a31.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cfae3202.js",
+    "static/js/2.c5c3d4bd.chunk.js",
+    "static/css/main.09b9e545.chunk.css",
+    "static/js/main.d1f36d01.chunk.js"
+  ]
+}

@@ -1,0 +1,13 @@
+.FieldSuite-Label {
+  font-size: var(--size-text-m);
+  line-height: var(--line-height-text-s);
+  position: relative;
+}
+
+.FieldSuite_required .FieldSuite-Label::after {
+  content: "*";
+  position: absolute;
+  top: 0;
+  right: -8px;
+  color: var(--color-error);
+}

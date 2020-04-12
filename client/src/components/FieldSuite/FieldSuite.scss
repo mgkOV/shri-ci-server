@@ -1,0 +1,27 @@
+@import "../../vars.scss";
+
+.FieldSuite {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px 0 8px;
+}
+
+.FieldSuite_hasHint {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.FieldSuite_error .FieldSuite-Input input {
+  border-color: var(--color-error);
+}
+
+@media screen and (max-width: $screen-s) {
+  .FieldSuite_hasHint {
+    padding: 8px 0 16px 0;
+  }
+}

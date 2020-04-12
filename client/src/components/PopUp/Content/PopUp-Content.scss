@@ -1,0 +1,9 @@
+.PopUp-Content {
+  box-sizing: border-box;
+  max-width: 485px;
+  width: 96%;
+  padding: var(--space-m);
+  box-shadow: var(--box-shadow-pop-up);
+  border-radius: var(--radius-s);
+  background-color: var(--color-bg-base);
+}

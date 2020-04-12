@@ -1,0 +1,107 @@
+@import "../../vars.scss";
+
+.Button {
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  transition: all 0.4s;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: var(--size-text-m);
+  color: var(--color-font-base);
+  text-decoration: none;
+  font-family: var(--font-base);
+  user-select: none;
+}
+
+// Button type mods
+
+.Button_type_text {
+  height: 28px;
+  line-height: 24px;
+  padding: 0 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Button_type_icon {
+  height: 28px;
+  width: 28px;
+  justify-content: center;
+}
+
+.Button_type_iconText {
+  height: 28px;
+  line-height: 24px;
+  padding: 0 11px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Button_type_formControl {
+  height: var(--control-height-m);
+  line-height: var(--control-line-height-m);
+  padding: 0 18px;
+  justify-content: center;
+  position: relative;
+}
+
+//Button tone mods
+.Button_tone_action {
+  background-color: var(--color-bg-action);
+  border: 2px solid var(--color-bg-action);
+}
+
+.Button_tone_action:hover {
+  background-color: var(--color-bg-action-hovered);
+  border: 2px solid var(--color-bg-action-hovered);
+}
+
+.Button_tone_action:focus {
+  border: 2px solid var(--color-border-action-focused);
+  outline: none;
+}
+
+.Button_tone_control {
+  background-color: var(--color-bg-control);
+  border: 2px solid var(--color-bg-control);
+}
+
+.Button_tone_control:hover {
+  background-color: var(--color-bg-control-hovered);
+  border: 2px solid var(--color-bg-control-hovered);
+}
+
+.Button_tone_control:focus {
+  border: 2px solid var(--color-border-control-focused);
+  outline: none;
+}
+
+.Button_tone_disabled {
+  background-color: var(--color-bg-disabled);
+  border: 2px solid var(--color-bg-disabled);
+  cursor: progress;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Button_fullWidthAtSmallScreen {
+    width: 100%;
+  }
+
+  .Button_type_text {
+    height: 36px;
+    line-height: 32px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .Button_type_iconText {
+    padding: 0;
+    width: 28px;
+  }
+}

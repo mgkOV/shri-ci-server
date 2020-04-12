@@ -1,0 +1,20 @@
+@import "../../../vars.scss";
+
+.ButtonGroup-Item {
+  margin-right: 8px;
+}
+
+.ButtonGroup-Item:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: $screen-s) {
+  .ButtonGroup-Item {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .ButtonGroup-Item:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,16 @@
+@import "../../../vars.scss";
+
+.Footer-Copyright {
+  color: var(--color-font-secondary);
+  font-size: var(--size-text-m);
+  line-height: var(--line-height-text-xs);
+  letter-spacing: 0.06px;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Footer-Copyright {
+    margin-top: var(--space-xxs);
+    line-height: 18px;
+  }
+}

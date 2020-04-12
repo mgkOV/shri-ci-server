@@ -1,0 +1,11 @@
+@import "../../../vars.scss";
+
+.Section-Head {
+  margin-bottom: var(--space-xs);
+}
+
+@media screen and (max-width: $screen-s) {
+  .Section-Head {
+    margin-bottom: var(--space-s);
+  }
+}

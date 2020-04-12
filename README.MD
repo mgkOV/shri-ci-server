@@ -1,13 +1,22 @@
-## Engines
+## Работа закончина
 
-```
+## Версия Node.js
+
 "node": "^12.13.0"
 "npm": "^6.12"
+
+Для запуска необходимо добавить в папку /config файл с наименованием local.js, следующего содержания:
+
+```
+{
+  "jwt": // токен от шри api,
+  "port": 5000, // Обязательно 5000
+  "github-token": // не обязательно, но github без токена позволяет делать только 60 запросов в час
+}
 ```
 
-## Npm scripts
+## запуск
 
 ```
-"dev": "cross-env NODE_ENV=development nodemon index.js --ignore 'storage/"
-"start": "node index.js"
+npm start
 ```

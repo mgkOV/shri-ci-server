@@ -27,45 +27,81 @@ router.get("/", async (req, res) => {
   res.json(settings);
 });
 
+// удаление настроек
+router.delete("/", async (req, res) => {
+  await shriApi.deleteConfig();
+  buildRunner.reset();
+
+  res.sendStatus(200);
+});
+
 // cохранение настроек
 router.post("/", downloader, async (req, res) => {
-  const { repoName, buildCommand, mainBranch, period } = req.body;
+  const { body } = req;
 
   const settings = {
-    repoName,
-    buildCommand,
-    mainBranch,
-    period
+    repoName: body.repoName,
+    buildCommand: body.buildCommand,
+    mainBranch: body.mainBranch,
+    period: body.period
   };
 
-  // останавливаем утилиты запущенные с прошлыми настройками
-  buildRunner.reset();
-  watcher.stopWatch();
+  // Скачиваем предыдущие настройки
+  const prevConfigResponse = await shriApi.getConfig();
 
-  // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
-  await shriApi.deleteConfig();
-  const status = await shriApi.postConfig(settings);
+  // Проверяем поменялось ли имя репозитоория
+  if (prevConfigResponse.data && prevConfigResponse.data.repoName !== body.repoName) {
+    // останавливаем утилиты запущенные с прошлыми настройками
+    buildRunner.reset();
 
-  // добавляем последний комит в лист билдов
-  const getCommitsResponse = await githubApi.getCommits(repoName, mainBranch);
+    // watcher.stopWatch();
 
-  const { sha, commit } = getCommitsResponse[0];
+    // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
+    await shriApi.deleteConfig();
+  }
 
-  const commitData = {
-    commitMessage: commit.message,
-    commitHash: sha,
-    branchName: mainBranch,
-    authorName: commit.author.name
+  //Сохраняем новую конфигурацию
+  await shriApi.postConfig(settings);
+  const newConfigResponse = await shriApi.getConfig();
+
+  let { data } = newConfigResponse;
+
+  const newSettings = {
+    id: data.id,
+    repoName: data.repoName,
+    buildCommand: data.buildCommand,
+    mainBranch: data.mainBranch,
+    period: data.period
   };
 
-  await shriApi.postBuildRequest(commitData);
-  const build = await shriApi.getBuildList();
+  //Проверяем поменялось ли имя репозитоория или ветка
+  if (
+    prevConfigResponse.data &&
+    (prevConfigResponse.data.repoName !== body.repoName ||
+      prevConfigResponse.data.mainBranch !== body.mainBranch)
+  ) {
+    // добавляем последний комит в лист билдов
+    const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
 
-  // запускаем утилиты
-  buildRunner.addBuilds(build.data);
-  watcher.startWatch();
+    const { sha, commit } = getCommitsResponse[0];
 
-  res.sendStatus(status);
+    const commitData = {
+      commitMessage: commit.message,
+      commitHash: sha,
+      branchName: data.mainBranch,
+      authorName: commit.author.name
+    };
+
+    await shriApi.postBuildRequest(commitData);
+    const build = await shriApi.getBuildList();
+
+    // запускаем утилиты
+    buildRunner.addBuilds(build.data);
+
+    // watcher.startWatch();
+  }
+
+  res.json(newSettings);
 });
 
 module.exports = router;

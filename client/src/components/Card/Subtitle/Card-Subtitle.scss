@@ -1,0 +1,14 @@
+@import "../../../vars.scss";
+
+.Card-Subtitle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media screen and (max-width: $screen-s) {
+  .Card-Subtitle {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
