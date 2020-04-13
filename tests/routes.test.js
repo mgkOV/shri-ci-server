@@ -74,4 +74,31 @@ describe('Build routes', () => {
       ])
       .end(done);
   });
+
+  test('GET /api/builds/:id should return build ', (done) => {
+    request(app)
+      .get('/api/builds/1234567')
+      .expect(200)
+      .expect({
+        id: '1234567',
+        configurationId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        buildNumber: 0,
+        commitMessage: 'string',
+        commitHash: 'string',
+        branchName: 'string',
+        authorName: 'string',
+        status: 'Waiting',
+        start: '13 апр, 22:34',
+        duration: '-',
+      })
+      .end(done);
+  });
+
+  test('GET /api/builds/:id/logs should return build log', (done) => {
+    request(app)
+      .get('/api/builds/1234567/logs')
+      .expect(200)
+      .expect('Test 1234567 log')
+      .end(done);
+  });
 });

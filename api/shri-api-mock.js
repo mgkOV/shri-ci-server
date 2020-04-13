@@ -75,7 +75,7 @@ let shriApi = {
     // log = await shriApi.getLogFromApi(buildId);
     // addLog({ buildId, log });
     // return log;
-    return 'Test log';
+    return `Test ${buildId} log`;
   },
 
   async getLogFromApi(buildId) {
