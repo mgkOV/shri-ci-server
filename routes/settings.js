@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require('express');
 
-const shriApi = require("../api/shri-api");
-const githubApi = require("../api/github-api");
-const downloader = require("../middleware/downloader");
-const buildRunner = require("../utils/build-runner");
-const watcher = require("../utils/watcher");
+const shriApi = require('../api/shri-api');
+const githubApi = require('../api/github-api');
+const downloader = require('../middleware/downloader');
+const buildRunner = require('../utils/build-runner');
+const watcher = require('../utils/watcher');
 
 const router = express.Router();
 
 // получение сохраненных настроек
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const config = await shriApi.getConfig();
 
   if (!config.data) return res.json({});
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 });
 
 // удаление настроек
-router.delete("/", async (req, res) => {
+router.delete('/', async (req, res) => {
   await shriApi.deleteConfig();
   buildRunner.reset();
 
@@ -36,7 +36,7 @@ router.delete("/", async (req, res) => {
 });
 
 // cохранение настроек
-router.post("/", downloader, async (req, res) => {
+router.post('/', downloader, async (req, res) => {
   const { body } = req;
 
   const settings = {
@@ -50,7 +50,10 @@ router.post("/", downloader, async (req, res) => {
   const prevConfigResponse = await shriApi.getConfig();
 
   // Проверяем поменялось ли имя репозитоория
-  if (prevConfigResponse.data && prevConfigResponse.data.repoName !== body.repoName) {
+  if (
+    prevConfigResponse.data &&
+    prevConfigResponse.data.repoName !== body.repoName
+  ) {
     // останавливаем утилиты запущенные с прошлыми настройками
     buildRunner.reset();
 
@@ -81,7 +84,10 @@ router.post("/", downloader, async (req, res) => {
       prevConfigResponse.data.mainBranch !== body.mainBranch)
   ) {
     // добавляем последний комит в лист билдов
-    const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
+    const getCommitsResponse = await githubApi.getCommits(
+      data.repoName,
+      data.mainBranch
+    );
 
     const { sha, commit } = getCommitsResponse[0];
 
