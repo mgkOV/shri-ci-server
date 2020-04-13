@@ -41,7 +41,7 @@ let shriApi = {
           configurationId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
           buildNumber: 0,
           commitMessage: 'string',
-          commitHash: 'string',
+          commitHash: 'a1882dc9558cff2e4293b048256dc3a1850ec342',
           branchName: 'string',
           authorName: 'string',
           status: 'Waiting',

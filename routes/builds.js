@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require('express');
 
-const buildRunner = require("../utils/build-runner");
-const formatDuration = require("../utils/format-duration");
-const formatDate = require("../utils/format-date");
-const shriApi = require("../api/shri-api");
-const githubApi = require("../api/github-api");
+const buildRunner = require('../utils/build-runner');
+const formatDuration = require('../utils/format-duration');
+const formatDate = require('../utils/format-date');
+const shriApi = require('../api/shri-api');
+const githubApi = require('../api/github-api');
 
 const router = express.Router();
 
 // получение списка сборок
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const { offset = 0, limit = 25 } = req.query;
   const response = await shriApi.getBuildList(offset, limit);
 
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 });
 
 // получение информации о конкретной сборке
-router.get("/:buildId", async (req, res) => {
+router.get('/:buildId', async (req, res) => {
   const { buildId } = req.params;
   const response = await shriApi.getBuildDetails(buildId);
 
@@ -35,7 +35,7 @@ router.get("/:buildId", async (req, res) => {
 });
 
 // получение логов билда (сплошной текст)
-router.get("/:buildId/logs", async (req, res) => {
+router.get('/:buildId/logs', async (req, res) => {
   const { buildId } = req.params;
   const response = await shriApi.getBuildLog(buildId);
 
@@ -43,7 +43,7 @@ router.get("/:buildId/logs", async (req, res) => {
 });
 
 // добавление сборки в очередь
-router.post("/:commitHash", async (req, res) => {
+router.post('/:commitHash', async (req, res) => {
   const { commitHash } = req.params;
 
   const config = await shriApi.getConfig();
@@ -58,7 +58,7 @@ router.post("/:commitHash", async (req, res) => {
     commitMessage: commit.message,
     commitHash: sha,
     branchName: mainBranch,
-    authorName: commit.author.name
+    authorName: commit.author.name,
   };
 
   const status = await shriApi.postBuildRequest(commitData);
