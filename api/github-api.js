@@ -1,15 +1,17 @@
-const axios = require("axios");
-const config = require("config");
+const axios = require('axios');
+const config = require('config');
 
-const URL = "https://api.github.com";
+const mockApi = require('./github-api-mock');
+
+const URL = 'https://api.github.com';
 const options = {
-  headers: { Accept: "application/vnd.github.v3+json" }
+  headers: { Accept: 'application/vnd.github.v3+json' },
 };
 
-const ghToken = config.get("github-token");
+const ghToken = config.get('github-token');
 
 if (ghToken) {
-  options.headers["Authorization"] = `token ${ghToken}`;
+  options.headers['Authorization'] = `token ${ghToken}`;
 }
 
 const githubApi = {
@@ -20,25 +22,37 @@ const githubApi = {
   },
 
   async getBranch(repoName, mainBranch) {
-    const response = await axios.get(`${URL}/repos/${repoName}/branches/${mainBranch}`, options);
+    const response = await axios.get(
+      `${URL}/repos/${repoName}/branches/${mainBranch}`,
+      options
+    );
 
     return response.data;
   },
 
   async getCommit(repoName, commitHash) {
-    const response = await axios.get(`${URL}/repos/${repoName}/commits/${commitHash}`, options);
+    const response = await axios.get(
+      `${URL}/repos/${repoName}/commits/${commitHash}`,
+      options
+    );
 
     return response.data;
   },
 
   async getCommits(repoName, mainBranch, since) {
     const response = await axios.get(
-      `${URL}/repos/${repoName}/commits?sha=${mainBranch}${since ? "&since=" + since : ""}`,
+      `${URL}/repos/${repoName}/commits?sha=${mainBranch}${
+        since ? '&since=' + since : ''
+      }`,
       options
     );
 
     return response.data;
-  }
+  },
 };
 
-module.exports = githubApi;
+if (process.env.NODE_ENV === 'test') {
+  module.exports = mockApi;
+} else {
+  module.exports = githubApi;
+}
