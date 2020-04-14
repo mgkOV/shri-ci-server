@@ -1,5 +1,5 @@
 jest.mock('../../middleware/downloader');
-const data = require('../test-data');
+const data = require('../test-data')();
 
 const app = require('../../server');
 const request = require('supertest');
