@@ -1,8 +1,7 @@
-jest.mock('../utils/build-runner');
+jest.mock('../../utils/build-runner');
 
-const app = require('../server');
+const app = require('../../server');
 const request = require('supertest');
-const buildRunner = require('../utils/build-runner');
 
 describe('Settings routes', () => {
   test('GET /api/settings should return settings', (done) => {
@@ -128,7 +127,7 @@ describe('Build routes', () => {
     // const addBuildMock = jest.fn();
 
     // buildRunner.addBuilds = addBuildMock;
-    const { addBuilds } = require('../utils/build-runner');
+    const { addBuilds } = require('../../utils/build-runner');
     addBuilds.mockReset();
 
     request(app)

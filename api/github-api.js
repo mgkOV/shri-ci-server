@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('config');
 
-const mockApi = require('./github-api-mock');
+const stubApi = require('./github-api-stub');
 
 const URL = 'https://api.github.com';
 const options = {
@@ -52,7 +52,7 @@ const githubApi = {
 };
 
 if (process.env.NODE_ENV === 'test') {
-  module.exports = mockApi;
+  module.exports = stubApi;
 } else {
   module.exports = githubApi;
 }
