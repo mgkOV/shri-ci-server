@@ -8,5 +8,6 @@ describe('App', function () {
       .then((exist) => {
         assert.ok(exist, 'App is NOT exist');
       });
+    //   .assertView('start page', '.App');
   });
 });

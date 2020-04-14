@@ -3,3 +3,4 @@ config/local.json
 config/test.json
 storage
 .vscode
+hermione-html-report
