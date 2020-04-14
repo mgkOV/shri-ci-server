@@ -117,7 +117,7 @@ const shriApi = {
   },
 };
 
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'stub') {
   module.exports = stubApi;
 } else {
   module.exports = shriApi;

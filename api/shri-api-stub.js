@@ -15,7 +15,7 @@ let shriApi = {
   },
 
   async getBuildList(offset = 0, limit = 25) {
-    return createTestData().buildList;
+    return { data: createTestData().buildList.data.slice(offset, limit) };
   },
 
   async getBuildDetails(buildId) {

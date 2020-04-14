@@ -12,7 +12,9 @@
     "start": "node index.js",
     "client": "npm run start --prefix client",
     "dev": "run-p server client",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest",
+    "server:stub": "cross-env NODE_ENV=stub node index.js",
+    "hermione": "hermione"
   },
   "nodemonConfig": {
     "ignore": [

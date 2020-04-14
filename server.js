@@ -13,7 +13,7 @@ app.use(express.json());
 
 if (process.env.NODE_ENV === 'test') {
   serverRenderer = (req, res) => {
-    res.sendFile(path.join('client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   };
 } else {
   serverRenderer = require('./renderer');
