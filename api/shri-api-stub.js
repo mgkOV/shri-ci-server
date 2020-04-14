@@ -1,16 +1,8 @@
-const { fetchLog, addLog, deleteOldCash } = require('../utils/caching');
+const data = require('../tests/test-data');
 
 let shriApi = {
   async getConfig() {
-    return {
-      data: {
-        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        repoName: 'string',
-        buildCommand: 'string',
-        mainBranch: 'string',
-        period: 0,
-      },
-    };
+    return data.settings;
   },
 
   async postConfig(settings) {

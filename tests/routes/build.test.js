@@ -1,4 +1,5 @@
 jest.mock('../../utils/build-runner');
+const data = require('../test-data');
 
 const app = require('../../server');
 const request = require('supertest');
@@ -77,8 +78,8 @@ describe('Builds routes', () => {
         branchName: 'string',
         authorName: 'string',
         status: 'Waiting',
-        start: '2020-04-13T19:32:03.668Z',
-        duration: 0,
+        start: '13 апр, 22:32',
+        duration: '-',
       })
       .end(done);
   });
@@ -100,8 +101,8 @@ describe('Builds routes', () => {
           branchName: 'string',
           authorName: 'string',
           status: 'Waiting',
-          start: '2020-04-13T19:32:03.668Z',
-          duration: 0,
+          start: '13 апр, 22:32',
+          duration: '-',
         });
       })
       .end(done);

@@ -68,6 +68,9 @@ router.post('/:commitHash', async (req, res) => {
 
   buildRunner.addBuilds(buildToAdd);
 
+  buildToAdd.duration = formatDuration(buildToAdd.duration);
+  buildToAdd.start = formatDate(buildToAdd.start);
+
   res.json(buildToAdd);
 });
 

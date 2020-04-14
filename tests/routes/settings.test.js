@@ -1,4 +1,5 @@
 jest.mock('../../middleware/downloader');
+const data = require('../test-data');
 
 const app = require('../../server');
 const request = require('supertest');
@@ -10,33 +11,16 @@ describe('Settings routes', () => {
     request(app)
       .get('/api/settings')
       .expect(200)
-      .expect({
-        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        repoName: 'string',
-        buildCommand: 'string',
-        mainBranch: 'string',
-        period: 0,
-      })
+      .expect(data.settings.data)
       .end(done);
   });
 
   test('POST /api/settings should return settings', (done) => {
     request(app)
       .post('/api/settings')
-      .send({
-        repoName: 'string',
-        buildCommand: 'string',
-        mainBranch: 'string',
-        period: 0,
-      })
+      .send(data.settings.data)
       .expect(200)
-      .expect({
-        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        repoName: 'string',
-        buildCommand: 'string',
-        mainBranch: 'string',
-        period: 0,
-      })
+      .expect(data.settings.data)
       .end(done);
   });
 
@@ -45,12 +29,7 @@ describe('Settings routes', () => {
 
     request(app)
       .post('/api/settings')
-      .send({
-        repoName: 'string',
-        buildCommand: 'string',
-        mainBranch: 'string',
-        period: 0,
-      })
+      .send(data.settings.data)
       .expect(200)
       .expect(() => {
         expect(downloader).toHaveBeenCalled();
