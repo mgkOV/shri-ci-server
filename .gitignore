@@ -3,5 +3,6 @@ config/local.json
 config/test.json
 config/stub.json
 storage
+/images
 .vscode
 hermione-html-report

@@ -8,6 +8,13 @@ describe('App', function () {
       .then((exist) => {
         assert.ok(exist, 'App is NOT exist');
       });
-    //   .assertView('start page', '.App');
+  });
+
+  it('Build list screenshot must be identical', function () {
+    return this.browser.url('/').assertView('Build list screen', 'body');
+  });
+
+  it('Settings screenshot must be identical', function () {
+    return this.browser.url('/settings').assertView('Setting screen', 'body');
   });
 });
