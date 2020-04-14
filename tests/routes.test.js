@@ -1,5 +1,8 @@
+jest.mock('../utils/build-runner');
+
 const app = require('../server');
 const request = require('supertest');
+const buildRunner = require('../utils/build-runner');
 
 describe('Settings routes', () => {
   test('GET /api/settings should return settings', (done) => {
@@ -117,6 +120,33 @@ describe('Build routes', () => {
         status: 'Waiting',
         start: '2020-04-13T19:32:03.668Z',
         duration: 0,
+      })
+      .end(done);
+  });
+
+  test('POST /api/builds/:hash should add build to queue', (done) => {
+    // const addBuildMock = jest.fn();
+
+    // buildRunner.addBuilds = addBuildMock;
+    const { addBuilds } = require('../utils/build-runner');
+    addBuilds.mockReset();
+
+    request(app)
+      .post('/api/builds/a1882dc9558cff2e4293b048256dc3a1850ec342')
+      .expect(200)
+      .expect(() => {
+        expect(addBuilds).toHaveBeenCalledWith({
+          id: '3fa85f64-5717-4562-b3fc-2c963f66afa9',
+          configurationId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          buildNumber: 0,
+          commitMessage: 'string',
+          commitHash: 'a1882dc9558cff2e4293b048256dc3a1850ec342',
+          branchName: 'string',
+          authorName: 'string',
+          status: 'Waiting',
+          start: '2020-04-13T19:32:03.668Z',
+          duration: 0,
+        });
       })
       .end(done);
   });
