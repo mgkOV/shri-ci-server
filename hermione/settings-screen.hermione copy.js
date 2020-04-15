@@ -1,11 +1,11 @@
 const assert = require('assert');
 
 describe('App', function () {
-  xit('Settings screenshot must be identical', function () {
+  it('Settings screenshot must be identical', function () {
     return this.browser.url('/settings').assertView('Setting screen', 'body');
   });
 
-  xit('Settings screenshot must be identical mobile screen', function () {
+  it('Settings screenshot must be identical mobile screen', function () {
     return this.browser
       .setViewportSize(
         {
@@ -26,5 +26,12 @@ describe('App', function () {
       .then((value) => {
         assert.strictEqual(value, '', 'Don clean input');
       });
+  });
+
+  it('Success submit form should redirect to build histroy screen', function () {
+    return this.browser
+      .url('/settings')
+      .submitForm('.Form')
+      .waitForExist('.History', 1500);
   });
 });
