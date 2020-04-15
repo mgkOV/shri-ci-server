@@ -2,6 +2,7 @@ const axios = require('axios');
 const config = require('config');
 const https = require('https');
 const stubApi = require('./shri-api-stub');
+const testApi = require('./shri-api-test');
 
 const { fetchLog, addLog, deleteOldCash } = require('../utils/caching');
 
@@ -117,8 +118,10 @@ const shriApi = {
   },
 };
 
-if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'stub') {
+if (process.env.NODE_ENV === 'stub') {
   module.exports = stubApi;
+} else if (process.env.NODE_ENV === 'test') {
+  module.exports = testApi;
 } else {
   module.exports = shriApi;
 }

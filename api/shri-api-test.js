@@ -1,4 +1,4 @@
-const createTestData = require('../hermione/stub-data');
+const createTestData = require('../tests/test-data');
 let settings = createTestData().settings;
 
 let shriApi = {
@@ -7,15 +7,10 @@ let shriApi = {
   },
 
   async postConfig(newSettings) {
-    settings = Object.assign({}, settings, newSettings);
-    new Promise((resolve) => setTimeout(resolve, 1000));
-
     return 200;
   },
 
   async deleteConfig() {
-    settings = {};
-
     return 200;
   },
 
