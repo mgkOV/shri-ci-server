@@ -52,4 +52,18 @@ describe('Build list', function () {
         );
       });
   });
+
+  it('Click on build card should redirect to build screen', function () {
+    return this.browser
+      .url('/')
+      .click('.History-Item.Card')
+      .getUrl()
+      .then((url) => {
+        assert.match(
+          url,
+          /http:\/\/localhost:5000\/build\//,
+          'Don not redirect to build  screen'
+        );
+      });
+  });
 });
