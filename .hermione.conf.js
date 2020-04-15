@@ -1,6 +1,7 @@
 module.exports = {
   gridUrl: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:5000',
+  compositeImage: true,
 
   browsers: {
     chrome: {
@@ -23,27 +24,6 @@ module.exports = {
         height: 690,
       },
     },
-    // chromeMobile: {
-    //   desiredCapabilities: {
-    //     browserName: 'chrome',
-    //   },
-    //   compositeImage: true,
-    //   screenshotDelay: 1000,
-    //   windowSize: {
-    //     width: 375,
-    //     height: 812,
-    //   },
-    // },
-    // firefoxMobile: {
-    //   desiredCapabilities: {
-    //     browserName: 'firefox',
-    //   },
-    //   screenshotDelay: 1000,
-    //   windowSize: {
-    //     width: 375,
-    //     height: 812,
-    //   },
-    // },
   },
   plugins: {
     'html-reporter/hermione': {
