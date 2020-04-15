@@ -1,16 +1,24 @@
 const createTestData = require('../tests/test-data');
-const data = createTestData();
+let settings = createTestData().settings;
 
 let shriApi = {
   async getConfig() {
-    return createTestData().settings;
+    return settings;
   },
 
-  async postConfig(settings) {
+  async postConfig(newSettings) {
+    if (process.env.NODE_ENV === 'stub') {
+      settings = Object.assign({}, settings, newSettings);
+      new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+
     return 200;
   },
 
   async deleteConfig() {
+    if (process.env.NODE_ENV === 'stub') {
+      settings = {};
+    }
     return 200;
   },
 
