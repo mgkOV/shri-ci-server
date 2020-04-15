@@ -19,8 +19,12 @@ let shriApi = {
     return 200;
   },
 
-  async getBuildList(offset = 0, limit = 25) {
-    return { data: createTestData().buildList.data.slice(offset, limit) };
+  async getBuildList(offset = 0, limit = 9) {
+    const data = createTestData().buildList.data;
+    const end = Number(limit) + Number(offset);
+    return {
+      data: data.slice(offset, end),
+    };
   },
 
   async getBuildDetails(buildId) {

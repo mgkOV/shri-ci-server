@@ -29,4 +29,11 @@ describe('Build list', function () {
       .click('.Header-BtnGroup .Button_type_iconText')
       .assertView('New-build-popup', 'body');
   });
+
+  it('Show more should show more :)', function () {
+    return this.browser
+      .url('/')
+      .click('.History + .Button_fullWidthAtSmallScreen')
+      .waitForVisible('.History-Item:nth-child(11)');
+  });
 });
