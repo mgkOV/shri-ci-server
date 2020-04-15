@@ -31,6 +31,7 @@ npm run test
 Запуск тестов
 
 ```
+selenium-standalone start
 npm run server:stub
 npm run hermione
 ```
