@@ -29,11 +29,15 @@ npm run test
 ```
 
 Запуск тестов
+Сеты тестов обязательно запускать, т.к. изменяются данные на stub сервере
 
 ```
 selenium-standalone start
+
 npm run server:stub
-npm run hermione
+
+npm run hermione -- --set firefox
+npm run hermione -- --set chrome
 ```
 
 ## Версия Node.js

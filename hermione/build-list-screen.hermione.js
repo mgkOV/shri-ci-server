@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-xdescribe('Build list', function () {
+describe('Build list', function () {
   it('Build list screenshot must be identical', function () {
     return this.browser.url('/').assertView('Build list screen', 'body');
   });

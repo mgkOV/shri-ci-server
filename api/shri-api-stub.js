@@ -2,6 +2,15 @@ const createTestData = require('../hermione/stub-data');
 let settings = createTestData().settings;
 
 let shriApi = {
+  async getBuildLog(buildId) {
+    // Хак для востановления настроек после теста
+    if (buildId === '__restore-settings__') {
+      settings = createTestData().settings;
+    }
+
+    return `Test ${buildId} log`;
+  },
+
   async getConfig() {
     return settings;
   },
@@ -33,43 +42,19 @@ let shriApi = {
     };
   },
 
-  async getBuildLog(buildId) {
-    // let log = fetchLog(buildId);
-    // if (log) return log;
-    // log = await shriApi.getLogFromApi(buildId);
-    // addLog({ buildId, log });
-    // return log;
-    return `Test ${buildId} log`;
-  },
-
   async getLogFromApi(buildId) {
     return 'Test log';
   },
 
   async postBuildRequest(commitData) {
-    // const response = await axios.post(`${URL}/build/request`, commitData, {
-    //   headers: { Authorization: `Bearer ${JWT}` },
-    //   httpsAgent: agent,
-    // });
-    // return response.status;
     return 200;
   },
 
   async postBuildStart(buildData) {
-    // const response = await axios.post(`${URL}/build/start`, buildData, {
-    //   headers: { Authorization: `Bearer ${JWT}` },
-    //   httpsAgent: agent,
-    // });
-    // return response.status;
     return 200;
   },
 
   async postBuildFinish(buildData) {
-    // const response = await axios.post(`${URL}/build/finish`, buildData, {
-    //   headers: { Authorization: `Bearer ${JWT}` },
-    //   httpsAgent: agent,
-    // });
-    // return response.status;
     return 200;
   },
 };

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-xdescribe('App', function () {
+describe('App', function () {
   it('Settings screenshot must be identical', function () {
     return this.browser.url('/settings').assertView('Setting screen', 'body');
   });

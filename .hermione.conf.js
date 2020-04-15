@@ -2,6 +2,16 @@ module.exports = {
   gridUrl: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:5000',
   compositeImage: true,
+  sets: {
+    chrome: {
+      files: 'hermione/*.hermione.js',
+      browsers: ['chrome'],
+    },
+    firefox: {
+      files: 'hermione/*.hermione.js',
+      browsers: ['firefox'],
+    },
+  },
 
   browsers: {
     chrome: {
