@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 describe('Build list', function () {
   it('Build list screenshot must be identical', function () {
     return this.browser.url('/').assertView('Build list screen', 'body');
@@ -35,5 +37,19 @@ describe('Build list', function () {
       .url('/')
       .click('.History + .Button_fullWidthAtSmallScreen')
       .waitForVisible('.History-Item:nth-child(11)');
+  });
+
+  it('Settings buttons should redirect to settings screen', function () {
+    return this.browser
+      .url('/')
+      .click('.Header-BtnGroup .Button_type_icon')
+      .getUrl()
+      .then((url) => {
+        assert.strictEqual(
+          url,
+          'http://localhost:5000/settings',
+          'Don not redirect to settings screen'
+        );
+      });
   });
 });
