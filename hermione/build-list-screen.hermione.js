@@ -22,4 +22,11 @@ describe('Build list', function () {
       .click('.Header-BtnGroup .Button_type_iconText')
       .waitForVisible('.PopUp');
   });
+
+  it('New-build-popup screenshot must be identical', function () {
+    return this.browser
+      .url('/')
+      .click('.Header-BtnGroup .Button_type_iconText')
+      .assertView('New-build-popup', 'body');
+  });
 });
