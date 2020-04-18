@@ -1,34 +1,31 @@
-const express = require("express");
-const morgan = require("morgan");
-const config = require("config");
-const path = require("path");
-const serverRenderer = require("./renderer");
-
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+let serverRenderer;
 // const watcher = require("./utils/watcher");
 
-const port = config.get("port");
-require("express-async-errors");
+require('express-async-errors');
 
 const app = express();
 
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(express.json());
 
+if (process.env.NODE_ENV === 'test') {
+  serverRenderer = (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  };
+} else {
+  serverRenderer = require('./renderer');
+}
+
 //регистрируем routes
-app.use("^/$", serverRenderer);
+app.use('^/$', serverRenderer);
 
-app.use(express.static(path.join("client", "build")));
+app.use(express.static(path.join('client', 'build')));
 
-require("./routes")(app);
+require('./routes')(app);
 
-app.get("*", serverRenderer);
+app.get('*', serverRenderer);
 
-app.listen(port, () => {
-  console.log(`CI server listening on port ${port}!`);
-
-  // запускаем автопроверку на новые коммиты репозитория github
-  // watcher.startWatch();
-
-  // Проверяем есть ли в очереди билды со статусом Waiting и InPrograss
-  require("./utils/initial-check")();
-});
+module.exports = app;

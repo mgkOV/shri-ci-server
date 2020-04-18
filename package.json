@@ -11,7 +11,10 @@
     "server": "cross-env NODE_ENV=development nodemon index.js",
     "start": "node index.js",
     "client": "npm run start --prefix client",
-    "dev": "run-p server client"
+    "dev": "run-p server client",
+    "test": "cross-env NODE_ENV=test jest",
+    "server:stub": "cross-env NODE_ENV=stub node index.js",
+    "hermione": "hermione"
   },
   "nodemonConfig": {
     "ignore": [
@@ -53,8 +56,12 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "hermione": "^3.1.0",
+    "html-reporter": "^5.15.2",
+    "jest": "^25.3.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
+    "supertest": "^4.0.2",
     "supervisor": "^0.12.0"
   }
 }
