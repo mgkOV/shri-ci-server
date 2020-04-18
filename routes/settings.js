@@ -51,17 +51,14 @@ router.post("/", async (req, res) => {
 
   // Проверяем поменялось ли имя репозитоория
   if (prevConfigResponse.data && prevConfigResponse.data.repoName !== body.repoName) {
-    // останавливаем утилиты запущенные с прошлыми настройками
-    buildRunner.reset();
-
-    // watcher.stopWatch();
-
     // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
     await shriApi.deleteConfig();
   }
 
   //Сохраняем новую конфигурацию
   await shriApi.postConfig(settings);
+
+  // Скачиваем новую конфигурацию
   const newConfigResponse = await shriApi.getConfig();
 
   let { data } = newConfigResponse;
@@ -73,33 +70,6 @@ router.post("/", async (req, res) => {
     mainBranch: data.mainBranch,
     period: data.period
   };
-
-  //Проверяем поменялось ли имя репозитоория или ветка
-  if (
-    prevConfigResponse.data &&
-    (prevConfigResponse.data.repoName !== body.repoName ||
-      prevConfigResponse.data.mainBranch !== body.mainBranch)
-  ) {
-    // добавляем последний комит в лист билдов
-    const getCommitsResponse = await githubApi.getCommits(data.repoName, data.mainBranch);
-
-    const { sha, commit } = getCommitsResponse[0];
-
-    const commitData = {
-      commitMessage: commit.message,
-      commitHash: sha,
-      branchName: data.mainBranch,
-      authorName: commit.author.name
-    };
-
-    await shriApi.postBuildRequest(commitData);
-    const build = await shriApi.getBuildList();
-
-    // запускаем утилиты
-    buildRunner.addBuilds(build.data);
-
-    // watcher.startWatch();
-  }
 
   res.json(newSettings);
 });
