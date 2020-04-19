@@ -1,11 +1,13 @@
 const express = require("express");
 const { port } = require("./server-conf");
+const morgan = require("morgan");
 
 require("express-async-errors");
 
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 
 require("./routes")(app);
 

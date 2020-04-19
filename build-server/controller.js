@@ -6,7 +6,7 @@ module.exports = async (agents) => {
   }
 };
 
-async function* loadAgents(buildAgents, period = 7000) {
+async function* loadAgents(buildAgents, period = 10000) {
   while (true) {
     const waitingBuilds = await getWaitingBuilds();
 
@@ -17,13 +17,13 @@ async function* loadAgents(buildAgents, period = 7000) {
           const agent = buildAgents[prop];
 
           agent.build = build;
-          const status = await axios.post(`http://${agent.host}:${agent.port}/build`, build);
+          const status = await axios.post(`http://${agent.host}:${agent.port}/build`, { build });
         }
       }
 
       await new Promise((resolve) => setTimeout(resolve, period));
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message, error.config);
     }
   }
 }
@@ -33,7 +33,7 @@ async function getWaitingBuilds() {
     const settings = await api.getConfig();
     if (!settings || !settings.data || !settings.data.id) return [];
 
-    let builds = await api.getBuildList(0, 100);
+    let builds = await api.getBuildList(0, 50);
     waitingBuilds = builds.data
       .filter(({ status }) => status === "Waiting")
       .map(({ id, commitHash }) => ({
@@ -45,7 +45,7 @@ async function getWaitingBuilds() {
 
     return waitingBuilds;
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message, error.config);
     return [];
   }
 }

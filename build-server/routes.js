@@ -7,7 +7,8 @@ controller(buildAgents);
 
 module.exports = (app) => {
   app.post("/notify-agent", (req, res) => {
-    const { host, port } = req.body;
+    const { port } = req.body;
+    const host = req.hostname;
 
     buildAgents[`${host}:${port}`] = { host, port, build: null };
 

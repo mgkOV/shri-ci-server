@@ -2,6 +2,7 @@ const rimraf = require("rimraf");
 const { promisify } = require("util");
 const { spawn } = require("child_process");
 const path = require("path");
+const axios = require("axios");
 
 const githubOptions = {
   headers: { Accept: "application/vnd.github.v3+json" }
@@ -26,14 +27,16 @@ module.exports = (app) => {
     await promisify(rimraf)(path.join(".", "storage"));
 
     // клонируем репозиторий в storage
-    const repository = await axios.get(`https://api.github.com/repos/${build.repoName}`);
+    const repository = await axios.get(
+      `https://api.github.com/repos/${build.repoName}`,
+      githubOptions
+    );
 
-    const child = spawn("git", ["clone", repository.clone_url, "storage"]);
+    const child = spawn("git", ["clone", repository.data.clone_url, "storage"]);
     console.info("Start cloning...");
 
     child.on("exit", (code) => {
       console.info("Finish cloning...");
-      if (code === 0) next();
     });
 
     child.on("error", (err) => {
