@@ -26,8 +26,7 @@ module.exports = (app) => {
 
     buildAgents[`${host}:${port}`] = { host, port, build: null };
 
-    const reqStatus = 200;
-    // const reqStatus = await api.postBuildFinish(build);
+    const reqStatus = await api.postBuildFinish(build);
 
     res.sendStatus(reqStatus);
   });

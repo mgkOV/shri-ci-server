@@ -1,6 +1,8 @@
 const express = require("express");
 const { port } = require("./server-conf");
 
+require("express-async-errors");
+
 const app = express();
 
 app.use(express.json());
