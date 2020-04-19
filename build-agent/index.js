@@ -1,10 +1,12 @@
 const express = require("express");
 const axios = require("axios");
+const morgan = require("morgan");
 const { port, serverHost, serverPort } = require("./agent-conf");
 
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 
 require("./routes")(app);
 

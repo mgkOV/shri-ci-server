@@ -6,7 +6,7 @@ module.exports = async (agents) => {
   }
 };
 
-async function* loadAgents(buildAgents, period = 10000) {
+async function* loadAgents(buildAgents, period = 60000) {
   while (true) {
     const waitingBuilds = await getWaitingBuilds();
 
@@ -14,10 +14,13 @@ async function* loadAgents(buildAgents, period = 10000) {
       for (let prop in buildAgents) {
         if (!buildAgents[prop].build) {
           const build = waitingBuilds.pop();
+          if (!build) break;
+
           const agent = buildAgents[prop];
 
           agent.build = build;
           const status = await axios.post(`http://${agent.host}:${agent.port}/build`, { build });
+          const startStatus = await api.postBuildStart({ start: new Date(), buildId: build.id });
         }
       }
 

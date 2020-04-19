@@ -4,26 +4,29 @@ const axios = require("axios");
 
 const clone = require("./middleware/clone");
 const checkout = require("./middleware/checkout");
+const { port, serverHost, serverPort } = require("./agent-conf");
 
 module.exports = (app) => {
-  app.post("/build", clone, checkout, async (req, res) => {
+  app.post("/build", clone, checkout, (req, res) => {
     let { build } = req.body;
+    const startTime = new Date();
 
-    build = {
-      commitHash: "d5a66494928e2f24d4",
-      repoName: "mgkOV/shri-ci-test",
-      buildCommand: "npm i && npm run build"
-    };
-
-    exec(build.buildCommand, { cwd: path.join(".", "storage") }, (err, stdout, stderr) => {
+    exec(build.buildCommand, { cwd: path.join(".", "storage") }, async (err, stdout, stderr) => {
       if (err) {
         console.log("Error build...");
-        console.log(stderr.toString());
         return;
       }
 
       console.log("Finish build...");
-      console.log(stdout.toString());
+
+      const duration = new Date().getTime() - startTime.getTime();
+      const result = { id: build.id, status: "Success", log: stdout.toString(), port, duration };
+
+      try {
+        await axios.post(`http://${serverHost}:${serverPort}/notify-build-result`, result);
+      } catch (error) {
+        console.log(error.message);
+      }
     });
   });
 };

@@ -16,7 +16,8 @@ module.exports = (app) => {
   });
 
   app.post("/notify-build-result", async (req, res) => {
-    const { id, status, log, port, host, duration } = req.body;
+    const { id, status, log, port, duration } = req.body;
+    const host = req.hostname;
 
     const build = {
       buildId: id,
@@ -29,6 +30,6 @@ module.exports = (app) => {
 
     const reqStatus = await api.postBuildFinish(build);
 
-    res.sendStatus(reqStatus);
+    res.sendStatus(200);
   });
 };

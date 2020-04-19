@@ -19,11 +19,6 @@ module.exports = async (req, res, next) => {
     res.sendStatus(200);
 
     let { build } = req.body;
-    build = {
-      commitHash: "d5a66494928e2f24d4",
-      repoName: "mgkOV/shri-ci-test",
-      buildCommand: "npm i && npm run build"
-    };
 
     await promisify(rimraf)(path.join(".", "storage"));
 
