@@ -1,5 +1,5 @@
 const controller = require("./controller");
-const { apiToken, apiBaseUrl } = require("./server-conf");
+
 const buildAgents = {};
 const api = require("./api");
 
