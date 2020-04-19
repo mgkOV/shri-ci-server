@@ -2,8 +2,6 @@ const express = require("express");
 const axios = require("axios");
 const { port, serverHost, serverPort } = require("./agent-conf");
 
-require("express-async-errors");
-
 const app = express();
 
 app.use(express.json());
