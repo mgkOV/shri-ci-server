@@ -1,9 +1,7 @@
 const express = require("express");
-const config = require("config");
+const { port } = requre("./server-conf");
 
 const app = express();
-
-const port = config.get("build-server.port");
 
 require("./routes")(app);
 
