@@ -6,10 +6,10 @@ module.exports = async (agents) => {
   }
 };
 
-async function* loadAgents(buildAgents, period = 60000) {
+async function* loadAgents(buildAgents, period = 10000) {
   while (true) {
     const waitingBuilds = await getWaitingBuilds();
-
+    console.log(waitingBuilds, buildAgents);
     try {
       for (let prop in buildAgents) {
         if (!buildAgents[prop].build) {

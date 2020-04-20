@@ -1,6 +1,6 @@
-const rimraf = require("rimraf");
 const { promisify } = require("util");
-const { exec } = require("child_process");
+const rimraf = promisify(require("rimraf"));
+const exec = promisify(require("child_process").exec);
 const path = require("path");
 const axios = require("axios");
 
@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
 
     let { build } = req.body;
 
-    await promisify(rimraf)(path.join(".", "storage"));
+    await rimraf(path.join(".", "storage"));
 
     // клонируем репозиторий в storage
     const repository = await axios.get(
@@ -28,15 +28,9 @@ module.exports = async (req, res, next) => {
       githubOptions
     );
 
-    exec(`git clone ${repository.data.clone_url} storage`, (err, stdout, stderr) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log("Finish clone...");
-
-      next();
-    });
+    await exec(`git clone ${repository.data.clone_url} storage`);
+    console.log("Finish clone...");
+    next();
   } catch (error) {
     console.log(error.message);
   }
