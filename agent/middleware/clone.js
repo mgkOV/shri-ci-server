@@ -3,6 +3,8 @@ const rimraf = promisify(require("rimraf"));
 const exec = promisify(require("child_process").exec);
 const path = require("path");
 const axios = require("axios");
+const axiosRetry = require("axios-retry");
+axiosRetry(axios, { retries: 4, retryDelay: axiosRetry.exponentialDelay });
 
 const githubOptions = {
   headers: { Accept: "application/vnd.github.v3+json" }

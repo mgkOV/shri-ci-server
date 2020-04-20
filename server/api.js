@@ -1,5 +1,7 @@
 const https = require("https");
 const axios = require("axios");
+const axiosRetry = require("axios-retry");
+axiosRetry(axios, { retries: 4, retryDelay: axiosRetry.exponentialDelay });
 
 const { apiToken, apiBaseUrl } = require("./server-conf");
 

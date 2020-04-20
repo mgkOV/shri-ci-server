@@ -1,4 +1,6 @@
 const axios = require("axios");
+const axiosRetry = require("axios-retry");
+axiosRetry(axios, { retries: 4, retryDelay: axiosRetry.exponentialDelay });
 const api = require("./api");
 
 module.exports = async (agents) => {
@@ -6,10 +8,10 @@ module.exports = async (agents) => {
   }
 };
 
-async function* loadAgents(buildAgents, period = 10000) {
+async function* loadAgents(buildAgents, period = 30000) {
   while (true) {
     const waitingBuilds = await getWaitingBuilds();
-    console.log(waitingBuilds, buildAgents);
+
     try {
       for (let prop in buildAgents) {
         if (!buildAgents[prop].build) {
