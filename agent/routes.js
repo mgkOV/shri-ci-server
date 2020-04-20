@@ -22,15 +22,26 @@ module.exports = (app) => {
       const duration = new Date().getTime() - startTime.getTime();
       const result = {
         id: build.id,
-        status: stdout ? "Success" : "Failed",
-        log: stdout ? stdout : stderr,
+        status: "Success",
+        log: stdout,
         port,
         duration
       };
 
       await axios.post(`http://${serverHost}:${serverPort}/notify-build-result`, result);
     } catch (error) {
-      console.log(error.message);
+      console.log("Finish error...");
+
+      const duration = new Date().getTime() - startTime.getTime();
+      const result = {
+        id: build.id,
+        status: "Failed",
+        log: error.stderr,
+        port,
+        duration
+      };
+
+      await axios.post(`http://${serverHost}:${serverPort}/notify-build-result`, result);
     }
   });
 };
