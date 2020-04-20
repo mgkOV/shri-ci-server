@@ -34,6 +34,6 @@ module.exports = async (req, res, next) => {
     console.log("Finish clone...");
     next();
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };

@@ -13,6 +13,8 @@ app.use(morgan("dev"));
 
 require("./routes")(app);
 
+app.use(errorHandler);
+
 app.listen(port, async function () {
   console.log(`Build agent run on port ${port}`);
   try {
@@ -22,3 +24,20 @@ app.listen(port, async function () {
     this.close();
   }
 });
+
+async function errorHandler(err, req, res, next) {
+  try {
+    const { build } = req.body;
+    const result = {
+      id: build ? build.id : build,
+      status: "Failed",
+      log: err.message,
+      port,
+      duration: 0
+    };
+
+    await axios.post(`http://${serverHost}:${serverPort}/notify-build-result`, result);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
