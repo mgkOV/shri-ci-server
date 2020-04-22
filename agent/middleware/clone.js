@@ -1,19 +1,21 @@
-const { promisify } = require("util");
-const rimraf = promisify(require("rimraf"));
-const exec = promisify(require("child_process").exec);
-const path = require("path");
-const axios = require("axios");
-const axiosRetry = require("axios-retry");
+const { promisify } = require('util');
+const rimraf = promisify(require('rimraf'));
+const exec = promisify(require('child_process').exec);
+const path = require('path');
+const axios = require('axios');
+const axiosRetry = require('axios-retry');
 axiosRetry(axios, { retries: 4, retryDelay: axiosRetry.exponentialDelay });
 
 const githubOptions = {
-  headers: { Accept: "application/vnd.github.v3+json" }
+  headers: { Accept: 'application/vnd.github.v3+json' },
 };
 
-const { ghToken } = require("../agent-conf");
+const { ghToken } = require('../agent-conf');
 
-if (ghToken) {
-  githubOptions.headers["Authorization"] = `token ${ghToken}`;
+const GH_TOKEN = process.env.GH_TOKEN || ghToken;
+
+if (GH_TOKEN) {
+  githubOptions.headers['Authorization'] = `token ${GH_TOKEN}`;
 }
 
 module.exports = async (req, res, next) => {
@@ -22,7 +24,7 @@ module.exports = async (req, res, next) => {
 
     let { build } = req.body;
 
-    await rimraf(path.join(".", "storage"));
+    await rimraf(path.join('.', 'storage'));
 
     // клонируем репозиторий в storage
     const repository = await axios.get(
@@ -31,7 +33,7 @@ module.exports = async (req, res, next) => {
     );
 
     await exec(`git clone ${repository.data.clone_url} storage`);
-    console.log("Finish clone...");
+    console.log('Finish clone...');
     next();
   } catch (error) {
     next(error);
