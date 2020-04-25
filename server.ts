@@ -1,6 +1,6 @@
-const express = require("express");
-const morgan = require("morgan");
-const path = require("path");
+import express from "express";
+import morgan from "morgan";
+import path from "path";
 let serverRenderer;
 
 require("express-async-errors");
@@ -11,7 +11,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 if (process.env.NODE_ENV === "test") {
-  serverRenderer = (req, res) => {
+  serverRenderer = (req: express.Request, res: express.Response) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
   };
 } else {
@@ -27,4 +27,4 @@ require("./routes")(app);
 
 app.get("*", serverRenderer);
 
-module.exports = app;
+export default app;
