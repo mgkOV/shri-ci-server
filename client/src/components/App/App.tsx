@@ -12,7 +12,7 @@ import Section from "../Section";
 
 import { selectIsSettingsFetching } from "../../redux/settings/settings.selectors";
 
-const App = ({ isSettingsFetching }) => {
+const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) => {
   let appContent = (
     <>
       <Switch>
@@ -39,8 +39,8 @@ const App = ({ isSettingsFetching }) => {
   return <div className="App">{appContent}</div>;
 };
 
-const mapState = (state) => ({
-  isSettingsFetching: selectIsSettingsFetching(state)
+const mapState = (state: object) => ({
+  isSettingsFetching: selectIsSettingsFetching(state),
 });
 
 export default connect(mapState)(App);
