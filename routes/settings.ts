@@ -1,10 +1,5 @@
-const express = require("express");
-
-const shriApi = require("../api/shri-api");
-const githubApi = require("../api/github-api");
-const downloader = require("../middleware/downloader");
-const buildRunner = require("../utils/build-runner");
-const watcher = require("../utils/watcher");
+import express from "express";
+import shriApi from "../api/shri-api";
 
 const router = express.Router();
 
@@ -21,7 +16,7 @@ router.get("/", async (req, res) => {
     repoName,
     buildCommand,
     mainBranch,
-    period
+    period,
   };
 
   res.json(settings);
@@ -30,7 +25,6 @@ router.get("/", async (req, res) => {
 // удаление настроек
 router.delete("/", async (req, res) => {
   await shriApi.deleteConfig();
-  buildRunner.reset();
 
   res.sendStatus(200);
 });
@@ -43,14 +37,17 @@ router.post("/", async (req, res) => {
     repoName: body.repoName,
     buildCommand: body.buildCommand,
     mainBranch: body.mainBranch,
-    period: body.period
+    period: body.period,
   };
 
   // Скачиваем предыдущие настройки
   const prevConfigResponse = await shriApi.getConfig();
 
   // Проверяем поменялось ли имя репозитоория
-  if (prevConfigResponse.data && prevConfigResponse.data.repoName !== body.repoName) {
+  if (
+    prevConfigResponse.data &&
+    prevConfigResponse.data.repoName !== body.repoName
+  ) {
     // удаляем старую конфигурацию (чтобы получить новый id и почистить очередь билдов) и сохраняем новую
     await shriApi.deleteConfig();
   }
@@ -68,10 +65,10 @@ router.post("/", async (req, res) => {
     repoName: data.repoName,
     buildCommand: data.buildCommand,
     mainBranch: data.mainBranch,
-    period: data.period
+    period: data.period,
   };
 
   res.json(newSettings);
 });
 
-module.exports = router;
+export default router;

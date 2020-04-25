@@ -1,6 +1,6 @@
-const moment = require("moment");
+import moment from "moment";
 
-module.exports = (ms) => {
+export default (ms: number | string) => {
   if (!ms) return "-";
   const duration = moment.duration(ms);
   const seconds = duration.seconds();

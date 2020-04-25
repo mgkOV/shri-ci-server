@@ -1,25 +1,28 @@
-const express = require("express");
+import express from "express";
 
-const shriApi = require("../api/shri-api");
-const githubApi = require("../api/github-api");
-const formatDuration = require("../utils/format-duration");
-const formatDate = require("../utils/format-date");
+import shriApi from "../api/shri-api";
+import githubApi from "../api/github-api";
+import formatDuration from "../utils/format-duration";
+import formatDate from "../utils/format-date";
 
 const router = express.Router();
 
 // получение списка сборок
-router.get("/", async (req, res) => {
-  const { offset = 0, limit = 25 } = req.query;
-  const response = await shriApi.getBuildList(offset, limit);
+router.get<{}, {}, {}, { offset: number; limit: number }>(
+  "/",
+  async (req, res) => {
+    const { offset = 0, limit = 25 } = req.query;
+    const response = await shriApi.getBuildList(offset, limit);
 
-  const buildList = response.data.map((b) => {
-    b.duration = formatDuration(b.duration);
-    b.start = formatDate(b.start);
-    return b;
-  });
+    const buildList = response.data.map((b: Build) => {
+      b.duration = formatDuration(b.duration);
+      b.start = formatDate(b.start);
+      return b;
+    });
 
-  res.json(buildList);
-});
+    res.json(buildList);
+  }
+);
 
 // получение информации о конкретной сборке
 router.get("/:buildId", async (req, res) => {
@@ -57,13 +60,13 @@ router.post("/:commitHash", async (req, res) => {
     commitMessage: commit.message,
     commitHash: sha,
     branchName: mainBranch,
-    authorName: commit.author.name
+    authorName: commit.author.name,
   };
 
   const status = await shriApi.postBuildRequest(commitData);
 
   const builds = await shriApi.getBuildList();
-  const buildToAdd = builds.data.find((b) => b.commitHash === sha);
+  const buildToAdd = builds.data.find((b: Build) => b.commitHash === sha);
 
   buildToAdd.duration = formatDuration(buildToAdd.duration);
   buildToAdd.start = formatDate(buildToAdd.start);
@@ -71,4 +74,4 @@ router.post("/:commitHash", async (req, res) => {
   res.json(buildToAdd);
 });
 
-module.exports = router;
+export default router;

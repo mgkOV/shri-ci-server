@@ -1,14 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import path from "path";
-let serverRenderer;
 
-require("express-async-errors");
+import "express-async-errors";
+
+import routeRegister from "./routes";
 
 const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
+
+let serverRenderer;
 
 if (process.env.NODE_ENV === "test") {
   serverRenderer = (req: express.Request, res: express.Response) => {
@@ -23,7 +26,7 @@ app.use("^/$", serverRenderer);
 
 app.use(express.static(path.join("client", "build")));
 
-require("./routes")(app);
+routeRegister(app);
 
 app.get("*", serverRenderer);
 
