@@ -1,16 +1,16 @@
-import types from "./builds.types";
+import types, { BuildActionTypes, BuildState } from "./builds.types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: BuildState = {
   allBuilds: [],
   currentBuild: {},
   buildLog: "",
   isAllFetching: false,
   isCurrentFetching: false,
   isLogFetching: false,
-  errorMessage: undefined
+  errorMessage: undefined,
 };
 
-const buildReducer = (state = INITIAL_STATE, action) => {
+const buildReducer = (state = INITIAL_STATE, action: BuildActionTypes): BuildState => {
   switch (action.type) {
     // GET build list
     case types.BUILD_LIST_GET_REQUESTED:
@@ -27,7 +27,11 @@ const buildReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isAllFetching: true };
 
     case types.MORE_BUILDS_GET_SUCCEEDED:
-      return { ...state, isAllFetching: false, allBuilds: [...state.allBuilds, ...action.payload] };
+      return {
+        ...state,
+        isAllFetching: false,
+        allBuilds: [...state.allBuilds, ...action.payload],
+      };
 
     case types.MORE_BUILDS_GET_FAILED:
       return { ...state, isAllFetching: false, errorMessage: action.payload };

@@ -1,10 +1,10 @@
-import types from "./popUp.types";
+import types, { PopUpState, PopUpAction } from "./popUp.types";
 
-const INITIAL_STATE = {
-  show: false
+const INITIAL_STATE: PopUpState = {
+  show: false,
 };
 
-const popUpReducer = (state = INITIAL_STATE, action) => {
+const popUpReducer = (state = INITIAL_STATE, action: PopUpAction): PopUpState => {
   switch (action.type) {
     case types.OPEN_POPUP:
       return { show: true };
