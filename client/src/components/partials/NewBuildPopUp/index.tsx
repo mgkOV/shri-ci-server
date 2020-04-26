@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import PropTypes from "prop-types";
+import { History } from "history";
 
 import PopUp from "../../PopUp";
 import FieldSuite from "../../FieldSuite";
@@ -15,14 +15,14 @@ import { postBuild } from "../../../redux/builds/builds.actions";
 import { selectIsCurrentBuildFetching } from "../../../redux/builds/builds.selectors";
 import { selectIsPopUpShown } from "../../../redux/popUp/popUp.selectors";
 
-const propTypes = {
-  isShown: PropTypes.bool, //redux
-  closePopUp: PropTypes.func, //redux
-  postBuild: PropTypes.func, //redux
-  isPosting: PropTypes.bool //redux
-};
+type NewBuildPopUp = React.FC<{
+  isShown: boolean;
+  closePopUp(): void;
+  postBuild(trimmedHash: string, history: History): void;
+  isPosting: boolean;
+}>;
 
-const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
+const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
   const [hash, setHash] = useState("");
   const [error, setError] = useState(false);
 
@@ -31,11 +31,11 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
   if (isPosting)
     return (
       <PopUp>
-        <Loader view="popUp" />
+        <Loader />
       </PopUp>
     );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const trimmedHash = hash.trim();
 
@@ -99,11 +99,9 @@ const NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
   );
 };
 
-NewBuildPopUp.propTypes = propTypes;
-
 const mapState = createStructuredSelector({
   isPosting: selectIsCurrentBuildFetching,
-  isShown: selectIsPopUpShown
+  isShown: selectIsPopUpShown,
 });
 
 export default connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);

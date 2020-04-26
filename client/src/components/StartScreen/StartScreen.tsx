@@ -7,7 +7,7 @@ import Title from "./Title/StartScreen-Title";
 import Icon from "./Icon/StartScreen-Icon";
 
 type StartScreen = React.FC<{
-  mix: ClassNameList;
+  mix?: ClassNameList;
 }>;
 
 type StartScreenBemElements = {

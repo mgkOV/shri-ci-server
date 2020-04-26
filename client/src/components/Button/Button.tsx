@@ -10,7 +10,7 @@ type Button = React.FC<{
   tone: "action" | "control" | "disabled";
   fullWidthAtSmallScreen?: boolean;
   type: "text" | "icon" | "formControl" | "iconText";
-  mix: ClassNameList;
+  mix?: ClassNameList;
   onClick?(e: React.SyntheticEvent): void;
   btnType?: "button" | "submit" | "reset" | undefined;
 }>;

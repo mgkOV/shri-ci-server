@@ -6,7 +6,7 @@ import "./Form.scss";
 import Error from "./Error/Form-Error";
 
 type Form = React.FC<{
-  mix: ClassNameList;
+  mix?: ClassNameList;
   handleSubmit(e: React.SyntheticEvent): void;
 }>;
 

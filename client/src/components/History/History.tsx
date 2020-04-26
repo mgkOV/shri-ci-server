@@ -5,7 +5,7 @@ import { cn, ClassNameList } from "@bem-react/classname";
 import "./History.scss";
 
 type History = React.FC<{
-  mix: ClassNameList;
+  mix?: ClassNameList;
 }>;
 
 const History: History = ({ children, mix }) => {

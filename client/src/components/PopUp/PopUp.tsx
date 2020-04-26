@@ -9,7 +9,7 @@ import Title from "./Title/PopUp-Title";
 import Label from "./Label/PopUp-Label";
 
 type PopUp = React.FC<{
-  mix: ClassNameList;
+  mix?: ClassNameList;
 }>;
 
 type PopUpBemElements = {

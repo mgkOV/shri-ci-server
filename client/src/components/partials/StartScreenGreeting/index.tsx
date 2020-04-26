@@ -1,14 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import StartScreen from "../../StartScreen";
 import Button from "../../Button";
 
-const propTypes = {
-  handleClick: PropTypes.func
-};
+type StartScreenGreeting = React.FC<{
+  handleClick?(e: React.SyntheticEvent): void;
+}>;
 
-const StartScreenGreeting = ({ handleClick }) => {
+const StartScreenGreeting: StartScreenGreeting = ({ handleClick }) => {
   return (
     <StartScreen>
       <StartScreen.Icon />
@@ -21,7 +20,5 @@ const StartScreenGreeting = ({ handleClick }) => {
     </StartScreen>
   );
 };
-
-StartScreenGreeting.propTypes = propTypes;
 
 export default StartScreenGreeting;
