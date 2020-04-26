@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -9,12 +8,23 @@ import { selectLog, selectIsLogFetching } from "../../../redux/builds/builds.sel
 import Loader from "../../Loader";
 import Section from "../../Section";
 
-const propTypes = {
-  buildId: PropTypes.string,
-  status: PropTypes.string
-};
+type BuildLogs = React.FC<{
+  buildId: string;
+  status: string;
+  getBuildLog(buildId: string): void;
+  clearBuildLog(): void;
+  log: string;
+  isFetching: boolean;
+}>;
 
-const BuildLogs = ({ buildId, status, getBuildLog, clearBuildLog, log, isFetching }) => {
+const BuildLogs: BuildLogs = ({
+  buildId,
+  status,
+  getBuildLog,
+  clearBuildLog,
+  log,
+  isFetching,
+}) => {
   useEffect(() => {
     getBuildLog(buildId);
     return clearBuildLog;
@@ -35,11 +45,9 @@ const BuildLogs = ({ buildId, status, getBuildLog, clearBuildLog, log, isFetchin
   );
 };
 
-BuildLogs.propTypes = propTypes;
-
 const mapState = createStructuredSelector({
   log: selectLog,
-  isFetching: selectIsLogFetching
+  isFetching: selectIsLogFetching,
 });
 
 export default connect(mapState, { getBuildLog, clearBuildLog })(BuildLogs);

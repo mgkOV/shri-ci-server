@@ -1,10 +1,9 @@
 import React from "react";
-import { cn } from "@bem-react/classname";
+
+import "./Header-BtnGroup.scss";
 
 const HeaderBtnGroup: React.FC = ({ children }) => {
-  let buttonGroupStyles = cn("Header")("BtnGroup");
-
-  return <div className={buttonGroupStyles}>{children}</div>;
+  return <div className="Header-BtnGroup">{children}</div>;
 };
 
 export default HeaderBtnGroup;

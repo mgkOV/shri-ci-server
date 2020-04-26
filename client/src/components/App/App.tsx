@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.scss";
 import HomePage from "../pages/HomePage";
@@ -9,7 +10,6 @@ import BuildPage from "../pages/BuildPage";
 import CiFooter from "../partials/CiFooter";
 import Loader from "../Loader";
 import Section from "../Section";
-
 import { selectIsSettingsFetching } from "../../redux/settings/settings.selectors";
 
 const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) => {
@@ -39,8 +39,8 @@ const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) 
   return <div className="App">{appContent}</div>;
 };
 
-const mapState = (state: object) => ({
-  isSettingsFetching: selectIsSettingsFetching(state),
+const mapState = createStructuredSelector({
+  isSettingsFetching: selectIsSettingsFetching,
 });
 
 export default connect(mapState)(App);

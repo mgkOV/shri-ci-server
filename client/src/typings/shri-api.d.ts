@@ -44,3 +44,5 @@ declare interface BuildFinishSchema {
   success: boolean;
   buildLog: string;
 }
+
+declare module "ansi-to-html";
