@@ -1,14 +1,15 @@
-import types from "./settings.types";
+import { Reducer } from "redux";
+import types, { SettingsState } from "./settings.types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: SettingsState = {
   data: {},
   isFetching: false,
   errorMessage: undefined,
   postErrorMessage: undefined,
-  isPosting: false
+  isPosting: false,
 };
 
-const settingsReducer = (state = INITIAL_STATE, action) => {
+const settingsReducer: Reducer<SettingsState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     //GET
     case types.SETTING_GET_REQUESTED:

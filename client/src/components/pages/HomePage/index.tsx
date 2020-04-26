@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { createStructuredSelector } from "reselect";
 import { History } from "history";
 
