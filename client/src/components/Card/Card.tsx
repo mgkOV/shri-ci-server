@@ -8,11 +8,10 @@ import Time from "./Time/Card-Time";
 import Content from "./Content/Card-Content";
 
 type Card = React.FC<{
-  children: React.ReactNode;
   mix?: ClassNameList;
   view?: "high";
   type: "error" | "success" | "waiting";
-  onClick(e: React.SyntheticEvent): void;
+  onClick: (() => void) | undefined;
 }>;
 
 type CardBemElement = {

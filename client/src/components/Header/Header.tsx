@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { cn, ClassNameList } from "@bem-react/classname";
 
 import BtnGroup from "./BtnGroup/Header-BtnGroup";
@@ -9,7 +8,6 @@ import BuildTitle from "./BuildTitle/Header-BuildTitle";
 import "./Header.scss";
 
 type Header = React.FC<{
-  children: React.ReactNode;
   mix?: ClassNameList;
 }>;
 

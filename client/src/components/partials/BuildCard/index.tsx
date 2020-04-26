@@ -1,25 +1,30 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { ClassNameList } from "@bem-react/classname";
+import { History } from "history";
 
 import Card from "../../Card";
 import Status from "../../Status";
 import Meta from "../../Meta";
 
-const proptTypes = {
-  build: PropTypes.object.isRequired,
-  timePosition: PropTypes.oneOf(["bottom"]),
-  view: PropTypes.oneOf(["high"]),
-  mix: PropTypes.arrayOf(PropTypes.string),
-  history: PropTypes.object
-};
+type BuildCard = React.FC<{
+  build: BuildShriApi;
+  timePosition?: "bottom";
+  mix?: ClassNameList;
+  view?: "high";
+  history?: History;
+}>;
 
-const BuildCard = ({ build, timePosition, view, mix, history }) => {
-  const statusMap = {
+const BuildCard: BuildCard = ({ build, timePosition, view, mix, history }) => {
+  type statusMap = {
+    [k: string]: "waiting" | "success" | "error";
+  };
+
+  const statusMap: statusMap = {
     Waiting: "waiting",
     InProgress: "waiting",
     Success: "success",
     Fail: "error",
-    Canceled: "error"
+    Canceled: "error",
   };
 
   const shortenHash = build.commitHash && build.commitHash.substring(0, 8);
@@ -66,7 +71,5 @@ const BuildCard = ({ build, timePosition, view, mix, history }) => {
     </Card>
   );
 };
-
-BuildCard.proptTypes = proptTypes;
 
 export default BuildCard;

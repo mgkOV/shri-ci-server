@@ -12,6 +12,7 @@ export type ButtonIcon = React.FC<{
 
 const ButtonIcon: ButtonIcon = ({ icon }) => {
   const renderIcon = () => {
+    // This strange code is for SSR because SSR   isn't ok with Create React App svg import
     if (icon === "settings" && SettingsIcon) return <SettingsIcon />;
     if (icon === "build" && BuildIcon) return <BuildIcon />;
     if (icon === "rebuild" && RebuildIcon) return <RebuildIcon />;

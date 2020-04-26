@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { cn, ClassNameList } from "@bem-react/classname";
 
 import "./Button.scss";
@@ -7,7 +7,6 @@ import Text from "./Text/Button-Text";
 import Icon from "./Icon/Button-Icon";
 
 type Button = React.FC<{
-  children: React.ReactNode;
   tone: "action" | "control" | "disabled";
   fullWidthAtSmallScreen?: boolean;
   type: "text" | "icon" | "formControl" | "iconText";

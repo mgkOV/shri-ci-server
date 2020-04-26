@@ -20,9 +20,6 @@ import {
   clearCurrentBuild,
   postBuild,
 } from "../../../redux/builds/builds.actions";
-import { Settings } from "http2";
-
-const propTypes = {};
 
 interface BuildPageProps {
   settings: SettingsShriApi;
