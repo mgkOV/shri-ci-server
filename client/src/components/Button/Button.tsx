@@ -6,20 +6,30 @@ import "./Button.scss";
 import Text from "./Text/Button-Text";
 import Icon from "./Icon/Button-Icon";
 
-interface ButtonProps {
+type Button = React.FC<{
   children: React.ReactNode;
   tone: "action" | "control" | "disabled";
-  fullWidthAtSmallScreen: boolean;
+  fullWidthAtSmallScreen?: boolean;
   type: "text" | "icon" | "formControl" | "iconText";
   mix: ClassNameList;
   onClick(e: React.SyntheticEvent): void;
-  btnType: "button" | "submit" | "reset" | undefined;
-}
+  btnType?: "button" | "submit" | "reset" | undefined;
+}>;
 
-const Button: React.FC<ButtonProps> & {
+type ButtonBemElement = {
   Icon: typeof Icon;
   Text: typeof Text;
-} = ({ children, tone, type, fullWidthAtSmallScreen, mix, onClick, btnType }) => {
+};
+
+const Button: Button & ButtonBemElement = ({
+  children,
+  tone,
+  type,
+  fullWidthAtSmallScreen,
+  mix,
+  onClick,
+  btnType,
+}) => {
   const buttonStyles = cn("Button")({ tone, type, fullWidthAtSmallScreen }, mix);
 
   return (
