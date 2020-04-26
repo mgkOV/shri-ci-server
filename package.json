@@ -8,7 +8,7 @@
     "npm": "^6.12"
   },
   "scripts": {
-    "server": "cross-env NODE_ENV=development TS_NODE_FILES=1 nodemon ./index.ts -r ts-node/register",
+    "server": "cross-env NODE_ENV=development TS_NODE_FILES=1 nodemon ./index.ts -r ts-node/register ",
     "start": "node index.js",
     "client": "npm run start --prefix client",
     "dev": "run-p server client",
@@ -61,8 +61,13 @@
     "@types/babel-types": "^7.0.7",
     "@types/config": "0.0.36",
     "@types/express": "^4.17.6",
+    "@types/jest": "^25.2.1",
     "@types/morgan": "^1.9.0",
     "@types/node": "^13.13.2",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.4",
     "cross-env": "^7.0.2",
     "hermione": "^3.1.0",
     "html-reporter": "^5.15.2",

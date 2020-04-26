@@ -56,13 +56,10 @@ const shriApi = {
   },
 
   async getBuildDetails(buildId: string) {
-    const response = await axios.get(
-      `${URL}/build/details?buildId=${buildId}`,
-      {
-        headers: { Authorization: `Bearer ${JWT}` },
-        httpsAgent: agent,
-      }
-    );
+    const response = await axios.get(`${URL}/build/details?buildId=${buildId}`, {
+      headers: { Authorization: `Bearer ${JWT}` },
+      httpsAgent: agent,
+    });
 
     return response.data;
   },
@@ -76,7 +73,7 @@ const shriApi = {
 
     addLog({ buildId, log: logRes });
 
-    return log;
+    return logRes;
   },
 
   async getLogFromApi(buildId: string) {

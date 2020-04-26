@@ -69,7 +69,7 @@ function* getBuildStart() {
 //Get build log
 function* getLog({ payload }) {
   try {
-    const log = yield call(api.getLog, payload);
+    const log = yield call(api.getBuildLog, payload);
     yield put({ type: types.BUILD_LOG_GET_SUCCEEDED, payload: log });
   } catch (e) {
     yield put({ type: types.BUILD_LOG_GET_FAILED, payload: e.message });
@@ -86,6 +86,6 @@ export default function* buildssSagas() {
     call(postBuildStart),
     call(getBuildStart),
     call(getLogStart),
-    call(getMoreBuildsStart)
+    call(getMoreBuildsStart),
   ]);
 }

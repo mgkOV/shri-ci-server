@@ -13,13 +13,17 @@ app.use(express.json());
 
 let serverRenderer;
 
-if (process.env.NODE_ENV === "test") {
-  serverRenderer = (req: express.Request, res: express.Response) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-  };
-} else {
-  serverRenderer = require("./renderer");
-}
+// if (process.env.NODE_ENV === "test") {
+//   serverRenderer = (req: express.Request, res: express.Response) => {
+//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+//   };
+// } else {
+//   serverRenderer = require("./renderer");
+// }
+
+serverRenderer = (req: express.Request, res: express.Response) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+};
 
 //регистрируем routes
 app.use("^/$", serverRenderer);
