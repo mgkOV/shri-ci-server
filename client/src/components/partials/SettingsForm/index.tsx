@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import { History } from "history";
 
 import SectionHeading from "../../SectionHeading";
 import Form from "../../Form";
@@ -11,16 +12,25 @@ import ButtonGroup from "../../ButtonGroup";
 import {
   selectSettingsData,
   selectIsSettingsPosting,
-  selectPostSettingError
+  selectPostSettingError,
 } from "../../../redux/settings/settings.selectors";
 import { postSettings } from "../../../redux/settings/settings.actions";
 
-const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
+type SettingsForm = React.FC<{
+  settings: SettingsShriApi;
+  postSettings(settings: ConfigSchema, history: History): void;
+  isPosting: boolean;
+  postError: string;
+}>;
+
+const SettingsForm: SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
   const [repoName, setRepoName] = useState(settings.repoName ? settings.repoName : "");
   const [buildCommand, setBuildCommand] = useState(
     settings.buildCommand ? settings.buildCommand : ""
   );
-  const [mainBranch, setMainBranch] = useState(settings.mainBranch ? settings.mainBranch : "");
+  const [mainBranch, setMainBranch] = useState(
+    settings.mainBranch ? settings.mainBranch : ""
+  );
   const [period, setPeriod] = useState(settings.period ? String(settings.period) : "");
   const [repoNameError, setRepoNameError] = useState(false);
   const [buildCommandError, setBuildCommandError] = useState(false);
@@ -29,12 +39,12 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
 
   const errorMessage = "Form field is required";
 
-  const handleChangePeriod = (value) => {
+  const handleChangePeriod = (value: string) => {
     if (!value.match(/^[0-9]*$/)) return;
     setPeriod(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const trimmedRepoName = repoName.trim();
     const trimmedBuildCommand = buildCommand.trim();
@@ -62,7 +72,7 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
         repoName: trimmedRepoName,
         buildCommand: trimmedBuildCommand,
         mainBranch: trimmedMainBranch,
-        period: Number(period)
+        period: Number(period),
       },
       history
     );
@@ -86,7 +96,9 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
           value={repoName}
           handleChange={setRepoName}
         />
-        {repoNameError && <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>}
+        {repoNameError && (
+          <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>
+        )}
       </FieldSuite>
       <FieldSuite required error={buildCommandError}>
         <FieldSuite.Label htmlFor="build-command">Build command</FieldSuite.Label>
@@ -96,7 +108,9 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
           value={buildCommand}
           handleChange={setBuildCommand}
         />
-        {buildCommandError && <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>}
+        {buildCommandError && (
+          <FieldSuite.ErrorMessage>{errorMessage}</FieldSuite.ErrorMessage>
+        )}
       </FieldSuite>
       <FieldSuite>
         <FieldSuite.Label htmlFor="main-branch">Main branch</FieldSuite.Label>
@@ -145,7 +159,7 @@ const SettingsForm = ({ settings, postSettings, isPosting, postError }) => {
 const mapState = createStructuredSelector({
   settings: selectSettingsData,
   isPosting: selectIsSettingsPosting,
-  postError: selectPostSettingError
+  postError: selectPostSettingError,
 });
 
 export default connect(mapState, { postSettings })(SettingsForm);

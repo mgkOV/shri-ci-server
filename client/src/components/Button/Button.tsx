@@ -11,7 +11,7 @@ type Button = React.FC<{
   fullWidthAtSmallScreen?: boolean;
   type: "text" | "icon" | "formControl" | "iconText";
   mix: ClassNameList;
-  onClick(e: React.SyntheticEvent): void;
+  onClick?(e: React.SyntheticEvent): void;
   btnType?: "button" | "submit" | "reset" | undefined;
 }>;
 

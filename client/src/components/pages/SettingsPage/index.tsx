@@ -4,7 +4,7 @@ import Header from "../../Header";
 import Section from "../../Section";
 import SettingsForm from "../../partials/SettingsForm";
 
-const SettingsPage = props => {
+const SettingsPage = () => {
   return (
     <>
       <Header>
