@@ -1,16 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { History } from "history";
 
 import Header from "../../../Header";
 import Button from "../../../Button";
 import Section from "../../../Section";
 import StartScreenGreeting from "../../../partials/StartScreenGreeting";
 
-const propsTypes = {
-  history: PropTypes.object
-};
+type StartPage = React.FC<{
+  history: History;
+}>;
 
-const StartPage = ({ history }) => {
+const StartPage: StartPage = ({ history }) => {
   return (
     <>
       <Header>
@@ -34,7 +34,5 @@ const StartPage = ({ history }) => {
     </>
   );
 };
-
-StartPage.propsTypes = propsTypes;
 
 export default StartPage;

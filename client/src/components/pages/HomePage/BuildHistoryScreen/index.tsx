@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useHistory } from "react-router-dom";
@@ -15,29 +14,32 @@ import { openPopUp } from "../../../../redux/popUp/popUp.actions";
 import {
   getBuildList,
   clearBuildList,
-  getMoreBuilds
+  getMoreBuilds,
 } from "../../../../redux/builds/builds.actions";
 import {
   selectAllBuilds,
-  selectIsBuildListFetching
+  selectIsBuildListFetching,
 } from "../../../../redux/builds/builds.selectors";
 import { selectSettingsData } from "../../../../redux/settings/settings.selectors";
 
-const propTypes = {
-  openPopUp: PropTypes.func, // redux
-  getBuildList: PropTypes.func, // redux
-  isFetching: PropTypes.bool, // redux
-  clearBuildList: PropTypes.func //redux
-};
+type BuildHistroyPage = React.FC<{
+  openPopUp(): void;
+  getBuildList(offset: number): void;
+  builds: BuildShriApi[];
+  settings: SettingsShriApi;
+  isFetching: boolean;
+  clearBuildList(): void;
+  getMoreBuilds(offset: number): void;
+}>;
 
-const BuildHistroyPage = ({
+const BuildHistroyPage: BuildHistroyPage = ({
   openPopUp,
   getBuildList,
   builds,
   settings,
   isFetching,
   clearBuildList,
-  getMoreBuilds
+  getMoreBuilds,
 }) => {
   useEffect(() => {
     getBuildList(0);
@@ -51,7 +53,12 @@ const BuildHistroyPage = ({
       <Header>
         <Header.BuildTitle>{settings.repoName}</Header.BuildTitle>
         <Header.BtnGroup>
-          <Button type="iconText" tone="control" mix={["Header-Button"]} onClick={openPopUp}>
+          <Button
+            type="iconText"
+            tone="control"
+            mix={["Header-Button"]}
+            onClick={openPopUp}
+          >
             <Button.Icon icon="build" />
             <Button.Text>Run build</Button.Text>
           </Button>
@@ -86,14 +93,15 @@ const BuildHistroyPage = ({
   );
 };
 
-BuildHistroyPage.propTypes = propTypes;
-
 const mapSate = createStructuredSelector({
   builds: selectAllBuilds,
   settings: selectSettingsData,
-  isFetching: selectIsBuildListFetching
+  isFetching: selectIsBuildListFetching,
 });
 
-export default connect(mapSate, { openPopUp, getBuildList, clearBuildList, getMoreBuilds })(
-  BuildHistroyPage
-);
+export default connect(mapSate, {
+  openPopUp,
+  getBuildList,
+  clearBuildList,
+  getMoreBuilds,
+})(BuildHistroyPage);
