@@ -36,52 +36,10 @@ export interface BuildState {
   errorMessage: string | undefined;
 }
 
-interface GetBuildListAction {
-  type: typeof buildTypes.BUILD_LIST_GET_REQUESTED;
-  payload: number;
-}
-
-interface GetMoreBuildsAction {
-  type: typeof buildTypes.MORE_BUILDS_GET_REQUESTED;
-  payload: number;
-}
-
-interface GetCurrentBuildAction {
-  type: typeof buildTypes.BUILD_GET_REQUESTED;
-  payload: string;
-}
-
-interface GetBuildLogAction {
-  type: typeof buildTypes.BUILD_LOG_GET_REQUESTED;
-  payload: string;
-}
-
-interface PostBuildAction {
-  type: typeof buildTypes.BUILD_POST_REQUESTED;
-  payload: string;
-  history: History;
-}
-
-interface ClearBuildListAction {
-  type: typeof buildTypes.CLEAR_BUILD_LIST;
-}
-
-interface ClearCurrentBuildAction {
-  type: typeof buildTypes.CLEAR_CURRENT_BUILD;
-}
-
-interface ClearBuildLogAction {
-  type: typeof buildTypes.CLEAR_BUILD_LOG;
-}
-
-export type BuildActionTypes =
-  | GetBuildListAction
-  | GetMoreBuildsAction
-  | GetCurrentBuildAction
-  | GetBuildLogAction
-  | PostBuildAction
-  | ClearBuildListAction
-  | ClearCurrentBuildAction
-  | ClearBuildLogAction;
+export type BuildActionTypes = {
+  type: string;
+  payload?: string | number;
+  history?: History;
+};
 
 export default buildTypes;

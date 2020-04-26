@@ -1,4 +1,5 @@
-import types, { BuildActionTypes, BuildState } from "./builds.types";
+import { Reducer } from "redux";
+import types, { BuildState } from "./builds.types";
 
 const INITIAL_STATE: BuildState = {
   allBuilds: [],
@@ -10,7 +11,7 @@ const INITIAL_STATE: BuildState = {
   errorMessage: undefined,
 };
 
-const buildReducer = (state = INITIAL_STATE, action: BuildActionTypes): BuildState => {
+const buildReducer: Reducer<BuildState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     // GET build list
     case types.BUILD_LIST_GET_REQUESTED:
