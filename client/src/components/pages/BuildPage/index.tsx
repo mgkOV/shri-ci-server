@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useParams, useHistory } from "react-router-dom";
@@ -14,29 +13,33 @@ import Loader from "../../Loader";
 import { selectSettingsData } from "../../../redux/settings/settings.selectors";
 import {
   selectCurrentBuild,
-  selectIsCurrentBuildFetching
+  selectIsCurrentBuildFetching,
 } from "../../../redux/builds/builds.selectors";
 import {
   getCurrentBuild,
   clearCurrentBuild,
-  postBuild
+  postBuild,
 } from "../../../redux/builds/builds.actions";
+import { Settings } from "http2";
 
-const propTypes = {
-  settings: PropTypes.object, //redux
-  build: PropTypes.object, //redux
-  getCurrentBuild: PropTypes.func, //redux
-  postBuild: PropTypes.func, //redux
-  clearCurrentBuild: PropTypes.func //redux
-};
+const propTypes = {};
 
-const BuildPage = ({
+interface BuildPageProps {
+  settings: SettingsShriApi;
+  build: BuildShriApi;
+  getCurrentBuild(id: string | undefined): void;
+  isBuildFetching: Boolean;
+  postBuild(commitHash: string, history: object): void;
+  clearCurrentBuild(): void;
+}
+
+const BuildPage: React.FC<BuildPageProps> = ({
   settings,
   build,
   getCurrentBuild,
   isBuildFetching,
   clearCurrentBuild,
-  postBuild
+  postBuild,
 }) => {
   const { buildId } = useParams();
   const history = useHistory();
@@ -90,12 +93,12 @@ const BuildPage = ({
   );
 };
 
-BuildPage.propTypes = propTypes;
-
 const mapSate = createStructuredSelector({
   settings: selectSettingsData,
   build: selectCurrentBuild,
-  isBuildFetching: selectIsCurrentBuildFetching
+  isBuildFetching: selectIsCurrentBuildFetching,
 });
 
-export default connect(mapSate, { getCurrentBuild, clearCurrentBuild, postBuild })(BuildPage);
+export default connect(mapSate, { getCurrentBuild, clearCurrentBuild, postBuild })(
+  BuildPage
+);
