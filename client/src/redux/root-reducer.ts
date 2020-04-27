@@ -4,9 +4,12 @@ import popUpReducer from "./popUp/popUp.reducer";
 import settingsReducer from "./settings/settings.reducer";
 import buildReducer from "./builds/builds.reducer";
 
-export default combineReducers({
+const rootReducer = combineReducers({
   settings: settingsReducer,
   builds: buildReducer,
-  activeBuild: () => ({}),
-  popUp: popUpReducer
+  popUp: popUpReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

@@ -1,8 +1,13 @@
 import { createSelector } from "reselect";
+// import { RootState } from "../root-reducer";
+// import { SettingsState } from "./settings.types";
 
-const selectSettings = (state) => state.settings;
+const selectSettings = (state: any) => state.settings;
 
-export const selectSettingsData = createSelector([selectSettings], (settings) => settings.data);
+export const selectSettingsData = createSelector(
+  [selectSettings],
+  (settings) => settings.data
+);
 
 export const selectIsSettingsFetching = createSelector(
   [selectSettings],

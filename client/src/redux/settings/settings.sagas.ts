@@ -1,6 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import Api from "../../api";
-import types from "./settings.types";
+import types, { SettingsActionType } from "./settings.types";
 
 const api = new Api();
 
@@ -19,11 +19,11 @@ function* getSettingsStart() {
 }
 
 //POST settings
-function* postSettings({ payload, history }) {
+function* postSettings({ payload, history }: SettingsActionType) {
   try {
     const settings = yield call(api.postSettings, payload);
     yield put({ type: types.SETTING_POST_SUCCEEDED, payload: settings });
-    history.push("/");
+    history?.push("/");
   } catch (e) {
     yield put({ type: types.SETTING_POST_FAILED, payload: e.message });
   }

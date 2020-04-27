@@ -6,7 +6,7 @@ import { closePopUp } from "../popUp/popUp.actions";
 const api = new Api();
 
 // Get builds
-function* getBuildList({ payload }) {
+function* getBuildList({ payload }: any) {
   try {
     const builds = yield call(api.getBuildList, payload);
 
@@ -21,7 +21,7 @@ function* getBuildListStart() {
 }
 
 // Get  more builds
-function* getMoreBuilds({ payload }) {
+function* getMoreBuilds({ payload }: any) {
   try {
     const builds = yield call(api.getBuildList, payload);
 
@@ -36,12 +36,12 @@ function* getMoreBuildsStart() {
 }
 
 //Post build
-function* postBuild({ payload, history }) {
+function* postBuild({ payload, history }: any) {
   try {
     const build = yield call(api.postBuild, payload);
 
     yield put({ type: types.BUILD_POST_SUCCEEDED, payload: build });
-    history.push(`/build/${build.id}`);
+    history?.push(`/build/${build.id}`);
     yield put(closePopUp());
   } catch (e) {
     yield put({ type: types.BUILD_POST_FAILED, payload: e.message });
@@ -53,7 +53,7 @@ function* postBuildStart() {
 }
 
 //GET build
-function* getBuild({ payload }) {
+function* getBuild({ payload }: any) {
   try {
     const build = yield call(api.getBuild, payload);
     yield put({ type: types.BUILD_GET_SUCCEEDED, payload: build });
@@ -67,7 +67,7 @@ function* getBuildStart() {
 }
 
 //Get build log
-function* getLog({ payload }) {
+function* getLog({ payload }: any) {
   try {
     const log = yield call(api.getBuildLog, payload);
     yield put({ type: types.BUILD_LOG_GET_SUCCEEDED, payload: log });
