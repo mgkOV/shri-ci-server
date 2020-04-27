@@ -11,27 +11,14 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-let serverRenderer;
-
-// if (process.env.NODE_ENV === "test") {
-//   serverRenderer = (req: express.Request, res: express.Response) => {
-//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-//   };
-// } else {
-//   serverRenderer = require("./renderer");
-// }
-
-serverRenderer = (req: express.Request, res: express.Response) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-};
-
 //регистрируем routes
-app.use("^/$", serverRenderer);
 
 app.use(express.static(path.join("client", "build")));
 
 routeRegister(app);
 
-app.get("*", serverRenderer);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 export default app;
