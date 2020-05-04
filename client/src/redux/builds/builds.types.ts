@@ -1,0 +1,45 @@
+import { History } from "history";
+
+const buildTypes = {
+  BUILD_LIST_GET_REQUESTED: "BUILD_LIST_GET_REQUESTED",
+  BUILD_LIST_GET_SUCCEEDED: "BUILD_LIST_GET_SUCCEEDED",
+  BUILD_LIST_GET_FAILED: "BUILD_LIST_GET_FAILED",
+
+  MORE_BUILDS_GET_REQUESTED: "MORE_BUILDS_GET_REQUESTED",
+  MORE_BUILDS_GET_SUCCEEDED: "MORE_BUILDS_GET_SUCCEEDED",
+  MORE_BUILDS_GET_FAILED: "MORE_BUILDS_GET_FAILED",
+
+  BUILD_GET_REQUESTED: "BUILD_GET_REQUESTED",
+  BUILD_GET_SUCCEEDED: "BUILD_GET_SUCCEEDED",
+  BUILD_GET_FAILED: "BUILD_GET_FAILED",
+
+  BUILD_LOG_GET_REQUESTED: "BUILD_LOG_GET_REQUESTED",
+  BUILD_LOG_GET_SUCCEEDED: "BUILD_LOG_GET_SUCCEEDED",
+  BUILD_LOG_GET_FAILED: "BUILD_LOG_GET_FAILED",
+
+  BUILD_POST_REQUESTED: "BUILD_POST_REQUESTED",
+  BUILD_POST_SUCCEEDED: "BUILD_POST_SUCCEEDED",
+  BUILD_POST_FAILED: "BUILD_POST_FAILED",
+
+  CLEAR_CURRENT_BUILD: "CLEAR_CURRENT_BUILD",
+  CLEAR_BUILD_LIST: "CLEAR_BUILD_LIST",
+  CLEAR_BUILD_LOG: "CLEAR_BUILD_LOG",
+};
+
+export interface BuildState {
+  allBuilds: BuildShriApi[];
+  currentBuild: BuildShriApi | {};
+  buildLog: string;
+  isAllFetching: boolean;
+  isCurrentFetching: boolean;
+  isLogFetching: boolean;
+  errorMessage: string | undefined;
+}
+
+export type BuildActionTypes = {
+  type: string;
+  payload?: string | number;
+  history?: History;
+};
+
+export default buildTypes;
