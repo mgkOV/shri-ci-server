@@ -8,6 +8,7 @@ const CiFooter = () => {
       <Footer.LinkGroup>
         <Footer.Link to="/support">Support</Footer.Link>
         <Footer.Link to="/learning">Learning</Footer.Link>
+        <Footer.Link to="/learning">Русская версия</Footer.Link>
       </Footer.LinkGroup>
       <Footer.Copyright>© 2020 Your Name</Footer.Copyright>
     </Footer>
