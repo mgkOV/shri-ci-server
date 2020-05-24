@@ -1,0 +1,18 @@
+{
+  "01": "Settings",
+  "02": "Configure repository connection and synchronization settings",
+  "03": "Open settings",
+  "04": "Support",
+  "05": "Learning",
+  "06": "Русская версия",
+  "07": "GitHub repository",
+  "08": "Build command",
+  "09": "Main branch",
+  "10": "Synchronize every minutes",
+  "11": "Save",
+  "12": "Cancel",
+  "14": "Run build",
+  "15": "Show more",
+  "16": "New build",
+  "17": "Enter the commit hash which you want to build."
+}
