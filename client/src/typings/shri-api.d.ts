@@ -45,4 +45,8 @@ declare interface BuildFinishSchema {
   buildLog: string;
 }
 
+declare interface TextData {
+  [key: string]: string;
+}
+
 declare module "ansi-to-html";

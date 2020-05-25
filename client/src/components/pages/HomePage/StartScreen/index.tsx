@@ -8,9 +8,10 @@ import StartScreenGreeting from "../../../partials/StartScreenGreeting";
 
 type StartPage = React.FC<{
   history: History;
+  text: TextData;
 }>;
 
-const StartPage: StartPage = ({ history }) => {
+const StartPage: StartPage = ({ history, text }) => {
   return (
     <>
       <Header>
@@ -23,13 +24,13 @@ const StartPage: StartPage = ({ history }) => {
             onClick={() => history.push("/settings")}
           >
             <Button.Icon icon="settings" />
-            <Button.Text>Settings</Button.Text>
+            <Button.Text>{text["01"]}</Button.Text>
           </Button>
         </Header.BtnGroup>
       </Header>
 
       <Section mix={["App-Section"]}>
-        <StartScreenGreeting handleClick={() => history.push("/settings")} />
+        <StartScreenGreeting handleClick={() => history.push("/settings")} text={text} />
       </Section>
     </>
   );

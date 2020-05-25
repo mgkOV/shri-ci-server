@@ -1,6 +1,11 @@
 import axios from "axios";
 
 export default class Api {
+  getText = async (lang = "en") => {
+    const settings = await axios.get(`/api/l10n/${lang}`);
+    return settings.data;
+  };
+
   getSettings = async () => {
     const settings = await axios.get("/api/settings");
     return settings.data;

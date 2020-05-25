@@ -5,17 +5,16 @@ import Button from "../../Button";
 
 type StartScreenGreeting = React.FC<{
   handleClick?(e: React.SyntheticEvent): void;
+  text: TextData;
 }>;
 
-const StartScreenGreeting: StartScreenGreeting = ({ handleClick }) => {
+const StartScreenGreeting: StartScreenGreeting = ({ handleClick, text }) => {
   return (
     <StartScreen>
       <StartScreen.Icon />
-      <StartScreen.Title>
-        Configure repository connection and synchronization settings
-      </StartScreen.Title>
+      <StartScreen.Title>{text["02"]}</StartScreen.Title>
       <Button type="formControl" tone="action" onClick={handleClick}>
-        <Button.Text>Open settings</Button.Text>
+        <Button.Text>{text["03"]}</Button.Text>
       </Button>
     </StartScreen>
   );

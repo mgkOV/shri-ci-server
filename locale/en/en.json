@@ -8,7 +8,7 @@
   "07": "GitHub repository",
   "08": "Build command",
   "09": "Main branch",
-  "10": "Synchronize every minutes",
+  "10": "Synchronize every {{ph}} minutes",
   "11": "Save",
   "12": "Cancel",
   "14": "Run build",

@@ -4,6 +4,7 @@ import { History } from "history";
 
 import { connect } from "react-redux";
 import { selectSettingsData } from "../../../redux/settings/settings.selectors";
+import { selectTextData } from "../../../redux/text/text.selectors";
 
 import BuildHistoryScreen from "./BuildHistoryScreen";
 import StartScreen from "./StartScreen";
@@ -11,18 +12,20 @@ import StartScreen from "./StartScreen";
 type HomePage = React.FC<{
   history: History;
   settings: SettingsShriApi;
+  text: TextData;
 }>;
 
-const HomePage: HomePage = ({ history, settings }) => {
+const HomePage: HomePage = ({ history, settings, text }) => {
   return settings && settings.id ? (
-    <BuildHistoryScreen />
+    <BuildHistoryScreen text={text} />
   ) : (
-    <StartScreen history={history} />
+    <StartScreen history={history} text={text} />
   );
 };
 
 const mapState = createStructuredSelector({
   settings: selectSettingsData,
+  text: selectTextData,
 });
 
 export default connect(mapState)(HomePage);

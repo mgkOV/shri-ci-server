@@ -1,11 +1,11 @@
 import express from "express";
 import ru from "../locale/ru/ru.json";
-import en from "../locale/ru/ru.json";
+import en from "../locale/en/en.json";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const { lang } = req.body;
+router.get("/:lang", async (req, res) => {
+  const { lang } = req.params;
   switch (lang) {
     case "ru":
       res.json(ru);

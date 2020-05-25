@@ -7,6 +7,7 @@ import "./index.scss";
 import App from "./components/App";
 import ErrorBoundry from "./components/ErrorBoundry";
 import { getSettings } from "./redux/settings/settings.actions";
+import { getText } from "./redux/text/text.actions";
 
 import configureStore from "./redux/store";
 
@@ -19,6 +20,7 @@ declare global {
 const store = configureStore(window.__REDUX_STATE__ || {});
 
 store.dispatch(getSettings());
+store.dispatch(getText());
 
 ReactDOM.render(
   <React.StrictMode>

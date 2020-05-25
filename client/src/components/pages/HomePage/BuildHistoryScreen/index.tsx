@@ -30,6 +30,7 @@ type BuildHistroyPage = React.FC<{
   isFetching: boolean;
   clearBuildList(): void;
   getMoreBuilds(offset: number): void;
+  text: TextData;
 }>;
 
 const BuildHistroyPage: BuildHistroyPage = ({

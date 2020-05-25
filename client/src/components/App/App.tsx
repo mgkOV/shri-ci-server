@@ -11,8 +11,12 @@ import CiFooter from "../partials/CiFooter";
 import Loader from "../Loader";
 import Section from "../Section";
 import { selectIsSettingsFetching } from "../../redux/settings/settings.selectors";
+import { selectTextData } from "../../redux/text/text.selectors";
 
-const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) => {
+const App: React.FC<{ isSettingsFetching: boolean; text: TextData }> = ({
+  isSettingsFetching,
+  text,
+}) => {
   let appContent = (
     <>
       <Switch>
@@ -21,7 +25,7 @@ const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) 
         <Route path="/build/:buildId" component={BuildPage} />
       </Switch>
 
-      <CiFooter />
+      <CiFooter text={text} />
     </>
   );
 
@@ -31,7 +35,7 @@ const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) 
         <Section mix={["App-Section"]}>
           <Loader />
         </Section>
-        <CiFooter />
+        <CiFooter text={text} />
       </>
     );
   }
@@ -41,6 +45,7 @@ const App: React.FC<{ isSettingsFetching: boolean }> = ({ isSettingsFetching }) 
 
 const mapState = createStructuredSelector({
   isSettingsFetching: selectIsSettingsFetching,
+  text: selectTextData,
 });
 
 export default connect(mapState)(App);

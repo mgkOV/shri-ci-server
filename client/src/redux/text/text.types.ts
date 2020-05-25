@@ -1,0 +1,7 @@
+const textTypes = {
+  TEXT_GET_REQUESTED: "TEXT_GET_REQUESTED",
+  TEXT_GET_SUCCEEDED: "TEXT_GET_SUCCEEDED",
+  TEXT_GET_FAILED: "TEXT_GET_FAILED",
+};
+
+export default textTypes;
