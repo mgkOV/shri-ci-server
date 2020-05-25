@@ -14,15 +14,23 @@ import { closePopUp } from "../../../redux/popUp/popUp.actions";
 import { postBuild } from "../../../redux/builds/builds.actions";
 import { selectIsCurrentBuildFetching } from "../../../redux/builds/builds.selectors";
 import { selectIsPopUpShown } from "../../../redux/popUp/popUp.selectors";
+import { selectTextData } from "../../../redux/text/text.selectors";
 
 type NewBuildPopUp = React.FC<{
   isShown: boolean;
   closePopUp(): void;
   postBuild(trimmedHash: string, history: History): void;
   isPosting: boolean;
+  text: TextData;
 }>;
 
-const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPosting }) => {
+const NewBuildPopUp: NewBuildPopUp = ({
+  isShown,
+  closePopUp,
+  postBuild,
+  isPosting,
+  text,
+}) => {
   const [hash, setHash] = useState("");
   const [error, setError] = useState(false);
 
@@ -54,17 +62,15 @@ const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPostin
     closePopUp();
   };
 
-  const errorMessage = "Hash must be at least 7 characters";
+  const errorMessage = text["21"];
 
   return (
     <PopUp>
       <PopUp.Content>
-        <PopUp.Title />
+        <PopUp.Title>{text["16"]}</PopUp.Title>
         <Form handleSubmit={handleSubmit}>
           <FieldSuite error={error}>
-            <PopUp.Label htmlFor="new-build-popup">
-              Enter the commit hash which you want to build.
-            </PopUp.Label>
+            <PopUp.Label htmlFor="new-build-popup">{text["17"]}</PopUp.Label>
             <FieldSuite.Input
               placeholder="Commit hash"
               name="new-build-popup"
@@ -81,7 +87,7 @@ const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPostin
               fullWidthAtSmallScreen
               btnType="submit"
             >
-              <Button.Text>Run build</Button.Text>
+              <Button.Text>{text["14"]}</Button.Text>
             </Button>
             <Button
               tone="control"
@@ -90,7 +96,7 @@ const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPostin
               fullWidthAtSmallScreen
               onClick={handleClose}
             >
-              <Button.Text>Cancel</Button.Text>
+              <Button.Text>{text["12"]}</Button.Text>
             </Button>
           </ButtonGroup>
         </Form>
@@ -102,6 +108,7 @@ const NewBuildPopUp: NewBuildPopUp = ({ isShown, closePopUp, postBuild, isPostin
 const mapState = createStructuredSelector({
   isPosting: selectIsCurrentBuildFetching,
   isShown: selectIsPopUpShown,
+  text: selectTextData,
 });
 
 export default connect(mapState, { closePopUp, postBuild })(NewBuildPopUp);

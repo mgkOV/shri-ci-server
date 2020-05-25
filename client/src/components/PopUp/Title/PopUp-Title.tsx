@@ -2,8 +2,8 @@ import React from "react";
 
 import "./PopUp-Title.scss";
 
-const PopUpTitle: React.FC = () => {
-  return <div className="PopUp-Title">New build</div>;
+const PopUpTitle: React.FC = ({ children }) => {
+  return <div className="PopUp-Title">{children}</div>;
 };
 
 export default PopUpTitle;

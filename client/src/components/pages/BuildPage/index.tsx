@@ -20,6 +20,7 @@ import {
   clearCurrentBuild,
   postBuild,
 } from "../../../redux/builds/builds.actions";
+import { selectTextData } from "../../../redux/text/text.selectors";
 
 interface BuildPageProps {
   settings: SettingsShriApi;
@@ -28,6 +29,7 @@ interface BuildPageProps {
   isBuildFetching: Boolean;
   postBuild(commitHash: string, history: object): void;
   clearCurrentBuild(): void;
+  text: TextData;
 }
 
 const BuildPage: React.FC<BuildPageProps> = ({
@@ -37,6 +39,7 @@ const BuildPage: React.FC<BuildPageProps> = ({
   isBuildFetching,
   clearCurrentBuild,
   postBuild,
+  text,
 }) => {
   const { buildId } = useParams();
   const history = useHistory();
@@ -60,7 +63,7 @@ const BuildPage: React.FC<BuildPageProps> = ({
               onClick={() => postBuild(build.commitHash, history)}
             >
               <Button.Icon icon="rebuild" />
-              <Button.Text>Rebuild</Button.Text>
+              <Button.Text>{text["18"]}</Button.Text>
             </Button>
           )}
           <Button
@@ -94,6 +97,7 @@ const mapSate = createStructuredSelector({
   settings: selectSettingsData,
   build: selectCurrentBuild,
   isBuildFetching: selectIsCurrentBuildFetching,
+  text: selectTextData,
 });
 
 export default connect(mapSate, { getCurrentBuild, clearCurrentBuild, postBuild })(

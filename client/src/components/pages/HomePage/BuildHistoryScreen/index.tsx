@@ -41,6 +41,7 @@ const BuildHistroyPage: BuildHistroyPage = ({
   isFetching,
   clearBuildList,
   getMoreBuilds,
+  text,
 }) => {
   useEffect(() => {
     getBuildList(0);
@@ -61,7 +62,7 @@ const BuildHistroyPage: BuildHistroyPage = ({
             onClick={openPopUp}
           >
             <Button.Icon icon="build" />
-            <Button.Text>Run build</Button.Text>
+            <Button.Text>{text["14"]}</Button.Text>
           </Button>
           <Button
             type="icon"
@@ -85,7 +86,7 @@ const BuildHistroyPage: BuildHistroyPage = ({
             fullWidthAtSmallScreen
             onClick={() => getMoreBuilds(builds.length)}
           >
-            <Button.Text>Show more</Button.Text>
+            <Button.Text>{text["15"]}</Button.Text>
           </Button>
         )}
       </Section>

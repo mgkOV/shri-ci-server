@@ -14,5 +14,9 @@
   "14": "Run build",
   "15": "Show more",
   "16": "New build",
-  "17": "Enter the commit hash which you want to build."
+  "17": "Enter the commit hash which you want to build.",
+  "18": "Rebuild",
+  "19": "Form field is required",
+  "20": "ERROR: Error cloning repo.",
+  "21": "Hash must be at least 7 characters"
 }
