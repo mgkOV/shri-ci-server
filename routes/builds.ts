@@ -8,15 +8,15 @@ import formatDate from "../utils/format-date";
 const router = express.Router();
 
 // получение списка сборок
-router.get<{}, {}, {}, { offset: number; limit: number }>(
+router.get<{}, {}, {}, { offset: number; limit: number; lang: string }>(
   "/",
   async (req, res) => {
-    const { offset = 0, limit = 25 } = req.query;
+    const { offset = 0, limit = 25, lang } = req.query;
     const response = await shriApi.getBuildList(offset, limit);
 
     const buildList = response.data.map((b: Build) => {
-      b.duration = formatDuration(b.duration);
-      b.start = formatDate(b.start);
+      b.duration = formatDuration(b.duration, lang);
+      b.start = formatDate(b.start, lang);
       return b;
     });
 
@@ -25,16 +25,20 @@ router.get<{}, {}, {}, { offset: number; limit: number }>(
 );
 
 // получение информации о конкретной сборке
-router.get("/:buildId", async (req, res) => {
-  const { buildId } = req.params;
-  const response = await shriApi.getBuildDetails(buildId);
+router.get<{ buildId: string }, {}, {}, { lang: string }>(
+  "/:buildId",
+  async (req, res) => {
+    const { buildId } = req.params;
+    const { lang } = req.query;
+    const response = await shriApi.getBuildDetails(buildId);
 
-  const build = response.data;
-  build.duration = formatDuration(build.duration);
-  build.start = formatDate(build.start);
+    const build = response.data;
+    build.duration = formatDuration(build.duration, lang);
+    build.start = formatDate(build.start, lang);
 
-  res.json(build);
-});
+    res.json(build);
+  }
+);
 
 // получение логов билда (сплошной текст)
 router.get("/:buildId/logs", async (req, res) => {

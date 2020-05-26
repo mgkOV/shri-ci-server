@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from "redux-saga/effects";
+import { call, put, takeLatest, all, select } from "redux-saga/effects";
 import Api from "../../api";
 import types from "./builds.types";
 import { closePopUp } from "../popUp/popUp.actions";
@@ -8,7 +8,8 @@ const api = new Api();
 // Get builds
 function* getBuildList({ payload }: any) {
   try {
-    const builds = yield call(api.getBuildList, payload);
+    const state = yield select();
+    const builds = yield call(api.getBuildList, payload, state.lang);
 
     yield put({ type: types.BUILD_LIST_GET_SUCCEEDED, payload: builds });
   } catch (e) {
@@ -23,7 +24,8 @@ function* getBuildListStart() {
 // Get  more builds
 function* getMoreBuilds({ payload }: any) {
   try {
-    const builds = yield call(api.getBuildList, payload);
+    const state = yield select();
+    const builds = yield call(api.getBuildList, payload, state.lang);
 
     yield put({ type: types.MORE_BUILDS_GET_SUCCEEDED, payload: builds });
   } catch (e) {
@@ -55,7 +57,8 @@ function* postBuildStart() {
 //GET build
 function* getBuild({ payload }: any) {
   try {
-    const build = yield call(api.getBuild, payload);
+    const state = yield select();
+    const build = yield call(api.getBuild, payload, state.lang);
     yield put({ type: types.BUILD_GET_SUCCEEDED, payload: build });
   } catch (e) {
     yield put({ type: types.BUILD_GET_FAILED, payload: e.message });

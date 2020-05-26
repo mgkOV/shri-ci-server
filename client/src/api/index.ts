@@ -20,13 +20,13 @@ export default class Api {
     return savedSettings.data;
   };
 
-  getBuildList = async (offset = 0) => {
-    const builds = await axios.get(`/api/builds/?offset=${offset}&limit=9`);
+  getBuildList = async (offset = 0, lang: string) => {
+    const builds = await axios.get(`/api/builds/?offset=${offset}&limit=9&lang=${lang}`);
     return builds.data;
   };
 
-  getBuild = async (buildId: string) => {
-    const build = await axios.get(`/api/builds/${buildId}`);
+  getBuild = async (buildId: string, lang: string) => {
+    const build = await axios.get(`/api/builds/${buildId}?lang=${lang}`);
     return build.data;
   };
 
