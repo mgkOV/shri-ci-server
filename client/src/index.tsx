@@ -11,16 +11,34 @@ import { getText } from "./redux/text/text.actions";
 
 import configureStore from "./redux/store";
 
-declare global {
-  interface Window {
-    __REDUX_STATE__: string;
+const saveLang = (lang: string) => {
+  try {
+    localStorage.setItem("shri_lang", lang);
+  } catch {
+    // ignore write errors
   }
-}
+};
 
-const store = configureStore(window.__REDUX_STATE__ || {});
+// Listener to state chage
+let currentLang: string;
+const handleLangChange = () => {
+  let previousLang = currentLang;
+  currentLang = store.getState().lang;
+
+  if (previousLang !== currentLang) {
+    saveLang(currentLang);
+  }
+};
+
+const store = configureStore();
+
+//save lang on store change
+store.subscribe(handleLangChange);
 
 store.dispatch(getSettings());
-store.dispatch(getText());
+
+const lang = store.getState().lang;
+store.dispatch(getText(lang));
 
 ReactDOM.render(
   <React.StrictMode>

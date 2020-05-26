@@ -13,10 +13,20 @@ if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
 }
 
+const loadLang = (): string | undefined => {
+  const lang = localStorage.getItem("shri_lang");
+  if (lang === null) {
+    return "en";
+  }
+  return lang;
+};
+
+const lang = loadLang();
+
 const configureStore = (persistedState = {}) => {
   const store = createStore(
     rootReducer,
-    { ...persistedState },
+    { ...persistedState, lang },
     applyMiddleware(...middlewares)
   );
 

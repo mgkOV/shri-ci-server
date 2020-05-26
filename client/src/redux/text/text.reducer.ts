@@ -3,7 +3,7 @@ import types from "./text.types";
 
 const INITIAL_STATE = { data: {}, isFetching: false };
 
-const settingsReducer: Reducer = (state = INITIAL_STATE, action) => {
+const textReducer: Reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     //GET
     case types.TEXT_GET_REQUESTED:
@@ -20,4 +20,4 @@ const settingsReducer: Reducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default settingsReducer;
+export default textReducer;

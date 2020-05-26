@@ -5,9 +5,9 @@ import types from "./text.types";
 const api = new Api();
 
 // GET text
-function* getText() {
+function* getText({ payload }: any) {
   try {
-    const text = yield call(api.getText);
+    const text = yield call(api.getText, payload);
     yield put({ type: types.TEXT_GET_SUCCEEDED, payload: text });
   } catch (e) {
     yield put({ type: types.TEXT_GET_FAILED, payload: e.message });
