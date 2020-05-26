@@ -12,11 +12,15 @@ import Loader from "../Loader";
 import Section from "../Section";
 import { selectIsSettingsFetching } from "../../redux/settings/settings.selectors";
 import { selectTextData } from "../../redux/text/text.selectors";
+import { toggleLang } from "../../redux/lang/lang.actions";
 
-const App: React.FC<{ isSettingsFetching: boolean; text: TextData }> = ({
-  isSettingsFetching,
-  text,
-}) => {
+type App = React.FC<{
+  isSettingsFetching: boolean;
+  text: TextData;
+  toggleLang(): void;
+}>;
+
+const App: App = ({ isSettingsFetching, text, toggleLang }) => {
   let appContent = (
     <>
       <Switch>
@@ -25,7 +29,7 @@ const App: React.FC<{ isSettingsFetching: boolean; text: TextData }> = ({
         <Route path="/build/:buildId" component={BuildPage} />
       </Switch>
 
-      <CiFooter text={text} />
+      <CiFooter text={text} toggleLang={toggleLang} />
     </>
   );
 
@@ -35,7 +39,7 @@ const App: React.FC<{ isSettingsFetching: boolean; text: TextData }> = ({
         <Section mix={["App-Section"]}>
           <Loader />
         </Section>
-        <CiFooter text={text} />
+        <CiFooter text={text} toggleLang={toggleLang} />
       </>
     );
   }
@@ -48,4 +52,4 @@ const mapState = createStructuredSelector({
   text: selectTextData,
 });
 
-export default connect(mapState)(App);
+export default connect(mapState, { toggleLang })(App);

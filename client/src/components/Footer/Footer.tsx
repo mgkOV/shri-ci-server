@@ -2,6 +2,7 @@ import React from "react";
 import { cn, ClassNameList } from "@bem-react/classname";
 
 import Link from "./Link/Footer-Link";
+import Span from "./Span/Footer-Span";
 import LinkGroup from "./LinkGroup/Footer-LinkGroup";
 import Copyright from "./Copyright/Footer-Copyright";
 
@@ -13,6 +14,7 @@ type Footer = React.FC<{
 
 type FooterBemElements = {
   Link: typeof Link;
+  Span: typeof Span;
   LinkGroup: typeof LinkGroup;
   Copyright: typeof Copyright;
 };
@@ -23,6 +25,7 @@ const Footer: Footer & FooterBemElements = ({ children, mix }) => {
 };
 
 Footer.Link = Link;
+Footer.Span = Span;
 Footer.LinkGroup = LinkGroup;
 Footer.Copyright = Copyright;
 

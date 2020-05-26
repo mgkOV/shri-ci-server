@@ -27,12 +27,13 @@ const handleLangChange = () => {
 
   if (previousLang !== currentLang) {
     saveLang(currentLang);
+    store.dispatch(getText(currentLang));
   }
 };
 
 const store = configureStore();
 
-//save lang on store change
+//save lang and load text on store change
 store.subscribe(handleLangChange);
 
 store.dispatch(getSettings());
